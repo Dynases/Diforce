@@ -479,7 +479,6 @@ Partial Class F0G_MovimientoChoferSalida
         '
         'tbObservacion
         '
-        Me.tbObservacion.BackColor = System.Drawing.Color.White
         '
         '
         '
@@ -487,7 +486,6 @@ Partial Class F0G_MovimientoChoferSalida
         Me.tbObservacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbObservacion.DisabledBackColor = System.Drawing.Color.White
         Me.tbObservacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbObservacion.ForeColor = System.Drawing.Color.Black
         Me.tbObservacion.Location = New System.Drawing.Point(118, 105)
         Me.tbObservacion.Multiline = True
         Me.tbObservacion.Name = "tbObservacion"
@@ -546,7 +544,6 @@ Partial Class F0G_MovimientoChoferSalida
         '
         'tbChofer
         '
-        Me.tbChofer.BackColor = System.Drawing.Color.White
         '
         '
         '
@@ -554,7 +551,6 @@ Partial Class F0G_MovimientoChoferSalida
         Me.tbChofer.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbChofer.DisabledBackColor = System.Drawing.Color.White
         Me.tbChofer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbChofer.ForeColor = System.Drawing.Color.Black
         Me.tbChofer.Location = New System.Drawing.Point(118, 46)
         Me.tbChofer.Name = "tbChofer"
         Me.tbChofer.PreventEnterBeep = True
@@ -580,7 +576,6 @@ Partial Class F0G_MovimientoChoferSalida
         '
         'tbCodigo
         '
-        Me.tbCodigo.BackColor = System.Drawing.Color.White
         '
         '
         '
@@ -588,7 +583,6 @@ Partial Class F0G_MovimientoChoferSalida
         Me.tbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodigo.DisabledBackColor = System.Drawing.Color.White
         Me.tbCodigo.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodigo.ForeColor = System.Drawing.Color.Black
         Me.tbCodigo.Location = New System.Drawing.Point(118, 16)
         Me.tbCodigo.Name = "tbCodigo"
         Me.tbCodigo.PreventEnterBeep = True

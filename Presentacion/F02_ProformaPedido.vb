@@ -1952,7 +1952,7 @@ Public Class F02_ProformaPedido
             L_PedidoCabecera_Grabar(idPedido, fecha, Now.Hour.ToString + ":" + Now.Minute.ToString, Tb_CliCod.Text, Tb_CliCodZona.Text, cbDistribuidor.Value.ToString, Tb_Observaciones.Text, "1", "1", "1")
 
             'grabar detalle
-            Dim codProd, cant, precio, subTotal, desc, total, flia, atributo As String
+            Dim codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc As String
             For i = 0 To JGr_DetallePedido.RowCount - 1
                 JGr_DetallePedido.Row = i
                 codProd = JGr_DetallePedido.CurrentRow.Cells("CodProd").Value
@@ -1963,8 +1963,9 @@ Public Class F02_ProformaPedido
                 total = JGr_DetallePedido.CurrentRow.Cells("Total").Value
                 flia = JGr_DetallePedido.CurrentRow.Cells("Familia").Value
                 atributo = JGr_DetallePedido.CurrentRow.Cells("Atributo").Value
+                descporc = (JGr_DetallePedido.CurrentRow.Cells("Descuento").Value * 100 / JGr_DetallePedido.CurrentRow.Cells("Monto").Value).ToString
 
-                L_PedidoDetalle_GrabarNuevo(idPedido, codProd, cant, precio, subTotal, desc, total, flia, atributo)
+                L_PedidoDetalle_GrabarNuevo(idPedido, codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc)
             Next
             'grabar estado del pedido
             L_PedidoEstados_Grabar(idPedido, "11", Date.Now.Date.ToString("yyyy/MM/dd"), Now.Hour.ToString + ":" + Now.Minute.ToString, gs_user)
@@ -2826,7 +2827,7 @@ Public Class F02_ProformaPedido
             L_GrabarModificarCliente("cczona=" + Tb_CliCodZona.Text, "ccnumi=" + Str(Tb_CliCod.Text))
 
             'grabar detalle
-            Dim codProd, cant, precio, subTotal, desc, total, flia, atributo As String
+            Dim codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc As String
             Dim i As Integer
             For i = 0 To JGr_DetallePedido.RowCount - 1
                 JGr_DetallePedido.Row = i
@@ -2838,8 +2839,9 @@ Public Class F02_ProformaPedido
                 total = JGr_DetallePedido.CurrentRow.Cells("Total").Value
                 flia = JGr_DetallePedido.CurrentRow.Cells("Familia").Value
                 atributo = JGr_DetallePedido.CurrentRow.Cells("Atributo").Value
+                descporc = (JGr_DetallePedido.CurrentRow.Cells("Descuento").Value * 100 / JGr_DetallePedido.CurrentRow.Cells("Monto").Value).ToString
 
-                L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo)
+                L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc)
 
                 'adiciono un objeto detalle
                 objListDetalle.Add(New RequestDetail(Tb_Id.Text, codProd, cant, precio, subTotal, L_ClaseGetProducto(codProd))) 'webLuis

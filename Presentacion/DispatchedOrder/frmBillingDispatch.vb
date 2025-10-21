@@ -2162,7 +2162,14 @@ Public Class frmBillingDispatch
                 .FormatString = "0.00"
                 .AggregateFunction = AggregateFunction.Sum
             End With
+            With dgjProducto.RootTable.Columns("obporcdesc")
+                .Caption = "Desc. %"
+                .Width = 120
+                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+                .Visible = True
+                .FormatString = "0.00"
 
+            End With
             With dgjProducto
                 .GroupByBoxVisible = False
                 .DefaultFilterRowComparison = FilterConditionOperator.Contains
@@ -2490,6 +2497,7 @@ Public Class frmBillingDispatch
             'ToastNotification.Show(Me, "No se pudo generar la factura.".ToUpper,
             '                           My.Resources.WARNING, 5 * 1000,
             '                           eToastGlowColor.Blue, eToastPosition.TopCenter)
+
         Next
 
         ' End If
@@ -2758,10 +2766,10 @@ Public Class frmBillingDispatch
                 EmenvioDetalle.cantidad = row(2)
                 EmenvioDetalle.afecta_stock = "S"
                 EmenvioDetalle.actualiza_precio = "S"
-                EmenvioDetalle.bonificacion_porcentaje = 0
+                EmenvioDetalle.bonificacion_porcentaje = row(10)
                 EmenvioDetalle.producto = EmenvioProducto
 
-                PrecioTot = PrecioTot + (EmenvioDetalle.cantidad * row(3)) 'Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00000") * (row("tbcmin")), "0.00") 'total
+                PrecioTot = PrecioTot + (EmenvioDetalle.cantidad * row(3)) - row(5) 'Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00000") * (row("tbcmin")), "0.00") 'total
 
 
                 array(val) = EmenvioDetalle
@@ -3075,7 +3083,7 @@ Public Class frmBillingDispatch
         For i = 0 To CType(grFactura.DataSource, DataTable).Rows.Count - 1 Step 1
             If CType(grFactura.DataSource, DataTable).Rows(i).Item("checks") = True Then
                 con += 1
-                pedido = CType(grFactura.DataSource, DataTable).Rows(i).Item("NroFactura")
+                pedido = CType(grFactura.DataSource, DataTable).Rows(i).Item("Id")
                 int = i
             End If
         Next
@@ -3101,7 +3109,7 @@ Public Class frmBillingDispatch
         'Dim token As String = F01_Producto.ObtToken()
         'TraerPDF(token, dt.Rows(0).Item("fvanumi2"))
         If dt.Rows.Count > 0 Then
-            LeerPDF2(dt.Rows(0).Item("url"))
+            LeerPDF2(dt.Rows(2).Item("url"))
         Else
             ToastNotification.Show(Me, "No se encuentra la direccion, verifique la factura.".ToUpper,
                                        My.Resources.WARNING, 5 * 1000,

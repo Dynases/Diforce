@@ -4,6 +4,7 @@ Imports ENTITY
 Imports Janus.Windows.GridEX
 Imports LOGIC
 Imports UTILITIES
+Imports Logica.AccesoLogica
 
 Public Class frmCajaGeneral
 #Region "Privado, metodos y funciones"
@@ -15,6 +16,7 @@ Public Class frmCajaGeneral
     Private Sub Init()
         Try
             ConfigForm()
+            CargarChoferes()
             Tb_FechaDesde.Value = DateTime.Today
             TB_FechaHasta.Value = DateTime.Today
         Catch ex As Exception
@@ -33,16 +35,17 @@ Public Class frmCajaGeneral
 
     Private Sub CargarListaCaja()
         Try
-            listResult = New LCajaCambio().ListarCajaGeneral_Report(Tb_FechaDesde.Value, TB_FechaHasta.Value)
-            ArmarLista()
+            'listResult = New LCajaCambio().ListarCajaGeneral_Report(Tb_FechaDesde.Value, TB_FechaHasta.Value)
+            Dim dt As DataTable = L_prObtenerReporteCierres(Tb_FechaDesde.Value.ToString("dd/MM/yyyy"), TB_FechaHasta.Value.ToString("dd/MM/yyyy"), cbRepartidor.Value)
+            ArmarLista(dt)
         Catch ex As Exception
             Throw New Exception(ex.Message)
         End Try
     End Sub
 
-    Private Sub ArmarLista()
+    Private Sub ArmarLista(dt As DataTable)
         Dgv_Caja.BoundMode = Janus.Data.BoundMode.Bound
-        Dgv_Caja.DataSource = listResult
+        Dgv_Caja.DataSource = dt 'listResult
         Dgv_Caja.RetrieveStructure()
 
 
@@ -120,6 +123,15 @@ Public Class frmCajaGeneral
             .Visible = True
             .Position = 8
         End With
+        With Dgv_Caja.RootTable.Columns("Gastos")
+            .Caption = "Gastos"
+            .Width = 130
+            .FormatString = "0.00"
+            .AggregateFunction = AggregateFunction.Sum
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = True
+            .Position = 9
+        End With
         With Dgv_Caja.RootTable.Columns("TotalGeneral")
             .Caption = "Total General"
             .Width = 150
@@ -127,7 +139,7 @@ Public Class frmCajaGeneral
             .AggregateFunction = AggregateFunction.Sum
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .Position = 9
+            .Position = 10
         End With
         With Dgv_Caja.RootTable.Columns("Diferencia")
             .Caption = "Diferencia"
@@ -136,7 +148,7 @@ Public Class frmCajaGeneral
             .FormatString = "0.00"
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .Visible = True
-            .Position = 10
+            .Position = 11
         End With
         With Dgv_Caja
             .GroupByBoxVisible = False
@@ -181,8 +193,9 @@ Public Class frmCajaGeneral
     End Sub
 
     Private Sub btGenerar_Click(sender As Object, e As EventArgs) Handles btGenerar.Click
-        listResult = New LCajaCambio().ListarCajaGeneral_Report(Tb_FechaDesde.Value, TB_FechaHasta.Value)
-        ArmarLista()
+        'listResult = New LCajaCambio().ListarCajaGeneral_Report(Tb_FechaDesde.Value, TB_FechaHasta.Value)
+        Dim dt As DataTable = L_prObtenerReporteCierres(Tb_FechaDesde.Value.ToString("dd/MM/yyyy"), TB_FechaHasta.Value.ToString("dd/MM/yyyy"), cbRepartidor.Value)
+        ArmarLista(dt)
     End Sub
 
     Private Sub bt_Imprimir_Click(sender As Object, e As EventArgs) Handles bt_Imprimir.Click
@@ -208,6 +221,38 @@ Public Class frmCajaGeneral
             P_Global.Visualizador.BringToFront()
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub CargarChoferes()
+        Try
+            'Dim listResult As List(Of VCombo) = New LPersonal().ListarRepatidorCombo()
+            Dim listResult As DataTable = ListarChoferesDespacho()
+            With cbRepartidor.DropDownList
+                .Columns.Clear()
+
+                .Columns.Add("Id").Width = 30
+                .Columns("Id").Caption = "Id"
+                .Columns("Id").Visible = True
+
+                .Columns.Add("Descripcion").Width = 180
+                .Columns("Descripcion").Caption = "Nombre repartidor"
+                .Columns("Descripcion").Visible = True
+
+                .ValueMember = "Id"
+                .DisplayMember = "Descripcion"
+                .DataSource = listResult
+
+                .AlternatingColors = True
+                .AllowColumnDrag = False
+                .AutomaticSort = False
+                .Refresh()
+            End With
+            'cbRepartidor.VisualStyle = VisualStyles.Office2007
+
+            cbRepartidor.SelectedIndex = 0
+        Catch ex As Exception
+            Throw New Exception(ex.Message)
         End Try
     End Sub
 #End Region

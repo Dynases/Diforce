@@ -1298,7 +1298,7 @@ Public Class F0_PedidosAsignacion
             L_PedidoEstados_Grabar(codPedido, "2", Date.Now.Date.ToString("yyyy/MM/dd"), Now.Hour.ToString + ":" + Now.Minute.ToString, gs_user)
             L_PedidoCabacera_ModificarEstado(codPedido, "2")
             L_PedidoCabacera_ModificarEntrega(codPedido, "0")
-
+            BorrarMovimientoEntrega(codPedido)
             If _soloRepartidor = 0 Then
                 codZonaSelected2 = JGr_Zonas2.GetValue("Codigo")
                 codZonaSelected3 = JGr_Zonas3.GetValue("Codigo")
@@ -2253,7 +2253,7 @@ Public Class F0_PedidosAsignacion
         Next
 
         ' Crear el objeto del reporte
-        Dim objrep As New R_ReciboCliente
+        Dim objrep As New R_ReciboCliente2
 
         ' Asignar los datos y parámetros
         objrep.SetDataSource(dt)
@@ -2440,5 +2440,9 @@ Public Class F0_PedidosAsignacion
                                    eToastPosition.TopCenter)
 
         End If
+    End Sub
+
+    Private Sub ConMenu_Opciones3_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ConMenu_Opciones3.Opening
+
     End Sub
 End Class

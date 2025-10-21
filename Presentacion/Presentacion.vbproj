@@ -37,7 +37,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -47,7 +47,7 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
@@ -125,27 +125,13 @@
     <Reference Include="AxInterop.AcroPDFLib">
       <HintPath>C:\librerias\PDF\AxInterop.AcroPDFLib.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Design">
-      <HintPath>C:\librerias\CrystalDecisions.CrystalReports.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine">
-      <HintPath>C:\librerias\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.ReportSource">
-      <HintPath>C:\librerias\CrystalDecisions.ReportSource.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.Shared">
-      <HintPath>C:\librerias\CrystalDecisions.Shared.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.VSDesigner">
-      <HintPath>C:\librerias\CrystalDecisions.VSDesigner.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.Web">
-      <HintPath>C:\librerias\CrystalDecisions.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="CrystalDecisions.Windows.Forms">
-      <HintPath>C:\librerias\CrystalDecisions.Windows.Forms.dll</HintPath>
-    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.VSDesigner, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.Design, Version=12.5.0.2, Culture=neutral, PublicKeyToken=2c9ff1fddc42653c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\librerias\DotNet\DevComponents.DotNetBar.Design.dll</HintPath>
@@ -348,16 +334,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsReportes.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DispatchedOrder\frmDeliveryDispatch.Designer.vb">
-      <DependentUpon>frmDeliveryDispatch.vb</DependentUpon>
-    </Compile>
-    <Compile Include="DispatchedOrder\frmDeliveryDispatch.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="DispatchedOrder\frmBillingDispatch.Designer.vb">
       <DependentUpon>frmBillingDispatch.vb</DependentUpon>
     </Compile>
     <Compile Include="DispatchedOrder\frmBillingDispatch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DispatchedOrder\frmDeliveryDispatch.Designer.vb">
+      <DependentUpon>frmDeliveryDispatch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DispatchedOrder\frmDeliveryDispatch.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DispatchedOrder\frmDispatch.Designer.vb">
@@ -372,22 +358,22 @@
       <DependentUpon>DespachoNotaVentaXCliente.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DispatchedOrder\Report\NotaVenta12.vb">
-      <DependentUpon>NotaVenta12.rpt</DependentUpon>
+    <Compile Include="DispatchedOrder\Report\NotaVenta11.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>NotaVenta11.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DispatchedOrder\Report\NotaVenta17.vb">
-      <DependentUpon>NotaVenta17.rpt</DependentUpon>
+    <Compile Include="DispatchedOrder\Report\NotaVenta12.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>NotaVenta12.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DispatchedOrder\Report\NotaVenta15.vb">
-      <DependentUpon>NotaVenta15.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>NotaVenta15.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DispatchedOrder\Report\NotaVenta16.vb">
@@ -402,10 +388,22 @@
       <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DispatchedOrder\Report\NotaVenta11.vb">
-      <DependentUpon>NotaVenta11.rpt</DependentUpon>
+    <Compile Include="DispatchedOrder\Report\NotaVenta17.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>NotaVenta17.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DispatchedOrder\Report\NotaVenta4.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotaVenta4.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DispatchedOrder\Report\NotaVenta8.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotaVenta8.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DispatchedOrder\Report\SubNotaVenta.vb">
@@ -468,12 +466,6 @@
       <DependentUpon>NotaVenta3.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DispatchedOrder\Report\NotaVenta4.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NotaVenta4.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DispatchedOrder\Report\NotaVenta5.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -496,12 +488,6 @@
       <DependentUpon>NotaVenta9.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DispatchedOrder\Report\NotaVenta8.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NotaVenta8.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DispatchedOrder\Report\NotaVenta_Ticket.vb">
@@ -736,12 +722,32 @@
     <Compile Include="Mapas\R0_UTilidadPorProducto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="P_Principal.designer.vb">
+      <DependentUpon>P_Principal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P_Principal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="R01_FlujoCaja.Designer.vb">
+      <DependentUpon>R01_FlujoCaja.vb</DependentUpon>
+    </Compile>
+    <Compile Include="R01_FlujoCaja.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="R01_DetalleVentas.Designer.vb">
+      <DependentUpon>R01_DetalleVentas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="R01_DetalleVentas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MoitoreoVisita.Designer.vb">
       <DependentUpon>MoitoreoVisita.vb</DependentUpon>
     </Compile>
     <Compile Include="MoitoreoVisita.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.5.AssemblyAttributes.vb" />
+    <Compile Include="obj\Release\.NETFramework,Version=v4.5.AssemblyAttributes.vb" />
     <Compile Include="Parametros.Designer.vb">
       <DependentUpon>Parametros.vb</DependentUpon>
     </Compile>
@@ -830,6 +836,12 @@
       <DependentUpon>P_EmpresasPil.vb</DependentUpon>
     </Compile>
     <Compile Include="P_EmpresasPil.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="P_Librerias.Designer.vb">
+      <DependentUpon>P_Librerias.vb</DependentUpon>
+    </Compile>
+    <Compile Include="P_Librerias.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="P_LoginEmpresa.Designer.vb">
@@ -945,12 +957,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="P_Principal.designer.vb">
-      <DependentUpon>P_Principal.vb</DependentUpon>
-    </Compile>
-    <Compile Include="P_Principal.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="R01_EquipoPrestadoVsUltimaVenta.Designer.vb">
       <DependentUpon>R01_EquipoPrestadoVsUltimaVenta.vb</DependentUpon>
     </Compile>
@@ -1053,16 +1059,16 @@
     <Compile Include="R01_SaldoProveedor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="R01_StockDisponible.Designer.vb">
-      <DependentUpon>R01_StockDisponible.vb</DependentUpon>
-    </Compile>
-    <Compile Include="R01_StockDisponible.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="R01_SaldoProducto.Designer.vb">
       <DependentUpon>R01_SaldoProducto.vb</DependentUpon>
     </Compile>
     <Compile Include="R01_SaldoProducto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="R01_StockDisponible.Designer.vb">
+      <DependentUpon>R01_StockDisponible.vb</DependentUpon>
+    </Compile>
+    <Compile Include="R01_StockDisponible.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="R01_SugerenciaPedidos.Designer.vb">
@@ -1083,10 +1089,22 @@
     <Compile Include="R01_ListaPedidos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="R01_VentaEfectivaCliente.Designer.vb">
+      <DependentUpon>R01_VentaEfectivaCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="R01_VentaEfectivaCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="R01_VentaEfectivaProducto.Designer.vb">
       <DependentUpon>R01_VentaEfectivaProducto.vb</DependentUpon>
     </Compile>
     <Compile Include="R01_VentaEfectivaProducto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="R01_VentasAtendidas.Designer.vb">
+      <DependentUpon>R01_VentasAtendidas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="R01_VentasAtendidas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="R01_VentasProductosInv.Designer.vb">
@@ -1107,12 +1125,6 @@
     <Compile Include="R01_VentasDetallado.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="R01_VentaEfectivaCliente.Designer.vb">
-      <DependentUpon>R01_VentaEfectivaCliente.vb</DependentUpon>
-    </Compile>
-    <Compile Include="R01_VentaEfectivaCliente.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="R01_VentasVendedor.Designer.vb">
       <DependentUpon>R01_VentasVendedor.vb</DependentUpon>
     </Compile>
@@ -1129,12 +1141,6 @@
       <DependentUpon>R01_VentasProductos.vb</DependentUpon>
     </Compile>
     <Compile Include="R01_VentasProductos.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="R01_VentasAtendidas.Designer.vb">
-      <DependentUpon>R01_VentasAtendidas.vb</DependentUpon>
-    </Compile>
-    <Compile Include="R01_VentasAtendidas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="R01_VisitasClientes.Designer.vb">
@@ -1173,17 +1179,47 @@
       <DependentUpon>MAM_ZonasRepartidor.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\R_ReporteCobertura.vb">
-      <DependentUpon>R_ReporteCobertura.rpt</DependentUpon>
+    <Compile Include="Reportes\R_FlujoCaja.vb">
+      <DependentUpon>R_FlujoCaja.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Reportes\R_CoberturaProductos.vb">
-      <DependentUpon>R_CoberturaProductos.rpt</DependentUpon>
+    <Compile Include="Reportes\R_DetalleVentas.vb">
+      <DependentUpon>R_DetalleVentas.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\R_CoberturaClientes.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_CoberturaClientes.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_CoberturaProductos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_CoberturaProductos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_DetallePedidos.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_DetallePedidos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_Pedido_PrecioCosto.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_Pedido_PrecioCosto.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_ReporteCobertura.vb">
+      <DependentUpon>R_ReporteCobertura.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\R_EfectividadVendedorDetallado.vb">
       <DependentUpon>R_EfectividadVendedorDetallado.rpt</DependentUpon>
@@ -1233,6 +1269,9 @@
       <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reportes\R_ReporteCobranzas.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reportes\R_ReporteCobranzasCarta.vb">
       <DependentUpon>R_ReporteCobranzasCarta.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1243,6 +1282,12 @@
       <DependentUpon>R_ReporteVisitas.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_StockActualProveedor.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_StockActualProveedor.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\R_VendedorUtilidad.vb">
@@ -1461,12 +1506,6 @@
       <DependentUpon>R_NotadeVenta.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\R_Pedido_PrecioCosto.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>R_Pedido_PrecioCosto.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reportes\R_PrestamoEquipoPrestadoVsVenta.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1558,15 +1597,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\R_VentasComision1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>R_VentasComision1.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reportes\R_VentasComisionRepartidor1.vb">
-      <DependentUpon>R_VentasComisionRepartidor1.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\R_VentasComisionRepartidor.vb">
@@ -1575,10 +1608,22 @@
       <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reportes\R_VentasEfectividadProducto.vb">
-      <DependentUpon>R_VentasEfectividadProducto.rpt</DependentUpon>
+    <Compile Include="Reportes\R_VentasComisionRepartidor1.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>R_VentasComisionRepartidor1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_VentasEfectividadCliente.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_VentasEfectividadCliente.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_VentasEfectividadProducto.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>R_VentasEfectividadProducto.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\R_VentasProductosInventario.vb">
@@ -1589,12 +1634,6 @@
     </Compile>
     <Compile Include="Reportes\R_VentasDetallada.vb">
       <DependentUpon>R_VentasDetallada.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reportes\R_VentasEfectividadCliente.vb">
-      <DependentUpon>R_VentasEfectividadCliente.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
@@ -1639,12 +1678,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>R_VentasVendedor12Meses.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reportes\R_CoberturaClientes.vb">
-      <DependentUpon>R_CoberturaClientes.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\R_VisitaClientes.vb">
@@ -1717,6 +1750,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1988,6 +2022,12 @@
     <Compile Include="Utils\Efecto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utils\F1_MontosPedido.Designer.vb">
+      <DependentUpon>F1_MontosPedido.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\F1_MontosPedido.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\F1_Cantidad.Designer.vb">
       <DependentUpon>F1_Cantidad.vb</DependentUpon>
     </Compile>
@@ -2014,11 +2054,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DispatchedOrder\frmDeliveryDispatch.resx">
-      <DependentUpon>frmDeliveryDispatch.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\frmBillingDispatch.resx">
       <DependentUpon>frmBillingDispatch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispatchedOrder\frmDeliveryDispatch.resx">
+      <DependentUpon>frmDeliveryDispatch.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\frmDispatch.resx">
       <DependentUpon>frmDispatch.vb</DependentUpon>
@@ -2027,13 +2067,13 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>DespachoNotaVentaXCliente.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta11.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NotaVenta11.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta12.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta12.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta17.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NotaVenta17.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta15.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2047,9 +2087,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta13.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta11.rpt">
+    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta17.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NotaVenta11.vb</LastGenOutput>
+      <LastGenOutput>NotaVenta17.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta4.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NotaVenta4.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta8.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NotaVenta8.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\Report\SubNotaVenta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2088,10 +2136,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta3.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta4.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NotaVenta4.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta5.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta5.vb</LastGenOutput>
@@ -2107,10 +2151,6 @@
     <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta9.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta9.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta8.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>NotaVenta8.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta_Ticket.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2219,9 +2259,146 @@
     <EmbeddedResource Include="Mapas\R0_UTilidadPorProducto.resx">
       <DependentUpon>R0_UTilidadPorProducto.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="P_Principal.resx">
+      <DependentUpon>P_Principal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R01_FlujoCaja.resx">
+      <DependentUpon>R01_FlujoCaja.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R01_DetalleVentas.resx">
+      <DependentUpon>R01_DetalleVentas.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MoitoreoVisita.resx">
       <DependentUpon>MoitoreoVisita.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="obj\Release\Presentacion.Dashboard.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Efecto.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_ControlReclamos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_KardexInventarioEquiProd.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_MonitoreoPedido.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_Pagos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_Personal.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_Presupuesto.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_Producto.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_Proveedor.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_ReporteCompras.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_ReporteFactura02.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_ReporteVentaAdmin.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_ReporteVentaFact.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_RepZonaVendedores.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F01_Rol.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02ZonaAsignacion.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Cliente.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Comisiones.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_ComisionesCategoria.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Compra.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Compra2.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Descuento.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Libreria.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Movimiento.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_MovimientoPack.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Pedido.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_PedidoNuevo.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Precio.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_ProformaPedido.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F02_Zona.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0G_MovimientoChoferEntrada.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0G_MovimientoChoferSalida.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0G_VentaChoferConciliacion.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_AjusteStock.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_AsignacionZonaAlternativo.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_Categoria.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_ConceptoInventario.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_CreditosPedidos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_IngresarReclamo.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_IngresoStock.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_MCaja.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_PagosCreditoCompraUlt.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_PedidosAsignacion.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_PreciosAlterno.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F0_Ventas.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F1_Bancos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F1_Cantidad.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F1_Dosificacion.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F1_Empresas.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F1_IngresosEgresos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F1_MapaCLientes.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.F1_MontosPedido.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Form1.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Form2.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.frmBillingDispatch.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.frmCajaGeneral.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.frmDeliveryDispatch.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.frmDispatch.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Login.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.MoitoreoVisita.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Parametros.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Pr_ReporteVentasGrafico.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_Acerca.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_EmpresasPil.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_Formularios.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_HistorialAyuda.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_HistorialClienteAyuda.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_IntegradorFlextel.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_LoginEmpresa.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_ManualesVista.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_Mesas.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_Principal.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_ReclamoAyuda.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_Roles.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.P_Usuarios.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_CoberturaVendedor.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_CoberturaVendedor2.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_Concepto_Ventas_Meses.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_EfectividadCliente.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_EquipoPrestadoVsUltimaVenta.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_EquipoPrestadoVsVenta.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_EstadoCuentasCliente.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_EstadoCuentasClientes.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_EstadoCuentasClientesTodos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_EstadoCuentasCompra.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_EstadoCuentasPorCobrar.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_ListaPedidos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_MorosidadProveedores.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_NotaVenta.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_PedidosRechazados.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_PreciosPorCategoria.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_PrestamoEquiposAgrupado.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_ProductosMesa.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_ReporteCobertura.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_ReporteMovimientos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_saldoCreditoCliente.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_SaldoEquipo.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_SaldoFisicoValorado.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_SaldoMinimo.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_SaldoProducto.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_SaldoProveedor.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_StockDisponible.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_SugerenciaPedidos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_UltimaVentaCliente.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentaEfectivaCliente.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentaEfectivaProducto.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentasAtendidas.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentasComision.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentasDetallado.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentasProductos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentasProductosInv.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentasProductosRanking.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VentasVendedor.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VisitasClientes.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R01_VisitasDiarias.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R02_ExistenciaProductos.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R02_VentaClientePorMes.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R0_Credito.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R0_ReportePedidosCosto.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.R0_UTilidadPorProducto.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Resources.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.UCImagen.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.UCImg.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.UCLavadero.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Visualizador.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.Visualizador2.resources" />
+    <EmbeddedResource Include="obj\Release\Presentacion.X_Usuario.resources" />
     <EmbeddedResource Include="Parametros.resx">
       <DependentUpon>Parametros.vb</DependentUpon>
     </EmbeddedResource>
@@ -2266,6 +2443,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="P_EmpresasPil.resx">
       <DependentUpon>P_EmpresasPil.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="P_Librerias.resx">
+      <DependentUpon>P_Librerias.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="P_LoginEmpresa.resx">
       <DependentUpon>P_LoginEmpresa.vb</DependentUpon>
@@ -2321,9 +2501,6 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Principal.resx">
-      <DependentUpon>P_Principal.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="R01_EquipoPrestadoVsUltimaVenta.resx">
       <DependentUpon>R01_EquipoPrestadoVsUltimaVenta.vb</DependentUpon>
     </EmbeddedResource>
@@ -2375,11 +2552,11 @@
     <EmbeddedResource Include="R01_SaldoProveedor.resx">
       <DependentUpon>R01_SaldoProveedor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="R01_StockDisponible.resx">
-      <DependentUpon>R01_StockDisponible.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="R01_SaldoProducto.resx">
       <DependentUpon>R01_SaldoProducto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R01_StockDisponible.resx">
+      <DependentUpon>R01_StockDisponible.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="R01_SugerenciaPedidos.resx">
       <DependentUpon>R01_SugerenciaPedidos.vb</DependentUpon>
@@ -2390,8 +2567,14 @@
     <EmbeddedResource Include="R01_ListaPedidos.resx">
       <DependentUpon>R01_ListaPedidos.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="R01_VentaEfectivaCliente.resx">
+      <DependentUpon>R01_VentaEfectivaCliente.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="R01_VentaEfectivaProducto.resx">
       <DependentUpon>R01_VentaEfectivaProducto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R01_VentasAtendidas.resx">
+      <DependentUpon>R01_VentasAtendidas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="R01_VentasProductosInv.resx">
       <DependentUpon>R01_VentasProductosInv.vb</DependentUpon>
@@ -2402,9 +2585,6 @@
     <EmbeddedResource Include="R01_VentasDetallado.resx">
       <DependentUpon>R01_VentasDetallado.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="R01_VentaEfectivaCliente.resx">
-      <DependentUpon>R01_VentaEfectivaCliente.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="R01_VentasVendedor.resx">
       <DependentUpon>R01_VentasVendedor.vb</DependentUpon>
     </EmbeddedResource>
@@ -2413,9 +2593,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="R01_VentasProductos.resx">
       <DependentUpon>R01_VentasProductos.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="R01_VentasAtendidas.resx">
-      <DependentUpon>R01_VentasAtendidas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="R01_VisitasClientes.resx">
       <DependentUpon>R01_VisitasClientes.vb</DependentUpon>
@@ -2437,13 +2614,33 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MAM_ZonasRepartidor.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\R_ReporteCobertura.rpt">
+    <EmbeddedResource Include="Reportes\R_FlujoCaja.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>R_ReporteCobertura.vb</LastGenOutput>
+      <LastGenOutput>R_FlujoCaja.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_DetalleVentas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_DetalleVentas.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_CoberturaClientes.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_CoberturaClientes.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_CoberturaProductos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_CoberturaProductos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_DetallePedidos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_DetallePedidos.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_Pedido_PrecioCosto.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_Pedido_PrecioCosto.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_ReporteCobertura.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_ReporteCobertura.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_EfectividadVendedorDetallado.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2484,6 +2681,10 @@
     <EmbeddedResource Include="Reportes\R_ReporteVisitas.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_ReporteVisitas.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_StockActualProveedor.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_StockActualProveedor.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_VendedorUtilidad.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2629,10 +2830,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_NotadeVenta.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\R_Pedido_PrecioCosto.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>R_Pedido_PrecioCosto.vb</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_PrestamoEquipoPrestadoVsVenta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_PrestamoEquipoPrestadoVsVenta.vb</LastGenOutput>
@@ -2697,13 +2894,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_VentasComision1.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_VentasComisionRepartidor.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_VentasComisionRepartidor.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_VentasComisionRepartidor1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_VentasComisionRepartidor1.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\R_VentasComisionRepartidor.rpt">
+    <EmbeddedResource Include="Reportes\R_VentasEfectividadCliente.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>R_VentasComisionRepartidor.vb</LastGenOutput>
+      <LastGenOutput>R_VentasEfectividadCliente.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_VentasEfectividadProducto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2716,10 +2917,6 @@
     <EmbeddedResource Include="Reportes\R_VentasDetallada.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_VentasDetallada.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\R_VentasEfectividadCliente.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>R_VentasEfectividadCliente.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_VentasVendedor.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2748,10 +2945,6 @@
     <EmbeddedResource Include="Reportes\R_VentasVendedor12Meses.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_VentasVendedor12Meses.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reportes\R_CoberturaClientes.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>R_CoberturaClientes.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_VisitaClientes.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2964,6 +3157,9 @@
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Utils\F1_MontosPedido.resx">
+      <DependentUpon>F1_MontosPedido.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Utils\F1_Cantidad.resx">
       <DependentUpon>F1_Cantidad.vb</DependentUpon>
     </EmbeddedResource>
@@ -2978,6 +3174,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\DATA.dll.config" />
+    <None Include="bin\Debug\Disoft.exe.config" />
+    <None Include="bin\Debug\Modelo.dll.config" />
+    <None Include="bin\Debug\REPOSITORY.dll.config" />
+    <None Include="bin\Debug\True" />
+    <None Include="bin\Debug\UTILITIES.dll.config" />
+    <None Include="bin\Release\DATA.dll.config" />
+    <None Include="bin\Release\Disoft.exe.config" />
+    <None Include="bin\Release\Modelo.dll.config" />
+    <None Include="bin\Release\REPOSITORY.dll.config" />
+    <None Include="bin\Release\UTILITIES.dll.config" />
     <None Include="DataSet\dsReportes.xsc">
       <DependentUpon>dsReportes.xsd</DependentUpon>
     </None>
@@ -3004,6 +3211,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\Presentacion.vbproj.AssemblyReference.cache" />
+    <None Include="obj\Release\Presentacion.vbproj.CopyComplete" />
+    <None Include="obj\Release\Presentacion.vbproj.CoreCompileInputs.cache" />
+    <None Include="obj\Release\Presentacion.vbproj.GenerateResource.cache" />
+    <None Include="obj\Release\Presentacion.vbproj.ResolveComReference.cache" />
     <None Include="packages.config" />
     <None Include="Resources\BUSQUEDA.png" />
   </ItemGroup>
@@ -3094,6 +3308,405 @@
     <None Include="Resources\ASIGNAR_PEDIDOS.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\AxInterop.AcroPDFLib.dll" />
+    <Content Include="bin\Debug\CONFIG.TXT" />
+    <Content Include="bin\Debug\CRVsPackageLib.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.CrystalReports.Design.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.CrystalReports.Engine.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.ClientDoc.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.CommLayer.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.CommonObjectModel.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.Controllers.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.CubeDefModel.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.DataDefModel.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.DataSetConversion.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.ObjectFactory.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.Prompting.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.ReportDefModel.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportAppServer.XmlSerialize.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.ReportSource.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.Shared.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.VSDesigner.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.Web.dll" />
+    <Content Include="bin\Debug\CrystalDecisions.Windows.Forms.dll" />
+    <Content Include="bin\Debug\DATA.dll" />
+    <Content Include="bin\Debug\DATA.pdb" />
+    <Content Include="bin\Debug\DATA.xml" />
+    <Content Include="bin\Debug\Datos.dll" />
+    <Content Include="bin\Debug\Datos.pdb" />
+    <Content Include="bin\Debug\Datos.xml" />
+    <Content Include="bin\Debug\DevComponents.DotNetBar.Design.dll" />
+    <Content Include="bin\Debug\DevComponents.DotNetBar.Keyboard.dll" />
+    <Content Include="bin\Debug\DevComponents.DotNetBar.Layout.Design.dll" />
+    <Content Include="bin\Debug\DevComponents.DotNetBar.Layout.dll" />
+    <Content Include="bin\Debug\DevComponents.DotNetBar.Schedule.dll" />
+    <Content Include="bin\Debug\DevComponents.DotNetBar.SuperGrid.dll" />
+    <Content Include="bin\Debug\DevComponents.DotNetBar2.dll" />
+    <Content Include="bin\Debug\DevComponents.Instrumentation.Design.dll" />
+    <Content Include="bin\Debug\DevComponents.Instrumentation.dll" />
+    <Content Include="bin\Debug\DevComponents.SuperGrid.Design.dll" />
+    <Content Include="bin\Debug\DevComponents.TreeGX.dll" />
+    <Content Include="bin\Debug\Disoft.exe" />
+    <Content Include="bin\Debug\Disoft.pdb" />
+    <Content Include="bin\Debug\Disoft.xml" />
+    <Content Include="bin\Debug\Entidades.dll" />
+    <Content Include="bin\Debug\Entidades.pdb" />
+    <Content Include="bin\Debug\Entidades.xml" />
+    <Content Include="bin\Debug\ENTITY.dll" />
+    <Content Include="bin\Debug\ENTITY.pdb" />
+    <Content Include="bin\Debug\ENTITY.xml" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\EnvDTE80.dll" />
+    <Content Include="bin\Debug\EPPlus.dll" />
+    <Content Include="bin\Debug\EPPlus.xml" />
+    <Content Include="bin\Debug\Facturacion.dll" />
+    <Content Include="bin\Debug\Facturacion.pdb" />
+    <Content Include="bin\Debug\Facturacion.xml" />
+    <Content Include="bin\Debug\FlashControlV71.dll" />
+    <Content Include="bin\Debug\Gma.QrCodeNet.Encoding.dll" />
+    <Content Include="bin\Debug\GMap.NET.Core.dll" />
+    <Content Include="bin\Debug\GMap.NET.WindowsForms.dll" />
+    <Content Include="bin\Debug\Google.Apis.Auth.dll" />
+    <Content Include="bin\Debug\Google.Apis.Auth.PlatformServices.dll" />
+    <Content Include="bin\Debug\Google.Apis.Auth.xml" />
+    <Content Include="bin\Debug\Google.Apis.Core.dll" />
+    <Content Include="bin\Debug\Google.Apis.Core.xml" />
+    <Content Include="bin\Debug\Google.Apis.dll" />
+    <Content Include="bin\Debug\Google.Apis.Drive.v3.dll" />
+    <Content Include="bin\Debug\Google.Apis.Drive.v3.xml" />
+    <Content Include="bin\Debug\Google.Apis.PlatformServices.dll" />
+    <Content Include="bin\Debug\Google.Apis.xml" />
+    <Content Include="bin\Debug\Interop.AcroPDFLib.dll" />
+    <Content Include="bin\Debug\itextsharp.dll" />
+    <Content Include="bin\Debug\Janus.Data.v3.dll" />
+    <Content Include="bin\Debug\Janus.Windows.CalendarCombo.v3.dll" />
+    <Content Include="bin\Debug\Janus.Windows.Common.v3.dll" />
+    <Content Include="bin\Debug\Janus.Windows.GridEX.v3.dll" />
+    <Content Include="bin\Debug\Janus.Windows.Ribbon.v3.dll" />
+    <Content Include="bin\Debug\Janus.Windows.UI.v3.dll" />
+    <Content Include="bin\Debug\LOGIC.dll" />
+    <Content Include="bin\Debug\LOGIC.pdb" />
+    <Content Include="bin\Debug\LOGIC.xml" />
+    <Content Include="bin\Debug\Logica.dll" />
+    <Content Include="bin\Debug\Logica.pdb" />
+    <Content Include="bin\Debug\Logica.xml" />
+    <Content Include="bin\Debug\Microsoft.MSXML.dll" />
+    <Content Include="bin\Debug\Microsoft.SqlServer.Types.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.ProjectAggregator.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Shell.Interop.8.0.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Shell.Interop.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TemplateWizardInterface.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TextManager.Interop.8.0.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.VSHelp.dll" />
+    <Content Include="bin\Debug\MimeTypeMap.dll" />
+    <Content Include="bin\Debug\Modelo.dll" />
+    <Content Include="bin\Debug\Modelo.pdb" />
+    <Content Include="bin\Debug\Modelo.xml" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\nl\PdfiumViewer.resources.dll" />
+    <Content Include="bin\Debug\OnBarcode.Barcode.WinForms.dll" />
+    <Content Include="bin\Debug\PdfiumViewer.dll" />
+    <Content Include="bin\Debug\PdfiumViewer.xml" />
+    <Content Include="bin\Debug\REPOSITORY.dll" />
+    <Content Include="bin\Debug\REPOSITORY.pdb" />
+    <Content Include="bin\Debug\REPOSITORY.xml" />
+    <Content Include="bin\Debug\RestSharp.dll" />
+    <Content Include="bin\Debug\RestSharp.xml" />
+    <Content Include="bin\Debug\SqlServerTypes\x64\msvcr120.dll" />
+    <Content Include="bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll" />
+    <Content Include="bin\Debug\SqlServerTypes\x86\msvcr120.dll" />
+    <Content Include="bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll" />
+    <Content Include="bin\Debug\stdole.dll" />
+    <Content Include="bin\Debug\UTILITIES.dll" />
+    <Content Include="bin\Debug\UTILITIES.pdb" />
+    <Content Include="bin\Debug\UTILITIES.xml" />
+    <Content Include="bin\Debug\VSLangProj.dll" />
+    <Content Include="bin\Debug\VsWebSite.Interop.dll" />
+    <Content Include="bin\Release\AxInterop.AcroPDFLib.dll" />
+    <Content Include="bin\Release\AxShockwaveFlashObjects.dll" />
+    <Content Include="bin\Release\CRVsPackageLib.dll" />
+    <Content Include="bin\Release\CrystalDecisions.CrystalReports.Design.dll" />
+    <Content Include="bin\Release\CrystalDecisions.CrystalReports.Engine.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.ClientDoc.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.CommLayer.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.CommonControls.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.CommonObjectModel.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.Controllers.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.CubeDefModel.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.DataDefModel.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.DataSetConversion.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.ObjectFactory.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.Prompting.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.ReportDefModel.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportAppServer.XmlSerialize.dll" />
+    <Content Include="bin\Release\CrystalDecisions.ReportSource.dll" />
+    <Content Include="bin\Release\CrystalDecisions.Shared.dll" />
+    <Content Include="bin\Release\CrystalDecisions.VSDesigner.dll" />
+    <Content Include="bin\Release\CrystalDecisions.Web.dll" />
+    <Content Include="bin\Release\CrystalDecisions.Windows.Forms.dll" />
+    <Content Include="bin\Release\DATA.dll" />
+    <Content Include="bin\Release\DATA.pdb" />
+    <Content Include="bin\Release\DATA.xml" />
+    <Content Include="bin\Release\Datos.dll" />
+    <Content Include="bin\Release\Datos.pdb" />
+    <Content Include="bin\Release\Datos.xml" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Design.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Keyboard.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Layout.Design.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Layout.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.Schedule.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar.SuperGrid.dll" />
+    <Content Include="bin\Release\DevComponents.DotNetBar2.dll" />
+    <Content Include="bin\Release\DevComponents.Instrumentation.Design.dll" />
+    <Content Include="bin\Release\DevComponents.Instrumentation.dll" />
+    <Content Include="bin\Release\DevComponents.SuperGrid.Design.dll" />
+    <Content Include="bin\Release\DevComponents.TreeGX.dll" />
+    <Content Include="bin\Release\Disoft.exe" />
+    <Content Include="bin\Release\Disoft.pdb" />
+    <Content Include="bin\Release\Disoft.xml" />
+    <Content Include="bin\Release\Entidades.dll" />
+    <Content Include="bin\Release\Entidades.pdb" />
+    <Content Include="bin\Release\Entidades.xml" />
+    <Content Include="bin\Release\ENTITY.dll" />
+    <Content Include="bin\Release\ENTITY.pdb" />
+    <Content Include="bin\Release\ENTITY.xml" />
+    <Content Include="bin\Release\EntityFramework.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Release\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Release\EntityFramework.xml" />
+    <Content Include="bin\Release\EnvDTE80.dll" />
+    <Content Include="bin\Release\EPPlus.dll" />
+    <Content Include="bin\Release\EPPlus.xml" />
+    <Content Include="bin\Release\Facturacion.dll" />
+    <Content Include="bin\Release\Facturacion.pdb" />
+    <Content Include="bin\Release\Facturacion.xml" />
+    <Content Include="bin\Release\FlashControlV71.dll" />
+    <Content Include="bin\Release\Gma.QrCodeNet.Encoding.dll" />
+    <Content Include="bin\Release\GMap.NET.Core.dll" />
+    <Content Include="bin\Release\GMap.NET.WindowsForms.dll" />
+    <Content Include="bin\Release\Google.Apis.Auth.dll" />
+    <Content Include="bin\Release\Google.Apis.Auth.PlatformServices.dll" />
+    <Content Include="bin\Release\Google.Apis.Auth.xml" />
+    <Content Include="bin\Release\Google.Apis.Core.dll" />
+    <Content Include="bin\Release\Google.Apis.Core.xml" />
+    <Content Include="bin\Release\Google.Apis.dll" />
+    <Content Include="bin\Release\Google.Apis.Drive.v3.dll" />
+    <Content Include="bin\Release\Google.Apis.Drive.v3.xml" />
+    <Content Include="bin\Release\Google.Apis.PlatformServices.dll" />
+    <Content Include="bin\Release\Google.Apis.xml" />
+    <Content Include="bin\Release\Interop.AcroPDFLib.dll" />
+    <Content Include="bin\Release\itextsharp.dll" />
+    <Content Include="bin\Release\Janus.Data.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.CalendarCombo.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.Common.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.GridEX.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.Ribbon.v3.dll" />
+    <Content Include="bin\Release\Janus.Windows.UI.v3.dll" />
+    <Content Include="bin\Release\LOGIC.dll" />
+    <Content Include="bin\Release\LOGIC.pdb" />
+    <Content Include="bin\Release\LOGIC.xml" />
+    <Content Include="bin\Release\Logica.dll" />
+    <Content Include="bin\Release\Logica.pdb" />
+    <Content Include="bin\Release\Logica.xml" />
+    <Content Include="bin\Release\Microsoft.MSXML.dll" />
+    <Content Include="bin\Release\Microsoft.SqlServer.Types.dll" />
+    <Content Include="bin\Release\Microsoft.VisualStudio.OLE.Interop.dll" />
+    <Content Include="bin\Release\Microsoft.VisualStudio.ProjectAggregator.dll" />
+    <Content Include="bin\Release\Microsoft.VisualStudio.Shell.Interop.8.0.dll" />
+    <Content Include="bin\Release\Microsoft.VisualStudio.Shell.Interop.dll" />
+    <Content Include="bin\Release\Microsoft.VisualStudio.TemplateWizardInterface.dll" />
+    <Content Include="bin\Release\Microsoft.VisualStudio.TextManager.Interop.8.0.dll" />
+    <Content Include="bin\Release\Microsoft.VisualStudio.TextManager.Interop.dll" />
+    <Content Include="bin\Release\Microsoft.VisualStudio.VSHelp.dll" />
+    <Content Include="bin\Release\MimeTypeMap.dll" />
+    <Content Include="bin\Release\Modelo.dll" />
+    <Content Include="bin\Release\Modelo.pdb" />
+    <Content Include="bin\Release\Modelo.xml" />
+    <Content Include="bin\Release\Newtonsoft.Json.dll" />
+    <Content Include="bin\Release\Newtonsoft.Json.xml" />
+    <Content Include="bin\Release\nl\PdfiumViewer.resources.dll" />
+    <Content Include="bin\Release\OnBarcode.Barcode.WinForms.dll" />
+    <Content Include="bin\Release\PdfiumViewer.dll" />
+    <Content Include="bin\Release\PdfiumViewer.xml" />
+    <Content Include="bin\Release\REPOSITORY.dll" />
+    <Content Include="bin\Release\REPOSITORY.pdb" />
+    <Content Include="bin\Release\REPOSITORY.xml" />
+    <Content Include="bin\Release\RestSharp.dll" />
+    <Content Include="bin\Release\RestSharp.xml" />
+    <Content Include="bin\Release\ShockwaveFlashObjects.dll" />
+    <Content Include="bin\Release\SqlServerTypes\x64\msvcr120.dll" />
+    <Content Include="bin\Release\SqlServerTypes\x64\SqlServerSpatial140.dll" />
+    <Content Include="bin\Release\SqlServerTypes\x86\msvcr120.dll" />
+    <Content Include="bin\Release\SqlServerTypes\x86\SqlServerSpatial140.dll" />
+    <Content Include="bin\Release\stdole.dll" />
+    <Content Include="bin\Release\UTILITIES.dll" />
+    <Content Include="bin\Release\UTILITIES.pdb" />
+    <Content Include="bin\Release\UTILITIES.xml" />
+    <Content Include="bin\Release\VSLangProj.dll" />
+    <Content Include="bin\Release\VsWebSite.Interop.dll" />
+    <Content Include="obj\Release\AxInterop.AcroPDFLib.dll" />
+    <Content Include="obj\Release\Disoft.exe" />
+    <Content Include="obj\Release\disoft.exe.licenses" />
+    <Content Include="obj\Release\Disoft.pdb" />
+    <Content Include="obj\Release\Disoft.xml" />
+    <Content Include="obj\Release\Interop.AcroPDFLib.dll" />
+    <Content Include="obj\Release\Presentacion.vbproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\TempPE\DataSet.dsReporteEquipoPrestadoVsVenta.Designer.vb.dll" />
+    <Content Include="obj\Release\TempPE\DataSet.dsReportes.Designer.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.DespachoNotaVentaXCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.DespachoXCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.DespachoXProducto.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.DespachoXProducto11.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.DespachoXProductoSinAgrupacion.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.Factura.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta10.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta11.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta12.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta13.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta14.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta15.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta16.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta17.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta2.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta3.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta4.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta5.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta7.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta8.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta9.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.NotaVenta_Ticket.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.PedidosRechazados.vb.dll" />
+    <Content Include="obj\Release\TempPE\DispatchedOrder.Report.SubNotaVenta.vb.dll" />
+    <Content Include="obj\Release\TempPE\My Project.Resources.Designer.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.MAM_RepExistenciaProducto.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.MAM_ZonasRepartidor.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CajaCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CajaCortes.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CajaDepositos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CajaDetalle.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CajaGeneral.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CajaGeneralConciliacion.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CajaProducto.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CierreCaja - Copia.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CierreCaja.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CierreCaja1.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ClienteMasVentas.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Clientes.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Clientes_R.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CoberturaClientes.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CoberturaProductos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Comanda.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ComprobanteSalidaItems.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ComprobanteSalidaItemsDavid.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ComprobanteVenta.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ConciliacionChofer.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CuentaPorCobrarDetallado.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CuentaPorCobrarResumen.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CuentasPagar_PagosProximos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_CuentasPagar_PagosRealizados.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_EfectividadVendedor.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_EfectividadVendedorDetallado.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_EntregaPedidos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_EstadoCuentasClientes.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_EstadoCuentasClientesNuevo.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_EstadoCuentasClientesTodos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_EstadoCuentasCompra.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_FacturaPreImpresa.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_FacturaPreImpresa1.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Facturas.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_FaltanteTapas.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_FidelidadCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_GraficaVendedorVentas.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_GraficaVendedorVentasAlmacen.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_GraficaVendedorVentasRendimiento.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_GraficaVentasVs.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_HisotorialCobrosVentasCredito.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_KardexCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_KardexGeneral.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_KardexInventarioEquipos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_KardexInventarioProducto.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_KardexPrestamos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ListaPedidos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_LV.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Mam_CreditoGeneral.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Mam_CreditoGeneral2.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_MorosidadProveedor.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_NotaCompra.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_NotadeVenta.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Pagos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Pedido_PrecioCosto.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PlanillaAsistencia.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PlanillaSueldo.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PlanillaSueldoGrabado.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PlanillaSueldosResumen.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PlanillaSueldosResumenGrabado.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PrestamoEquipoPrestadoVsVenta.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PrestamoEquiposAgrupado.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PrestamoEquiposDetallado.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ProductoMayor.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ProductoMayorUtilidad.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ProductoMayorVendidoUnidades.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ProductoMenor.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ProductoMenorUtilidad.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ProductoMenorVendidoUnidades .vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ProductosMesa.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Proforma.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_PromConsumo.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Pruebas.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ReciboCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ReciboCliente2.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Reclamos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ReporteCobertura.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ReporteCobranzasCarta.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ReporteComercial.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ReportePagosCobranzas.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ReportePrecios.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ReporteVisitas.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_ResumenNotas.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_SaldoClientes.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_saldoCreditoCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_SaldoInventario.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_SaldoMensuales.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_SaldoPrestamoEquiposUV.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_SaldosFisicoValorado.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_SaldosFisicoValoradoSinAgrupacion.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_StockActual.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_StockActualSinAgrupacion.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_StockDisponible.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_StockDisponiblesSinAgrupacion.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_StockMinimo.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Transacciones.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_UltimaVentaCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_UltimosPedidos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_UtilidadPorProducto.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VendedorGanancia.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VendedorUtilidad.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasAtendidasAlmacenVendedor.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasComision.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasComision1.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasComisionRepartidor.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasComisionRepartidor1.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_Ventasdespacho.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasDetallada.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasEfectividadCliente.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasEfectividadProducto.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasProductos.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasProductosInventario.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasVendedor.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VentasVendedor12Meses.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VisitaClientes.vb.dll" />
+    <Content Include="obj\Release\TempPE\Reportes.R_VisitasDiarias.vb.dll" />
+    <Content Include="obj\Release\TempPE\R_ReporteMovimiento.vb.dll" />
+    <Content Include="obj\Release\TempPE\R_SaldoActualFiltrado.vb.dll" />
+    <Content Include="obj\Release\TempPE\R_SugerenciaPedido.vb.dll" />
     <Content Include="x64\pdfium.dll" />
     <Content Include="x86\pdfium.dll" />
     <None Include="Resources\14.png" />
@@ -3379,6 +3992,15 @@
       <WrapperTool>aximp</WrapperTool>
       <Isolated>False</Isolated>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\x64\Debug\" />
+    <Folder Include="bin\x64\Release\" />
+    <Folder Include="bin\x86\Debug\" />
+    <Folder Include="bin\x86\Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

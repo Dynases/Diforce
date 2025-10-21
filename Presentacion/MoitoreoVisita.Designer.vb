@@ -26,14 +26,14 @@ Partial Class MoitoreoVisita
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MoitoreoVisita))
         Dim cbRepartidor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
-        Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.CrystalReportViewer1 = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
-        Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.btnz1 = New DevComponents.DotNetBar.ButtonX()
         Me.btnz2 = New DevComponents.DotNetBar.ButtonX()
         Me.Gmc_Cliente = New GMap.NET.WindowsForms.GMapControl()
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.CrystalReportViewer1 = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
+        Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.lbHora = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.lbobs = New System.Windows.Forms.TextBox()
@@ -60,10 +60,17 @@ Partial Class MoitoreoVisita
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.ColorDialogZona = New System.Windows.Forms.ColorDialog()
+        Me.PanelEx5 = New DevComponents.DotNetBar.PanelEx()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
-        Me.SuperTabControlPanel2.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
+        Me.SuperTabControlPanel2.SuspendLayout()
         Me.PanelEx1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.PanelEx2.SuspendLayout()
@@ -74,6 +81,10 @@ Partial Class MoitoreoVisita
         CType(Me.Tb_Fecha, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbRepartidor, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.PanelEx5.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabControl1
@@ -104,38 +115,9 @@ Partial Class MoitoreoVisita
         Me.SuperTabControl1.TabIndex = 0
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem2, Me.SuperTabItem1})
         '
-        'SuperTabControlPanel2
-        '
-        Me.SuperTabControlPanel2.Controls.Add(Me.CrystalReportViewer1)
-        Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 25)
-        Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(737, 622)
-        Me.SuperTabControlPanel2.TabIndex = 0
-        Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
-        '
-        'CrystalReportViewer1
-        '
-        Me.CrystalReportViewer1.ActiveViewIndex = -1
-        Me.CrystalReportViewer1.AutoScroll = True
-        Me.CrystalReportViewer1.AutoSize = True
-        Me.CrystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CrystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.CrystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CrystalReportViewer1.Location = New System.Drawing.Point(0, 0)
-        Me.CrystalReportViewer1.Name = "CrystalReportViewer1"
-        Me.CrystalReportViewer1.Size = New System.Drawing.Size(737, 622)
-        Me.CrystalReportViewer1.TabIndex = 0
-        '
-        'SuperTabItem2
-        '
-        Me.SuperTabItem2.AttachedControl = Me.SuperTabControlPanel2
-        Me.SuperTabItem2.GlobalItem = False
-        Me.SuperTabItem2.Name = "SuperTabItem2"
-        Me.SuperTabItem2.Text = "REPORTE"
-        '
         'SuperTabControlPanel1
         '
+        Me.SuperTabControlPanel1.Controls.Add(Me.PanelEx5)
         Me.SuperTabControlPanel1.Controls.Add(Me.btnz1)
         Me.SuperTabControlPanel1.Controls.Add(Me.btnz2)
         Me.SuperTabControlPanel1.Controls.Add(Me.Gmc_Cliente)
@@ -203,6 +185,36 @@ Partial Class MoitoreoVisita
         Me.SuperTabItem1.Name = "SuperTabItem1"
         Me.SuperTabItem1.Text = "MAPA"
         '
+        'SuperTabControlPanel2
+        '
+        Me.SuperTabControlPanel2.Controls.Add(Me.CrystalReportViewer1)
+        Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 25)
+        Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(737, 622)
+        Me.SuperTabControlPanel2.TabIndex = 0
+        Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
+        '
+        'CrystalReportViewer1
+        '
+        Me.CrystalReportViewer1.ActiveViewIndex = -1
+        Me.CrystalReportViewer1.AutoScroll = True
+        Me.CrystalReportViewer1.AutoSize = True
+        Me.CrystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CrystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.CrystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CrystalReportViewer1.Location = New System.Drawing.Point(0, 0)
+        Me.CrystalReportViewer1.Name = "CrystalReportViewer1"
+        Me.CrystalReportViewer1.Size = New System.Drawing.Size(737, 622)
+        Me.CrystalReportViewer1.TabIndex = 0
+        '
+        'SuperTabItem2
+        '
+        Me.SuperTabItem2.AttachedControl = Me.SuperTabControlPanel2
+        Me.SuperTabItem2.GlobalItem = False
+        Me.SuperTabItem2.Name = "SuperTabItem2"
+        Me.SuperTabItem2.Text = "REPORTE"
+        '
         'lbHora
         '
         Me.lbHora.AutoSize = True
@@ -210,7 +222,7 @@ Partial Class MoitoreoVisita
         Me.lbHora.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.lbHora.Location = New System.Drawing.Point(20, 237)
         Me.lbHora.Name = "lbHora"
-        Me.lbHora.Size = New System.Drawing.Size(45, 16)
+        Me.lbHora.Size = New System.Drawing.Size(44, 16)
         Me.lbHora.TabIndex = 9
         Me.lbHora.Text = "HORA"
         '
@@ -243,7 +255,7 @@ Partial Class MoitoreoVisita
         Me.lbtel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.lbtel.Location = New System.Drawing.Point(20, 184)
         Me.lbtel.Name = "lbtel"
-        Me.lbtel.Size = New System.Drawing.Size(52, 16)
+        Me.lbtel.Size = New System.Drawing.Size(51, 16)
         Me.lbtel.TabIndex = 5
         Me.lbtel.Text = "FECHA"
         '
@@ -276,7 +288,7 @@ Partial Class MoitoreoVisita
         Me.lbcliente.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.lbcliente.Location = New System.Drawing.Point(17, 59)
         Me.lbcliente.Name = "lbcliente"
-        Me.lbcliente.Size = New System.Drawing.Size(61, 16)
+        Me.lbcliente.Size = New System.Drawing.Size(60, 16)
         Me.lbcliente.TabIndex = 1
         Me.lbcliente.Text = "CLIENTE"
         '
@@ -630,6 +642,99 @@ Partial Class MoitoreoVisita
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1063, 653)
         Me.TableLayoutPanel1.TabIndex = 11
         '
+        'PanelEx5
+        '
+        Me.PanelEx5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PanelEx5.CanvasColor = System.Drawing.Color.Transparent
+        Me.PanelEx5.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.PanelEx5.Controls.Add(Me.LabelX3)
+        Me.PanelEx5.Controls.Add(Me.LabelX2)
+        Me.PanelEx5.Controls.Add(Me.LabelX1)
+        Me.PanelEx5.Controls.Add(Me.PictureBox3)
+        Me.PanelEx5.Controls.Add(Me.PictureBox2)
+        Me.PanelEx5.Controls.Add(Me.PictureBox1)
+        Me.PanelEx5.DisabledBackColor = System.Drawing.Color.Empty
+        Me.PanelEx5.Location = New System.Drawing.Point(3, 455)
+        Me.PanelEx5.Name = "PanelEx5"
+        Me.PanelEx5.Size = New System.Drawing.Size(222, 158)
+        Me.PanelEx5.Style.Alignment = System.Drawing.StringAlignment.Center
+        Me.PanelEx5.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.PanelEx5.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.PanelEx5.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
+        Me.PanelEx5.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
+        Me.PanelEx5.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
+        Me.PanelEx5.Style.GradientAngle = 90
+        Me.PanelEx5.TabIndex = 7
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.Presentacion.My.Resources.Resources.mapa_19
+        Me.PictureBox1.Location = New System.Drawing.Point(14, 63)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(37, 37)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.TabStop = False
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Image = Global.Presentacion.My.Resources.Resources.mapa_22
+        Me.PictureBox2.Location = New System.Drawing.Point(13, 17)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(38, 37)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox2.TabIndex = 1
+        Me.PictureBox2.TabStop = False
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.Image = Global.Presentacion.My.Resources.Resources.mapa_3
+        Me.PictureBox3.Location = New System.Drawing.Point(13, 110)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(37, 36)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox3.TabIndex = 2
+        Me.PictureBox3.TabStop = False
+        '
+        'LabelX1
+        '
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Arial Rounded MT Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.Location = New System.Drawing.Point(57, 17)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.Size = New System.Drawing.Size(146, 23)
+        Me.LabelX1.TabIndex = 3
+        Me.LabelX1.Text = "Visitados Con Pedido"
+        '
+        'LabelX2
+        '
+        '
+        '
+        '
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Font = New System.Drawing.Font("Arial Rounded MT Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.Location = New System.Drawing.Point(56, 68)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.Size = New System.Drawing.Size(146, 23)
+        Me.LabelX2.TabIndex = 4
+        Me.LabelX2.Text = "Visitados Sin Pedido"
+        '
+        'LabelX3
+        '
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Arial Rounded MT Bold", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.Location = New System.Drawing.Point(57, 110)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.Size = New System.Drawing.Size(146, 23)
+        Me.LabelX3.TabIndex = 5
+        Me.LabelX3.Text = "Clientes No Visitados"
+        '
         'MoitoreoVisita
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -641,9 +746,9 @@ Partial Class MoitoreoVisita
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControl1.ResumeLayout(False)
+        Me.SuperTabControlPanel1.ResumeLayout(False)
         Me.SuperTabControlPanel2.ResumeLayout(False)
         Me.SuperTabControlPanel2.PerformLayout()
-        Me.SuperTabControlPanel1.ResumeLayout(False)
         Me.PanelEx1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.PanelEx2.ResumeLayout(False)
@@ -656,6 +761,10 @@ Partial Class MoitoreoVisita
         CType(Me.Tb_Fecha, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbRepartidor, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.PanelEx5.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -695,4 +804,11 @@ Partial Class MoitoreoVisita
     Friend WithEvents cbZona As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents cbCheck As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents ColorDialogZona As ColorDialog
+    Friend WithEvents PanelEx5 As DevComponents.DotNetBar.PanelEx
+    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX1 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

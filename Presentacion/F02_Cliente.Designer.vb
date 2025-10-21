@@ -1363,6 +1363,7 @@ Partial Class F02_Cliente
         '
         Me.tbLongitud.Border.Class = "TextBoxBorder"
         Me.tbLongitud.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbLongitud.DisabledBackColor = System.Drawing.Color.White
         Me.tbLongitud.Location = New System.Drawing.Point(64, 32)
         Me.tbLongitud.MaxLength = 30
         Me.tbLongitud.Name = "tbLongitud"
@@ -1378,6 +1379,7 @@ Partial Class F02_Cliente
         '
         Me.tbLatitud.Border.Class = "TextBoxBorder"
         Me.tbLatitud.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbLatitud.DisabledBackColor = System.Drawing.Color.White
         Me.tbLatitud.Location = New System.Drawing.Point(64, 3)
         Me.tbLatitud.MaxLength = 30
         Me.tbLatitud.Name = "tbLatitud"
@@ -1593,6 +1595,7 @@ Partial Class F02_Cliente
         '
         Me.tbCodCliente.Border.Class = "TextBoxBorder"
         Me.tbCodCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodCliente.DisabledBackColor = System.Drawing.Color.White
         Me.tbCodCliente.Location = New System.Drawing.Point(264, 9)
         Me.tbCodCliente.MaxLength = 15
         Me.tbCodCliente.Name = "tbCodCliente"
@@ -1712,6 +1715,7 @@ Partial Class F02_Cliente
         '
         Me.tbRecorrido.Border.Class = "TextBoxBorder"
         Me.tbRecorrido.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbRecorrido.DisabledBackColor = System.Drawing.Color.White
         Me.tbRecorrido.Location = New System.Drawing.Point(108, 3)
         Me.tbRecorrido.MaxLength = 200
         Me.tbRecorrido.Name = "tbRecorrido"
@@ -2037,6 +2041,7 @@ Partial Class F02_Cliente
         '
         Me.TbNit.Border.Class = "TextBoxBorder"
         Me.TbNit.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbNit.DisabledBackColor = System.Drawing.Color.White
         Me.TbNit.Location = New System.Drawing.Point(626, 1)
         Me.TbNit.MaxLength = 20
         Me.TbNit.Name = "TbNit"
@@ -2051,6 +2056,7 @@ Partial Class F02_Cliente
         '
         Me.TbNombreFactura.Border.Class = "TextBoxBorder"
         Me.TbNombreFactura.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbNombreFactura.DisabledBackColor = System.Drawing.Color.White
         Me.TbNombreFactura.Location = New System.Drawing.Point(108, 0)
         Me.TbNombreFactura.MaxLength = 200
         Me.TbNombreFactura.Name = "TbNombreFactura"
@@ -2068,7 +2074,7 @@ Partial Class F02_Cliente
         Me.LabelX10.Name = "LabelX10"
         Me.LabelX10.Size = New System.Drawing.Size(100, 23)
         Me.LabelX10.TabIndex = 0
-        Me.LabelX10.Text = "Nombre Factura:"
+        Me.LabelX10.Text = "Razon Social:"
         '
         'LabelX16
         '
@@ -2115,6 +2121,7 @@ Partial Class F02_Cliente
         '
         Me.TbDireccion.Border.Class = "TextBoxBorder"
         Me.TbDireccion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbDireccion.DisabledBackColor = System.Drawing.Color.White
         Me.TbDireccion.Location = New System.Drawing.Point(111, 259)
         Me.TbDireccion.MaxLength = 200
         Me.TbDireccion.Multiline = True
@@ -2137,12 +2144,12 @@ Partial Class F02_Cliente
         '
         'TbNroDoc
         '
-        Me.TbNroDoc.BackColor = System.Drawing.SystemColors.ActiveCaption
         '
         '
         '
         Me.TbNroDoc.Border.Class = "TextBoxBorder"
         Me.TbNroDoc.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbNroDoc.DisabledBackColor = System.Drawing.Color.White
         Me.TbNroDoc.Location = New System.Drawing.Point(111, 147)
         Me.TbNroDoc.MaxLength = 20
         Me.TbNroDoc.Name = "TbNroDoc"
@@ -2171,6 +2178,7 @@ Partial Class F02_Cliente
         '
         Me.TbTelefono2.Border.Class = "TextBoxBorder"
         Me.TbTelefono2.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbTelefono2.DisabledBackColor = System.Drawing.Color.White
         Me.TbTelefono2.Location = New System.Drawing.Point(515, 67)
         Me.TbTelefono2.MaxLength = 30
         Me.TbTelefono2.Name = "TbTelefono2"
@@ -2180,7 +2188,6 @@ Partial Class F02_Cliente
         '
         'TbNombre
         '
-        Me.TbNombre.BackColor = System.Drawing.SystemColors.ActiveCaption
         '
         '
         '
@@ -2188,6 +2195,7 @@ Partial Class F02_Cliente
         Me.TbNombre.Border.BorderColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.TbNombre.Border.Class = "TextBoxBorder"
         Me.TbNombre.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbNombre.DisabledBackColor = System.Drawing.Color.White
         Me.TbNombre.Location = New System.Drawing.Point(111, 38)
         Me.TbNombre.MaxLength = 50
         Me.TbNombre.Multiline = True
@@ -2203,6 +2211,7 @@ Partial Class F02_Cliente
         '
         Me.TbTelefono1.Border.Class = "TextBoxBorder"
         Me.TbTelefono1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbTelefono1.DisabledBackColor = System.Drawing.Color.White
         Me.TbTelefono1.Location = New System.Drawing.Point(515, 38)
         Me.TbTelefono1.MaxLength = 30
         Me.TbTelefono1.Name = "TbTelefono1"
@@ -2231,6 +2240,7 @@ Partial Class F02_Cliente
         '
         Me.TbCodigo.Border.Class = "TextBoxBorder"
         Me.TbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbCodigo.DisabledBackColor = System.Drawing.Color.White
         Me.TbCodigo.Location = New System.Drawing.Point(111, 9)
         Me.TbCodigo.Name = "TbCodigo"
         Me.TbCodigo.PreventEnterBeep = True
@@ -2244,6 +2254,7 @@ Partial Class F02_Cliente
         '
         Me.TbObs.Border.Class = "TextBoxBorder"
         Me.TbObs.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbObs.DisabledBackColor = System.Drawing.Color.White
         Me.TbObs.Location = New System.Drawing.Point(518, 198)
         Me.TbObs.MaxLength = 150
         Me.TbObs.Multiline = True
@@ -2770,6 +2781,7 @@ Partial Class F02_Cliente
         '
         Me.tbAcuObs.Border.Class = "TextBoxBorder"
         Me.tbAcuObs.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAcuObs.DisabledBackColor = System.Drawing.Color.White
         Me.tbAcuObs.Location = New System.Drawing.Point(523, 61)
         Me.tbAcuObs.MaxLength = 50
         Me.tbAcuObs.Multiline = True
@@ -2913,6 +2925,7 @@ Partial Class F02_Cliente
         '
         Me.tbAcuCodCliente.Border.Class = "TextBoxBorder"
         Me.tbAcuCodCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAcuCodCliente.DisabledBackColor = System.Drawing.Color.White
         Me.tbAcuCodCliente.Location = New System.Drawing.Point(111, 3)
         Me.tbAcuCodCliente.MaxLength = 15
         Me.tbAcuCodCliente.Name = "tbAcuCodCliente"
@@ -2939,6 +2952,7 @@ Partial Class F02_Cliente
         '
         Me.tbAcuNombre.Border.Class = "TextBoxBorder"
         Me.tbAcuNombre.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAcuNombre.DisabledBackColor = System.Drawing.Color.White
         Me.tbAcuNombre.Location = New System.Drawing.Point(111, 32)
         Me.tbAcuNombre.MaxLength = 50
         Me.tbAcuNombre.Multiline = True

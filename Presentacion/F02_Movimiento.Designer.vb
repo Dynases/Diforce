@@ -430,6 +430,7 @@ Partial Class F02_Movimiento
         '
         Me.tbObs.Border.Class = "TextBoxBorder"
         Me.tbObs.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbObs.DisabledBackColor = System.Drawing.Color.White
         Me.tbObs.Location = New System.Drawing.Point(92, 61)
         Me.tbObs.MaxLength = 40
         Me.tbObs.Multiline = True
@@ -501,6 +502,7 @@ Partial Class F02_Movimiento
         '
         Me.tbCodigo.Border.Class = "TextBoxBorder"
         Me.tbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodigo.DisabledBackColor = System.Drawing.Color.White
         Me.tbCodigo.Location = New System.Drawing.Point(92, 3)
         Me.tbCodigo.Name = "tbCodigo"
         Me.tbCodigo.PreventEnterBeep = True

@@ -40,6 +40,7 @@ Module P_Global
     Public gs_UsuarioSql2 As String = "sa"
     Public gs_ClaveSql2 As String = "123"
     Public gs_NombreBD As String = "BDDistBHF"
+    Public gs_supervisor As Boolean = False
     Public gs_NombreBD1 As String = "BDDistBHF"
     Public gs_NombreBD2 As String = "BDDistBHF1"
     Public gs_NombreBD3 As String = "BDDistBHF2"

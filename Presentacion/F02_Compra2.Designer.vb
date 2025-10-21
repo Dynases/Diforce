@@ -643,14 +643,13 @@ Partial Class F02_Compra2
         '
         'tbSACF
         '
-        Me.tbSACF.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbSACF.Border.Class = "TextBoxBorder"
         Me.tbSACF.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbSACF.DisabledBackColor = System.Drawing.Color.White
         Me.tbSACF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbSACF.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbSACF.Location = New System.Drawing.Point(178, 110)
         Me.tbSACF.Name = "tbSACF"
         Me.tbSACF.PreventEnterBeep = True
@@ -660,14 +659,13 @@ Partial Class F02_Compra2
         '
         'tbNroFactura
         '
-        Me.tbNroFactura.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbNroFactura.Border.Class = "TextBoxBorder"
         Me.tbNroFactura.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNroFactura.DisabledBackColor = System.Drawing.Color.White
         Me.tbNroFactura.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNroFactura.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbNroFactura.Location = New System.Drawing.Point(178, 3)
         Me.tbNroFactura.Name = "tbNroFactura"
         Me.tbNroFactura.PreventEnterBeep = True
@@ -709,14 +707,13 @@ Partial Class F02_Compra2
         '
         'tbNDui
         '
-        Me.tbNDui.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbNDui.Border.Class = "TextBoxBorder"
         Me.tbNDui.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNDui.DisabledBackColor = System.Drawing.Color.White
         Me.tbNDui.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNDui.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbNDui.Location = New System.Drawing.Point(178, 83)
         Me.tbNDui.Name = "tbNDui"
         Me.tbNDui.PreventEnterBeep = True
@@ -726,14 +723,13 @@ Partial Class F02_Compra2
         '
         'tbNAutorizacion
         '
-        Me.tbNAutorizacion.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbNAutorizacion.Border.Class = "TextBoxBorder"
         Me.tbNAutorizacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNAutorizacion.DisabledBackColor = System.Drawing.Color.White
         Me.tbNAutorizacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNAutorizacion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbNAutorizacion.Location = New System.Drawing.Point(178, 29)
         Me.tbNAutorizacion.Name = "tbNAutorizacion"
         Me.tbNAutorizacion.PreventEnterBeep = True
@@ -775,14 +771,13 @@ Partial Class F02_Compra2
         '
         'tbCodControl
         '
-        Me.tbCodControl.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbCodControl.Border.Class = "TextBoxBorder"
         Me.tbCodControl.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodControl.DisabledBackColor = System.Drawing.Color.White
         Me.tbCodControl.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodControl.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbCodControl.Location = New System.Drawing.Point(178, 56)
         Me.tbCodControl.MaxLength = 14
         Me.tbCodControl.Name = "tbCodControl"
@@ -971,14 +966,13 @@ Partial Class F02_Compra2
         '
         'tbNitProv
         '
-        Me.tbNitProv.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbNitProv.Border.Class = "TextBoxBorder"
         Me.tbNitProv.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbNitProv.DisabledBackColor = System.Drawing.Color.White
         Me.tbNitProv.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbNitProv.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbNitProv.Location = New System.Drawing.Point(121, 91)
         Me.tbNitProv.Name = "tbNitProv"
         Me.tbNitProv.PreventEnterBeep = True
@@ -1014,12 +1008,12 @@ Partial Class F02_Compra2
         '
         'tbObs
         '
-        Me.tbObs.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbObs.Border.Class = "TextBoxBorder"
         Me.tbObs.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbObs.DisabledBackColor = System.Drawing.Color.White
         Me.tbObs.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbObs.Location = New System.Drawing.Point(121, 119)
         Me.tbObs.Multiline = True
@@ -1035,6 +1029,7 @@ Partial Class F02_Compra2
         '
         Me.tbProveedor.Border.Class = "TextBoxBorder"
         Me.tbProveedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbProveedor.DisabledBackColor = System.Drawing.Color.White
         Me.tbProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbProveedor.Location = New System.Drawing.Point(121, 63)
         Me.tbProveedor.Name = "tbProveedor"
@@ -1049,6 +1044,7 @@ Partial Class F02_Compra2
         '
         Me.tbCodProveedor.Border.Class = "TextBoxBorder"
         Me.tbCodProveedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodProveedor.DisabledBackColor = System.Drawing.Color.White
         Me.tbCodProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCodProveedor.Location = New System.Drawing.Point(247, 34)
         Me.tbCodProveedor.Name = "tbCodProveedor"
@@ -1124,6 +1120,7 @@ Partial Class F02_Compra2
         '
         Me.tbCodigo.Border.Class = "TextBoxBorder"
         Me.tbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodigo.DisabledBackColor = System.Drawing.Color.White
         Me.tbCodigo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCodigo.Location = New System.Drawing.Point(121, 5)
         Me.tbCodigo.Name = "tbCodigo"

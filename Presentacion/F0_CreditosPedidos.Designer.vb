@@ -503,14 +503,13 @@ Partial Class F0_CreditosPedidos
         '
         'tbcodVendedor
         '
-        Me.tbcodVendedor.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbcodVendedor.Border.Class = "TextBoxBorder"
         Me.tbcodVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbcodVendedor.DisabledBackColor = System.Drawing.Color.White
         Me.tbcodVendedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbcodVendedor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbcodVendedor.Location = New System.Drawing.Point(376, 82)
         Me.tbcodVendedor.Name = "tbcodVendedor"
         Me.tbcodVendedor.PreventEnterBeep = True
@@ -526,8 +525,8 @@ Partial Class F0_CreditosPedidos
         '
         Me.tbObservacion.Border.Class = "TextBoxBorder"
         Me.tbObservacion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbObservacion.DisabledBackColor = System.Drawing.Color.White
         Me.tbObservacion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbObservacion.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbObservacion.Location = New System.Drawing.Point(142, 111)
         Me.tbObservacion.Multiline = True
         Me.tbObservacion.Name = "tbObservacion"
@@ -635,14 +634,13 @@ Partial Class F0_CreditosPedidos
         '
         'tbcobrador
         '
-        Me.tbcobrador.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbcobrador.Border.Class = "TextBoxBorder"
         Me.tbcobrador.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbcobrador.DisabledBackColor = System.Drawing.Color.White
         Me.tbcobrador.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbcobrador.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbcobrador.Location = New System.Drawing.Point(142, 82)
         Me.tbcobrador.Name = "tbcobrador"
         Me.tbcobrador.PreventEnterBeep = True
@@ -669,14 +667,13 @@ Partial Class F0_CreditosPedidos
         '
         'tbnrodoc
         '
-        Me.tbnrodoc.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbnrodoc.Border.Class = "TextBoxBorder"
         Me.tbnrodoc.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbnrodoc.DisabledBackColor = System.Drawing.Color.White
         Me.tbnrodoc.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbnrodoc.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbnrodoc.Location = New System.Drawing.Point(142, 20)
         Me.tbnrodoc.Name = "tbnrodoc"
         Me.tbnrodoc.PreventEnterBeep = True

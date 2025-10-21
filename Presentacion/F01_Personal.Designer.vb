@@ -49,13 +49,13 @@ Partial Class F01_Personal
         Me.TbPassMovil = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.GroupPanelPreferencias = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.PanelEx2 = New DevComponents.DotNetBar.PanelEx()
+        Me.swModificarPedido = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
         Me.swZona = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.swPrecio = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.swModificarPedido = New DevComponents.DotNetBar.Controls.SwitchButton()
-        Me.LabelX9 = New DevComponents.DotNetBar.LabelX()
         CType(Me.MSuperTabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MSuperTabControlPrincipal.SuspendLayout()
         Me.MSuperTabControlPanelRegistro.SuspendLayout()
@@ -619,6 +619,38 @@ Partial Class F01_Personal
         Me.PanelEx2.Style.GradientAngle = 90
         Me.PanelEx2.TabIndex = 20
         '
+        'swModificarPedido
+        '
+        '
+        '
+        '
+        Me.swModificarPedido.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swModificarPedido.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.swModificarPedido.Location = New System.Drawing.Point(133, 93)
+        Me.swModificarPedido.Name = "swModificarPedido"
+        Me.swModificarPedido.OffBackColor = System.Drawing.Color.Gold
+        Me.swModificarPedido.OffText = "NO"
+        Me.swModificarPedido.OnBackColor = System.Drawing.Color.LawnGreen
+        Me.swModificarPedido.OnText = "SI"
+        Me.swModificarPedido.Size = New System.Drawing.Size(136, 22)
+        Me.swModificarPedido.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swModificarPedido.TabIndex = 375
+        Me.swModificarPedido.Value = True
+        Me.swModificarPedido.ValueObject = "Y"
+        '
+        'LabelX9
+        '
+        '
+        '
+        '
+        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX9.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        Me.LabelX9.Location = New System.Drawing.Point(22, 90)
+        Me.LabelX9.Name = "LabelX9"
+        Me.LabelX9.Size = New System.Drawing.Size(117, 23)
+        Me.LabelX9.TabIndex = 374
+        Me.LabelX9.Text = "Modificar Pedido:"
+        '
         'swZona
         '
         '
@@ -687,38 +719,6 @@ Partial Class F01_Personal
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 500
-        '
-        'swModificarPedido
-        '
-        '
-        '
-        '
-        Me.swModificarPedido.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.swModificarPedido.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.swModificarPedido.Location = New System.Drawing.Point(133, 93)
-        Me.swModificarPedido.Name = "swModificarPedido"
-        Me.swModificarPedido.OffBackColor = System.Drawing.Color.Gold
-        Me.swModificarPedido.OffText = "NO"
-        Me.swModificarPedido.OnBackColor = System.Drawing.Color.LawnGreen
-        Me.swModificarPedido.OnText = "SI"
-        Me.swModificarPedido.Size = New System.Drawing.Size(136, 22)
-        Me.swModificarPedido.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.swModificarPedido.TabIndex = 375
-        Me.swModificarPedido.Value = True
-        Me.swModificarPedido.ValueObject = "Y"
-        '
-        'LabelX9
-        '
-        '
-        '
-        '
-        Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX9.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
-        Me.LabelX9.Location = New System.Drawing.Point(22, 90)
-        Me.LabelX9.Name = "LabelX9"
-        Me.LabelX9.Size = New System.Drawing.Size(117, 23)
-        Me.LabelX9.TabIndex = 374
-        Me.LabelX9.Text = "Modificar Pedido:"
         '
         'F01_Personal
         '

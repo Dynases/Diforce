@@ -431,6 +431,7 @@ Public Class F0_MCaja
             Tb_TDeposito.IsInputReadOnly = True
             Tb_TDiferencia.IsInputReadOnly = True
             Tb_TGeneral.IsInputReadOnly = True
+            tb_Gastos.IsInputReadOnly = True
             Tb_TEfectivo.IsInputReadOnly = True
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -496,6 +497,7 @@ Public Class F0_MCaja
             Tb_TDiferencia.Value = 0
             Tb_TEfectivo.Value = 0
             Tb_TGeneral.Value = 0
+            tb_Gastos.Value = 0
             Tb_TipoCambio.Value = 6.96
             _LimpiarLista()
         Catch ex As Exception
@@ -518,6 +520,7 @@ Public Class F0_MCaja
                 lbHora.Text = .GetValue("olhact").ToString
                 lbUsuario.Text = .GetValue("oluact").ToString
                 Tb_TCredito.Text = .GetValue("olCredito")
+                tb_Gastos.Text = .GetValue("olGasto")
             End With
 
             _prCargarDetalleVenta(TbCodigo.Text)
@@ -682,14 +685,18 @@ Public Class F0_MCaja
                 .Visible = False
             End With
             With Dgv_PedidoTotal.RootTable.Columns("gasto")
-                .Width = 50
-                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = False
+                .Width = 200
+                .Caption = "GASTO"
+                .FormatString = "0.00"
+                .AggregateFunction = AggregateFunction.Sum
+                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+                .Visible = True
             End With
             With Dgv_PedidoTotal.RootTable.Columns("concepto")
-                .Width = 50
+                .Width = 200
+                .Caption = "CONCEPTO"
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
-                .Visible = False
+                .Visible = True
             End With
             With Dgv_PedidoTotal.RootTable.Columns("estado")
                 .Width = 50
@@ -1046,6 +1053,11 @@ Public Class F0_MCaja
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
                 .Visible = False
             End With
+            With GridEX1.RootTable.Columns("olGasto")
+                .Width = 50
+                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+                .Visible = False
+            End With
             With GridEX1
                 .DefaultFilterRowComparison = FilterConditionOperator.Contains
                 .FilterMode = FilterMode.Automatic
@@ -1192,7 +1204,7 @@ Public Class F0_MCaja
             Next
             dt1.Columns.RemoveAt(11)
             Dim numi As String = ""
-            Dim res As Boolean = L_prCajaGrabar(numi, Numi_Chofer, Numi_Conciliacion, tbFecha.Value.ToString("yyyy/MM/dd"), Tb_TConciliacion.Value.ToString, dt1, Tb_TCredito.Value, Tb_TipoCambio.Value)
+            Dim res As Boolean = L_prCajaGrabar(numi, Numi_Chofer, Numi_Conciliacion, tbFecha.Value.ToString("yyyy/MM/dd"), Tb_TConciliacion.Value.ToString, dt1, Tb_TCredito.Value, Tb_TipoCambio.Value, tb_Gastos.Value)
             If res Then
                 Dim ListaCambios = New LCajaCambio().GuardarCajaCambio(ListaCambio, Convert.ToInt32(numi))
                 Dim ListaDepositos = New LCajaDeposito().GuardarDepositoCambio(ListaDeposito, Convert.ToInt32(numi))
@@ -1492,6 +1504,57 @@ Public Class F0_MCaja
 
     End Sub
 
+    Private Sub P_GenerarReporteNuevo2()
+        Try
+            Dim dtCortes As DataTable = L_prReporteObtenerCortes(TbCodigo.Text)
+            Dim dtDepositos As DataTable = L_prReporteObtenerDepositos((TbCodigo.Text))
+            Dim dtCliente As DataTable = CType(Dgv_PedidoTotal.DataSource, DataTable) '.DefaultView.ToTable(False, "concepto", "gasto", "cliente")
+
+
+            ' Filtrar las filas según "gasto"
+            Dim filas() As DataRow = dtCliente.Select("ccnumi = 0")
+            Dim dtClienteAux As DataTable
+            If filas.Length > 0 Then
+                ' Crear nuevo DataTable solo con columnas específicas
+                dtClienteAux = filas.CopyToDataTable().DefaultView.ToTable(False, "concepto", "gasto", "cliente")
+            Else
+                dtClienteAux = dtCliente.Clone() ' crea tabla vacía con la misma estructura
+            End If
+
+            If Not IsNothing(P_Global.Visualizador) Then
+                P_Global.Visualizador.Close()
+            End If
+
+            P_Global.Visualizador = New Visualizador
+            Dim objrep As New R_CierreCaja1 'R_CierreCaja___Copia
+            objrep.Subreports.Item("R_CajaCortes.rpt").SetDataSource(dtCortes)
+            'objrep.Subreports.Item("R_CajaDepositos.rpt").SetDataSource(dtDepositos)
+
+
+            objrep.Subreports.Item("R_CajaDetalle.rpt").SetDataSource(dtClienteAux)
+            objrep.SetParameterValue("conciliacion", lbconciliacion.Text)
+            objrep.SetParameterValue("usuario", L_Usuario)
+            objrep.SetParameterValue("fecha", tbFecha.Text)
+            objrep.SetParameterValue("tipocambio", Tb_TipoCambio.Text)
+            objrep.SetParameterValue("idcaja", TbCodigo.Text)
+            objrep.SetParameterValue("chofer", tbchofer.Text)
+            'Totales
+            objrep.SetParameterValue("totalgeneral", Tb_TConciliacion.Value + Tb_TDeposito.Value)
+            objrep.SetParameterValue("totaldescargo", Tb_TEfectivo.Value + Tb_TDeposito.Value)
+            objrep.SetParameterValue("diferencia", Tb_TDiferencia.Value)
+            objrep.SetParameterValue("efectivo", Tb_TEfectivo.Value)
+            objrep.SetParameterValue("qr", Tb_TDeposito.Value)
+            objrep.SetParameterValue("gastos", tb_Gastos.Value)
+
+            P_Global.Visualizador.CRV1.ReportSource = objrep
+            P_Global.Visualizador.Show()
+            P_Global.Visualizador.BringToFront()
+        Catch ex As Exception
+            MostrarMensajeError(ex.Message)
+        End Try
+
+    End Sub
+
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
         If (TbCodigo.Text.Trim <> String.Empty) Then
             P_GenerarReporteNuevo()
@@ -1563,6 +1626,7 @@ Public Class F0_MCaja
                 Dim CorteBo, CantidadBo, CorteDo, CantidadDo, totalDo, tatalBo As Double
                 CorteBo = Convert.ToDouble(Dgv_Cortes.CurrentRow.Cells("CorteBol").Value)
                 CantidadBo = Convert.ToDouble(Dgv_Cortes.CurrentRow.Cells("CantidadBo").Value)
+
                 tatalBo = CorteBo * CantidadBo
                 Dgv_Cortes.CurrentRow.Cells("TotalBo").Value = tatalBo
 
@@ -1587,23 +1651,26 @@ Public Class F0_MCaja
     End Sub
     Private Sub _prCalcular(credito As Double, tipo As Integer)
         Try
-            Dim totalCorteDol, totalCorteBol, TotalDeposito, totalConciliacion As Double
+            Dim totalCorteDol, totalCorteBol, TotalDeposito, totalConciliacion, totalgastos As Double
+            totalgastos = (Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("gasto"), AggregateFunction.Sum))
             totalCorteBol = Dgv_Cortes.GetTotal(Dgv_Cortes.RootTable.Columns("TotalBo"), AggregateFunction.Sum)
             If tipo = 1 Then
                 credito = Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("credito"), AggregateFunction.Sum)
             Else
                 credito = credito
             End If
+
             totalCorteDol = Dgv_Cortes.GetTotal(Dgv_Cortes.RootTable.Columns("TotalD"), AggregateFunction.Sum)
             'TotalDeposito = Dgv_Depositos.GetTotal(Dgv_Depositos.RootTable.Columns("Monto"), AggregateFunction.Sum)
             TotalDeposito = Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("transferencia"), AggregateFunction.Sum)
-            totalConciliacion = (Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("contado"), AggregateFunction.Sum)) + (Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("credito"), AggregateFunction.Sum))
+            totalConciliacion = (Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("contado"), AggregateFunction.Sum)) + (Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("credito"), AggregateFunction.Sum)) - (Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("gasto"), AggregateFunction.Sum))
 
             'totalConciliacion = Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("total"), AggregateFunction.Sum)
             Tb_TEfectivo.Value = totalCorteBol + (totalCorteDol * Tb_TipoCambio.Value)
+            tb_Gastos.Value = totalgastos
             Tb_TDeposito.Value = TotalDeposito
             Tb_TCredito.Value = credito
-            Tb_TGeneral.Value = Tb_TEfectivo.Value + Tb_TCredito.Value '+ Tb_TDeposito.Value
+            Tb_TGeneral.Value = Tb_TEfectivo.Value + Tb_TCredito.Value  '+ Tb_TDeposito.Value
             Tb_TConciliacion.Value = totalConciliacion
             Tb_TDiferencia.Value = Tb_TGeneral.Value - Tb_TConciliacion.Value
         Catch ex As Exception
@@ -1714,5 +1781,48 @@ Public Class F0_MCaja
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
+    End Sub
+
+    Private Sub Dgv_PedidoTotal_DoubleClick(sender As Object, e As EventArgs) Handles Dgv_PedidoTotal.DoubleClick
+
+    End Sub
+
+    Private Sub Dgv_PedidoTotal_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Dgv_PedidoTotal.MouseDoubleClick
+        Dim pedido As Integer = Dgv_PedidoTotal.GetValue("oanumi")
+        Dim cliente As String = Dgv_PedidoTotal.GetValue("cliente")
+        Dim contado As Double = Dgv_PedidoTotal.GetValue("contado")
+        Dim credito As Double = Dgv_PedidoTotal.GetValue("credito")
+        Dim transferencia As Double = Dgv_PedidoTotal.GetValue("transferencia")
+        Dim total As Double = Dgv_PedidoTotal.GetValue("total")
+        Dim ef = New Efecto
+        ef.tipo = 6
+        ef.cliente2 = cliente
+        ef.pedido = pedido
+        ef.total = total
+        ef.contado = contado
+        ef.credito = credito
+        ef.transferencia = transferencia
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            pedido = ef.pedido
+            contado = ef.contado
+            credito = ef.credito
+            transferencia = ef.transferencia
+
+            ReajustarMontos(pedido, contado, credito, transferencia)
+
+            cargarDetalleConciliacion()
+            _LimpiarLista()
+            'Colocar el total del contado en el tbdRecibido.Text
+            tbdRecibido.Text = Dgv_PedidoTotal.GetTotal(Dgv_PedidoTotal.RootTable.Columns("contado"), AggregateFunction.Sum)
+        End If
+    End Sub
+
+    Private Sub ButtonX1_Click(sender As Object, e As EventArgs) Handles ButtonX1.Click
+        If (TbCodigo.Text.Trim <> String.Empty) Then
+            P_GenerarReporteNuevo2()
+        End If
     End Sub
 End Class

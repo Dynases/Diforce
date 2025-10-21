@@ -339,6 +339,23 @@ Public Class F0G_MovimientoChoferEntrada
             tbChofer.Focus()
             Return False
         End If
+        Dim dt As DataTable = TraerPedidosEntregados(CInt(lbcodigo.Text))
+        If dt.Rows.Count > 0 Then
+
+        Else
+            Dim info As New TaskDialogInfo("¿Desea cerrar la conciliacion?".ToUpper,
+                                       eTaskDialogIcon.Information, "pregunta".ToUpper,
+                                       "No existen pedidos entregados de esta salida".ToUpper _
+                                       + vbCrLf + "Desea continuar?".ToUpper,
+                                       eTaskDialogButton.Yes Or eTaskDialogButton.Cancel,
+                                       eTaskDialogBackgroundColor.Blue)
+            Dim result As eTaskDialogResult = TaskDialog.Show(info)
+            If result = eTaskDialogResult.Yes Then
+            Else
+                Return False
+            End If
+
+        End If
         Return True
     End Function
 

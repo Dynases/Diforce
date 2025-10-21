@@ -73,7 +73,7 @@ Public Class F01_ReporteVentaAdmin
     End Sub
     Private Sub P_prArmarComboRepartidor()
         Dim DtP As DataTable
-        DtP = L_fnObtenerPersonal(3)
+        DtP = L_fnObtenerPersonal(1)
         DtP.Rows.Add(0, "TODOS")
 
         g_prArmarCombo(cbRepartidor, DtP, 60, 200, "COD", "REPARTIDORES")
@@ -82,7 +82,7 @@ Public Class F01_ReporteVentaAdmin
     End Sub
     Private Sub P_prArmarComboVendedores()
         Dim DtP As DataTable
-        DtP = L_fnObtenerPersonal(1)
+        DtP = L_fnObtenerPersonal(3)
         DtP.Rows.Add(0, "TODOS")
 
         g_prArmarCombo(cbVendedor, DtP, 60, 200, "COD", "VENDEDORES")
@@ -316,7 +316,7 @@ Public Class F01_ReporteVentaAdmin
         'Dim dt As DataTable = L_fnReporteVentaAdminEstructura()
         ''ConstruirTabla(dt)
         '  Filtrar(dt)
-        Dim dt As DataTable = L_fnReporteVentaAdmin(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbEstado.Value)
+        Dim dt As DataTable = L_fnReporteVentaAdmin(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbEstado.Value, cbRepartidor.Value, cbVendedor.Value, cbClientes.Value)
         If (dt.Rows.Count > 0) Then
             grDatos.DataSource = dt
             grDatos.RetrieveStructure()

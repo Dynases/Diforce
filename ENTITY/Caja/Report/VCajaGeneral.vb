@@ -88,6 +88,16 @@
         End Set
     End Property
 
+    Private _Gastos As Decimal
+    Public Property Gastos() As Decimal
+        Get
+            Return _Gastos
+        End Get
+        Set(ByVal value As Decimal)
+            _Gastos = value
+        End Set
+    End Property
+
     Private _TotalGeneral As Decimal
     Public Property TotalGeneral() As Decimal
         Get

@@ -161,6 +161,11 @@ Public Class Dashboard
         Else
             dt = TraerKPI21(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
         End If
+
+        panel.Rows.Clear()
+        panel.Columns.Clear()
+        panel.DataSource = Nothing
+
         panel.DataSource = dt
         'AplicarFiltroColor2()
 

@@ -334,6 +334,10 @@ Partial Class F02_PedidoNuevo
         Me.MBtPrimero.Margin = New System.Windows.Forms.Padding(4)
         Me.MBtPrimero.Size = New System.Drawing.Size(43, 29)
         '
+        'MPanelToolBarAccion
+        '
+        Me.MPanelToolBarAccion.Size = New System.Drawing.Size(375, 70)
+        '
         'MBtSalir
         '
         '
@@ -910,14 +914,12 @@ Partial Class F02_PedidoNuevo
         '
         'tbCodCliente
         '
-        Me.tbCodCliente.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.tbCodCliente.Border.Class = "TextBoxBorder"
         Me.tbCodCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodCliente.DisabledBackColor = System.Drawing.Color.White
-        Me.tbCodCliente.ForeColor = System.Drawing.Color.Black
         Me.tbCodCliente.Location = New System.Drawing.Point(3, 61)
         Me.tbCodCliente.Name = "tbCodCliente"
         Me.tbCodCliente.PreventEnterBeep = True
@@ -938,14 +940,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_CliEstado
         '
-        Me.Tb_CliEstado.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_CliEstado.Border.Class = "TextBoxBorder"
         Me.Tb_CliEstado.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_CliEstado.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_CliEstado.ForeColor = System.Drawing.Color.Black
         Me.Tb_CliEstado.Location = New System.Drawing.Point(641, 45)
         Me.Tb_CliEstado.Name = "Tb_CliEstado"
         Me.Tb_CliEstado.PreventEnterBeep = True
@@ -955,14 +955,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_CliCod
         '
-        Me.Tb_CliCod.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_CliCod.Border.Class = "TextBoxBorder"
         Me.Tb_CliCod.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_CliCod.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_CliCod.ForeColor = System.Drawing.Color.Black
         Me.Tb_CliCod.Location = New System.Drawing.Point(3, 19)
         Me.Tb_CliCod.Name = "Tb_CliCod"
         Me.Tb_CliCod.PreventEnterBeep = True
@@ -971,14 +969,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_CliTelef
         '
-        Me.Tb_CliTelef.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_CliTelef.Border.Class = "TextBoxBorder"
         Me.Tb_CliTelef.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_CliTelef.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_CliTelef.ForeColor = System.Drawing.Color.Black
         Me.Tb_CliTelef.Location = New System.Drawing.Point(641, 19)
         Me.Tb_CliTelef.Name = "Tb_CliTelef"
         Me.Tb_CliTelef.PreventEnterBeep = True
@@ -1011,14 +1007,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_CliNombre
         '
-        Me.Tb_CliNombre.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_CliNombre.Border.Class = "TextBoxBorder"
         Me.Tb_CliNombre.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_CliNombre.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_CliNombre.ForeColor = System.Drawing.Color.Black
         Me.Tb_CliNombre.Location = New System.Drawing.Point(109, 19)
         Me.Tb_CliNombre.Multiline = True
         Me.Tb_CliNombre.Name = "Tb_CliNombre"
@@ -1028,14 +1022,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_CliDireccion
         '
-        Me.Tb_CliDireccion.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_CliDireccion.Border.Class = "TextBoxBorder"
         Me.Tb_CliDireccion.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_CliDireccion.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_CliDireccion.ForeColor = System.Drawing.Color.Black
         Me.Tb_CliDireccion.Location = New System.Drawing.Point(330, 19)
         Me.Tb_CliDireccion.Multiline = True
         Me.Tb_CliDireccion.Name = "Tb_CliDireccion"
@@ -1194,6 +1186,7 @@ Partial Class F02_PedidoNuevo
         '
         Me.tbMontoCredito.Border.Class = "TextBoxBorder"
         Me.tbMontoCredito.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbMontoCredito.DisabledBackColor = System.Drawing.Color.White
         Me.tbMontoCredito.Location = New System.Drawing.Point(768, 26)
         Me.tbMontoCredito.Name = "tbMontoCredito"
         Me.tbMontoCredito.PreventEnterBeep = True
@@ -1310,14 +1303,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_CliCateg
         '
-        Me.Tb_CliCateg.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_CliCateg.Border.Class = "TextBoxBorder"
         Me.Tb_CliCateg.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_CliCateg.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_CliCateg.ForeColor = System.Drawing.Color.Black
         Me.Tb_CliCateg.Location = New System.Drawing.Point(3, 79)
         Me.Tb_CliCateg.Name = "Tb_CliCateg"
         Me.Tb_CliCateg.PreventEnterBeep = True
@@ -1327,13 +1318,11 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_CliCodZona
         '
-        Me.Tb_CliCodZona.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_CliCodZona.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_CliCodZona.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_CliCodZona.ForeColor = System.Drawing.Color.Black
         Me.Tb_CliCodZona.Location = New System.Drawing.Point(292, 111)
         Me.Tb_CliCodZona.Multiline = True
         Me.Tb_CliCodZona.Name = "Tb_CliCodZona"
@@ -1356,14 +1345,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_Observaciones
         '
-        Me.Tb_Observaciones.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_Observaciones.Border.Class = "TextBoxBorder"
         Me.Tb_Observaciones.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_Observaciones.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_Observaciones.ForeColor = System.Drawing.Color.Black
         Me.Tb_Observaciones.Location = New System.Drawing.Point(128, 53)
         Me.Tb_Observaciones.MaxLength = 100
         Me.Tb_Observaciones.Multiline = True
@@ -1374,14 +1361,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_Zona
         '
-        Me.Tb_Zona.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_Zona.Border.Class = "TextBoxBorder"
         Me.Tb_Zona.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_Zona.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_Zona.ForeColor = System.Drawing.Color.Black
         Me.Tb_Zona.Location = New System.Drawing.Point(459, 27)
         Me.Tb_Zona.Name = "Tb_Zona"
         Me.Tb_Zona.PreventEnterBeep = True
@@ -1402,14 +1387,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_Hora
         '
-        Me.Tb_Hora.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_Hora.Border.Class = "TextBoxBorder"
         Me.Tb_Hora.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_Hora.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_Hora.ForeColor = System.Drawing.Color.Black
         Me.Tb_Hora.Location = New System.Drawing.Point(304, 26)
         Me.Tb_Hora.Name = "Tb_Hora"
         Me.Tb_Hora.PreventEnterBeep = True
@@ -1462,14 +1445,12 @@ Partial Class F02_PedidoNuevo
         '
         'Tb_Id
         '
-        Me.Tb_Id.BackColor = System.Drawing.Color.White
         '
         '
         '
         Me.Tb_Id.Border.Class = "TextBoxBorder"
         Me.Tb_Id.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.Tb_Id.DisabledBackColor = System.Drawing.Color.White
-        Me.Tb_Id.ForeColor = System.Drawing.Color.Black
         Me.Tb_Id.Location = New System.Drawing.Point(103, 0)
         Me.Tb_Id.Name = "Tb_Id"
         Me.Tb_Id.PreventEnterBeep = True
@@ -1579,6 +1560,7 @@ Partial Class F02_PedidoNuevo
         '
         Me.Tb_CantProd.Border.Class = "TextBoxBorder"
         Me.Tb_CantProd.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Tb_CantProd.DisabledBackColor = System.Drawing.Color.White
         Me.Tb_CantProd.Location = New System.Drawing.Point(72, 443)
         Me.Tb_CantProd.Name = "Tb_CantProd"
         Me.Tb_CantProd.PreventEnterBeep = True
@@ -1919,6 +1901,7 @@ Partial Class F02_PedidoNuevo
         '
         Me.Tb_DireccionDetalle.Border.Class = "TextBoxBorder"
         Me.Tb_DireccionDetalle.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Tb_DireccionDetalle.DisabledBackColor = System.Drawing.Color.White
         Me.Tb_DireccionDetalle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Tb_DireccionDetalle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Tb_DireccionDetalle.Location = New System.Drawing.Point(0, 0)
@@ -2000,6 +1983,7 @@ Partial Class F02_PedidoNuevo
         '
         Me.Tb_Obs2.Border.Class = "TextBoxBorder"
         Me.Tb_Obs2.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Tb_Obs2.DisabledBackColor = System.Drawing.Color.White
         Me.Tb_Obs2.Location = New System.Drawing.Point(4, 80)
         Me.Tb_Obs2.Multiline = True
         Me.Tb_Obs2.Name = "Tb_Obs2"
@@ -2015,6 +1999,7 @@ Partial Class F02_PedidoNuevo
         '
         Me.Tb_Obs.Border.Class = "TextBoxBorder"
         Me.Tb_Obs.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.Tb_Obs.DisabledBackColor = System.Drawing.Color.White
         Me.Tb_Obs.Location = New System.Drawing.Point(4, 23)
         Me.Tb_Obs.Multiline = True
         Me.Tb_Obs.Name = "Tb_Obs"

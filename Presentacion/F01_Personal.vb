@@ -810,6 +810,32 @@ Public Class F01_Personal
 
     End Sub
 
+    Private Sub cbSucursal_ValueChanged(sender As Object, e As EventArgs) Handles cbSucursal.ValueChanged
+        If MBtNuevo.Enabled = False Then
+            Dim dt As DataTable = VerificarCamionRepartidor(Dgj1Busqueda.GetValue("cbnumi"))
+            If dt.Rows.Count > 0 Then
+                cbSucursal.Value = Dgj1Busqueda.GetValue("cbAlmacen")
+                ToastNotification.Show(Me, "El almacen no puede cambiarse porque el chofer se encuentra en una salida vigente".ToUpper,
+                           My.Resources.WARNING,
+                           Duracion * 1000,
+                           eToastGlowColor.Red,
+                           eToastPosition.TopCenter)
+            Else
+                Dim dt2 As DataTable = VerificarCamionRepartidor2(Dgj1Busqueda.GetValue("cbnumi"), cbSucursal.Value)
+                If dt2.Rows.Count > 0 Then
+
+                    ToastNotification.Show(Me, "El almacen no puede cambiarse a ".ToUpper + cbSucursal.Text + "  porque otro chofer esta usando ese almacen".ToUpper,
+                               My.Resources.WARNING,
+                               Duracion * 1000,
+                               eToastGlowColor.Red,
+                               eToastPosition.TopCenter)
+                    cbSucursal.Value = Dgj1Busqueda.GetValue("cbAlmacen")
+                End If
+            End If
+        End If
+
+    End Sub
+
 #End Region
 
 End Class

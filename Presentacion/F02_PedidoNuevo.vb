@@ -425,6 +425,16 @@ Public Class F02_PedidoNuevo
         End With
         With JGr_DetallePedido.RootTable.Columns(8)
             .Visible = True
+            .Caption = "Porcentaje"
+            .Key = "Porcentaje"
+            .Width = 90
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .CellStyle.FontSize = gi_fuenteTamano
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .FormatString = "0.00"
+        End With
+        With JGr_DetallePedido.RootTable.Columns(9)
+            .Visible = True
             .Caption = "Descuento"
             .Key = "Descuento"
             .Width = 90
@@ -433,7 +443,7 @@ Public Class F02_PedidoNuevo
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             .FormatString = "0.00"
         End With
-        With JGr_DetallePedido.RootTable.Columns(9)
+        With JGr_DetallePedido.RootTable.Columns(10)
             .Visible = True
             .Caption = "Total " + gs_Mon
             .Key = "Total"
@@ -444,22 +454,22 @@ Public Class F02_PedidoNuevo
             .FormatString = "0.00"
             .AggregateFunction = AggregateFunction.Sum
         End With
-        With JGr_DetallePedido.RootTable.Columns(10)
+        With JGr_DetallePedido.RootTable.Columns(11)
             .Caption = "Familia"
             .Key = "Familia"
             .Visible = False
         End With
-        With JGr_DetallePedido.RootTable.Columns(11)
+        With JGr_DetallePedido.RootTable.Columns(12)
             .Caption = "Atributo"
             .Key = "Atributo"
             .Visible = False
         End With
-        With JGr_DetallePedido.RootTable.Columns(12)
+        With JGr_DetallePedido.RootTable.Columns(13)
             .Caption = "Stock"
             .Key = "Stock"
             .Visible = False
         End With
-        With JGr_DetallePedido.RootTable.Columns(13)
+        With JGr_DetallePedido.RootTable.Columns(14)
             .Caption = "caconv"
             .Key = "caconv"
             .Visible = False
@@ -1530,6 +1540,17 @@ Public Class F02_PedidoNuevo
                     sumTotal = sumTotal + dt.Rows(i).Item("obtotal")
                 End If
             Next
+            For i = 0 To dt.Rows.Count - 1
+                If dt.Rows(i).Item("obpcant").ToString <> String.Empty Then
+                    Dim res As Boolean = validarStockProducto(dt.Rows(i).Item("obcprod"), dt.Rows(i).Item("obpcant"))
+                    If res = False Then
+                        ToastNotification.Show(Me, "No existe stock disponible para el producto: " + dt.Rows(i).Item("cadesc").ToUpper, My.Resources.WARNING, 5500, eToastGlowColor.Green, eToastPosition.TopCenter)
+                        _Error = True
+                    End If
+                Else
+
+                End If
+            Next
             sumTotal = Math.Round(sumTotal, 2)
             If (swTipoVenta.Value = False) Then
                 If (tbMontoCredito.Text.Length > 0) Then
@@ -1587,13 +1608,13 @@ Public Class F02_PedidoNuevo
                 End If
             End If
 
-
+            '-----------------HABILITAR SOLO PARA DESCUENTO POR VOLUMEN-------------------------------
             If (_BanderaDescuentos = False) Then
                 ToastNotification.Show(Me, "Se modificó cantidad y/o precio, por favor vuelva a presione el botón aplicar descuentos".ToUpper, My.Resources.WARNING, 5500, eToastGlowColor.Green, eToastPosition.BottomCenter)
                 _Error = True
 
             End If
-
+            '------------------------------------------------------------------------------------------------
 
             Return _Error
         Catch ex As Exception
@@ -1605,7 +1626,7 @@ Public Class F02_PedidoNuevo
 
     Private Sub _PGrabarRegistro()
         Try
-            btAplicarDesc.PerformClick()
+            'btAplicarDesc.PerformClick()
             Dim _Error As Boolean = False
             If _PValidar() Then
                 Exit Sub
@@ -1665,7 +1686,7 @@ Public Class F02_PedidoNuevo
                 L_GrabarModificarCliente("cczona=" + Tb_CliCodZona.Text, "ccnumi=" + Str(Tb_CliCod.Text))
 
                 'grabar detalle
-                Dim codProd, cant, precio, subTotal, desc, total, flia, atributo As String
+                Dim codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc As String
                 Dim i As Integer
                 For i = 0 To JGr_DetallePedido.RowCount - 1
                     JGr_DetallePedido.Row = i
@@ -1677,8 +1698,10 @@ Public Class F02_PedidoNuevo
                     total = JGr_DetallePedido.CurrentRow.Cells("Total").Value
                     flia = JGr_DetallePedido.CurrentRow.Cells("Familia").Value
                     atributo = JGr_DetallePedido.CurrentRow.Cells("Atributo").Value
+                    descporc = JGr_DetallePedido.CurrentRow.Cells("Porcentaje").Value
 
-                    L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo)
+
+                    L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc)
 
                     'adiciono un objeto detalle
                     objListDetalle.Add(New RequestDetail(Tb_Id.Text, codProd, cant, precio, subTotal, L_ClaseGetProducto(codProd))) 'webLuis
@@ -1788,7 +1811,7 @@ Public Class F02_PedidoNuevo
 
                 'modificar detalle
                 L_PedidoDetalle_Borrar(Tb_Id.Text)
-                Dim codProd, cant, precio, subTotal, desc, total, flia, atributo As String
+                Dim codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc As String
                 Dim i As Integer
                 For i = 0 To JGr_DetallePedido.RowCount - 1
                     JGr_DetallePedido.Row = i
@@ -1800,8 +1823,8 @@ Public Class F02_PedidoNuevo
                     total = JGr_DetallePedido.CurrentRow.Cells("Total").Value
                     flia = JGr_DetallePedido.CurrentRow.Cells("Familia").Value
                     atributo = JGr_DetallePedido.CurrentRow.Cells("Atributo").Value
-
-                    L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo)
+                    descporc = JGr_DetallePedido.CurrentRow.Cells("Porcentaje").Value
+                    L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc)
                 Next
                 If (swTipoVenta.Value = False) Then  ''''Grabar Credito
                     L_prCajaGrabarCredito(Tb_Id.Text, Double.Parse(tbMontoCredito.Text))
@@ -1857,6 +1880,9 @@ Public Class F02_PedidoNuevo
                     Dim idChofer As String = L_fnObtenerDatoTabla("TO001C", "oaccbnumi", "oacoanumi=" + Tb_Id.Text.Trim)
                     If idChofer <> String.Empty Then
                         frmBillingDispatch.P_prImprimirNotaVenta(Tb_Id.Text.Trim, True, True, idChofer, cbPreVendedor.Text)
+                    Else
+
+                        'frmBillingDispatch.P_prImprimirNotaVenta(Tb_Id.Text.Trim, True, True, 4, cbPreVendedor.Text)
                     End If
 
                 End If
@@ -2255,7 +2281,7 @@ Public Class F02_PedidoNuevo
             L_PedidoCabecera_Grabar(idPedido, fecha, Now.Hour.ToString + ":" + Now.Minute.ToString, Tb_CliCod.Text, Tb_CliCodZona.Text, cbDistribuidor.Value.ToString, Tb_Observaciones.Text, "1", "1", "1")
 
             'grabar detalle
-            Dim codProd, cant, precio, subTotal, desc, total, flia, atributo As String
+            Dim codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc As String
             For i = 0 To JGr_DetallePedido.RowCount - 1
                 JGr_DetallePedido.Row = i
                 codProd = JGr_DetallePedido.CurrentRow.Cells("CodProd").Value
@@ -2266,8 +2292,9 @@ Public Class F02_PedidoNuevo
                 total = JGr_DetallePedido.CurrentRow.Cells("Total").Value
                 flia = JGr_DetallePedido.CurrentRow.Cells("Familia").Value
                 atributo = JGr_DetallePedido.CurrentRow.Cells("Atributo").Value
+                descporc = (JGr_DetallePedido.CurrentRow.Cells("Descuento").Value * 100 / JGr_DetallePedido.CurrentRow.Cells("Monto").Value).ToString
 
-                L_PedidoDetalle_GrabarNuevo(idPedido, codProd, cant, precio, subTotal, desc, total, flia, atributo)
+                L_PedidoDetalle_GrabarNuevo(idPedido, codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc)
             Next
             'grabar estado del pedido
             L_PedidoEstados_Grabar(idPedido, "11", Date.Now.Date.ToString("yyyy/MM/dd"), Now.Hour.ToString + ":" + Now.Minute.ToString, gs_user)
@@ -2427,10 +2454,11 @@ Public Class F02_PedidoNuevo
                         nuevaFila(3) = descrip
                         nuevaFila(6) = precio
                         nuevaFila(8) = 0
-                        nuevaFila(10) = familia
-                        nuevaFila(11) = atributo
-                        nuevaFila(12) = stock
-                        nuevaFila(13) = caconv
+                        nuevaFila(9) = 0
+                        nuevaFila(11) = familia
+                        nuevaFila(12) = atributo
+                        nuevaFila(13) = stock
+                        nuevaFila(14) = caconv
 
                         CType(JGr_DetallePedido.DataSource, DataTable).Rows.Add(nuevaFila)
 
@@ -2490,7 +2518,7 @@ Public Class F02_PedidoNuevo
     Private Sub JGr_DetallePedido_EditingCell(sender As Object, e As EditingCellEventArgs) Handles JGr_DetallePedido.EditingCell
         If (_fnAccesible()) Then
             If gi_userRol = 1 Then
-                If e.Column.Index = JGr_DetallePedido.RootTable.Columns("Cantidad").Index Or e.Column.Index = JGr_DetallePedido.RootTable.Columns("Precio").Index Or e.Column.Index = JGr_DetallePedido.RootTable.Columns("Descuento").Index Or e.Column.Index = JGr_DetallePedido.RootTable.Columns("Cajas").Index Then
+                If e.Column.Index = JGr_DetallePedido.RootTable.Columns("Cantidad").Index Or e.Column.Index = JGr_DetallePedido.RootTable.Columns("Precio").Index Or e.Column.Index = JGr_DetallePedido.RootTable.Columns("Porcentaje").Index Or e.Column.Index = JGr_DetallePedido.RootTable.Columns("Cajas").Index Then
                     e.Cancel = False
                 Else
                     e.Cancel = True
@@ -3121,7 +3149,7 @@ Public Class F02_PedidoNuevo
             L_GrabarModificarCliente("cczona=" + Tb_CliCodZona.Text, "ccnumi=" + Str(Tb_CliCod.Text))
 
             'grabar detalle
-            Dim codProd, cant, precio, subTotal, desc, total, flia, atributo As String
+            Dim codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc As String
             Dim i As Integer
             For i = 0 To JGr_DetallePedido.RowCount - 1
                 JGr_DetallePedido.Row = i
@@ -3133,8 +3161,9 @@ Public Class F02_PedidoNuevo
                 total = JGr_DetallePedido.CurrentRow.Cells("Total").Value
                 flia = JGr_DetallePedido.CurrentRow.Cells("Familia").Value
                 atributo = JGr_DetallePedido.CurrentRow.Cells("Atributo").Value
+                descporc = JGr_DetallePedido.CurrentRow.Cells("Porcentaje").Value
 
-                L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo)
+                L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc)
 
                 'adiciono un objeto detalle
                 objListDetalle.Add(New RequestDetail(Tb_Id.Text, codProd, cant, precio, subTotal, L_ClaseGetProducto(codProd))) 'webLuis
@@ -3599,7 +3628,7 @@ Public Class F02_PedidoNuevo
                     JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
                     JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value - JGr_DetallePedido.GetValue("Descuento")
                 Else
-                    If (JGr_DetallePedido.GetValue("Cantidad") > 0) Then
+                    If (JGr_DetallePedido.GetValue("Cantidad") > 0 And JGr_DetallePedido.GetValue("Cantidad") < JGr_DetallePedido.GetValue("Stock")) Then
                         Dim cantidad, precio, descuento, conv As Double
                         Dim atributo As Integer
                         cantidad = JGr_DetallePedido.GetValue("Cantidad")
@@ -3622,7 +3651,9 @@ Public Class F02_PedidoNuevo
                         JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value = 1
                         JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
                         JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
-
+                        ToastNotification.Show(Me, "El stock actual del producto es " + JGr_DetallePedido.GetValue("Stock").ToString.ToUpper,
+                                       My.Resources.WARNING, 5 * 1000,
+                                       eToastGlowColor.Blue, eToastPosition.BottomCenter)
 
                     End If
                 End If
@@ -3635,43 +3666,54 @@ Public Class F02_PedidoNuevo
                     JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
                     JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value - JGr_DetallePedido.GetValue("Descuento")
                     JGr_DetallePedido.CurrentRow.Cells("Cajas").Value = 1
-                    JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
-                    JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
+                    JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value * JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value
+                    JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value * JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value - JGr_DetallePedido.CurrentRow.Cells("Descuento").Value
                 Else
-                    Dim cantidad, precio, descuento, conv, caja As Double
-                    Dim atributo As Integer
+                    If (JGr_DetallePedido.GetValue("Cajas") > 0 And (JGr_DetallePedido.GetValue("Cajas") * JGr_DetallePedido.GetValue("caconv")) <= JGr_DetallePedido.GetValue("Stock")) Then
+                        Dim cantidad, precio, descuento, conv, caja As Double
+                        Dim atributo As Integer
 
 
-                    conv = JGr_DetallePedido.GetValue("caconv")
-                    precio = JGr_DetallePedido.GetValue("Precio")
-                    atributo = JGr_DetallePedido.GetValue("Atributo")
-                    descuento = JGr_DetallePedido.GetValue("Descuento")
-                    caja = JGr_DetallePedido.GetValue("Cajas")
-                    JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value = caja * conv
-                    JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value * JGr_DetallePedido.CurrentRow.Cells("Precio").Value
-                    JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value - descuento
+                        conv = JGr_DetallePedido.GetValue("caconv")
+                        precio = JGr_DetallePedido.GetValue("Precio")
+                        atributo = JGr_DetallePedido.GetValue("Atributo")
+                        descuento = JGr_DetallePedido.GetValue("Descuento")
+                        caja = JGr_DetallePedido.GetValue("Cajas")
+                        JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value = caja * conv
+                        JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value * JGr_DetallePedido.CurrentRow.Cells("Precio").Value
+                        JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value * JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value - descuento
+                    Else
+                        JGr_DetallePedido.CurrentRow.Cells("Cantidad").Value = 1
+                        JGr_DetallePedido.CurrentRow.Cells("Cajas").Value = 1
+                        JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
+                        JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
+                        ToastNotification.Show(Me, "El stock actual del producto es " + JGr_DetallePedido.GetValue("Stock").ToString.ToUpper,
+                                       My.Resources.WARNING, 5 * 1000,
+                                       eToastGlowColor.Blue, eToastPosition.BottomCenter)
+
+                    End If
 
                 End If
             End If
 
 
             ''''''''''''''''''''MONTO DE DESCUENTO '''''''''''''''''''''
-            If (e.Column.Index = JGr_DetallePedido.RootTable.Columns("Descuento").Index) Then
-                If (Not IsNumeric(JGr_DetallePedido.GetValue("Descuento")) Or JGr_DetallePedido.GetValue("Descuento").ToString = String.Empty) Then
+            If (e.Column.Index = JGr_DetallePedido.RootTable.Columns("Porcentaje").Index) Then
+                If (Not IsNumeric(JGr_DetallePedido.GetValue("Porcentaje")) Or JGr_DetallePedido.GetValue("Porcentaje").ToString = String.Empty) Then
 
-                    JGr_DetallePedido.CurrentRow.Cells("Descuento").Value = 0
+                    JGr_DetallePedido.CurrentRow.Cells("Porcentaje").Value = 0
                     JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Monto").Value
 
                 Else
-                    If (JGr_DetallePedido.GetValue("Descuento") >= 0 And JGr_DetallePedido.GetValue("Descuento") <= JGr_DetallePedido.GetValue("Monto")) Then
+                    If (JGr_DetallePedido.GetValue("Porcentaje") >= 0 And JGr_DetallePedido.GetValue("Porcentaje") <= 100) Then 'JGr_DetallePedido.GetValue("Monto")) Then
 
-                        Dim montodesc As Double = JGr_DetallePedido.GetValue("Descuento")
+                        Dim montodesc As Double = JGr_DetallePedido.GetValue("Porcentaje") * JGr_DetallePedido.GetValue("Monto") / 100
 
                         JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.GetValue("Monto") - montodesc
-
+                        JGr_DetallePedido.CurrentRow.Cells("Descuento").Value = montodesc
                         _BanderaDescuentos = True
                     Else
-
+                        JGr_DetallePedido.CurrentRow.Cells("Porcentaje").Value = 0
                         JGr_DetallePedido.CurrentRow.Cells("Descuento").Value = 0
                         JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Monto").Value
 
@@ -3707,11 +3749,11 @@ Public Class F02_PedidoNuevo
     End Sub
 
     Private Sub MBtImprimir_Click(sender As Object, e As EventArgs) Handles MBtImprimir.Click
-        'Dim idChofer As String = L_fnObtenerDatoTabla("TO001C", "oaccbnumi", "oacoanumi=" + Tb_Id.Text.Trim)
-        'If idChofer <> String.Empty Then
-        'frmBillingDispatch.P_prImprimirNotaVenta(Tb_Id.Text.Trim, True, True, idChofer, cbPreVendedor.Text)
-        'End If
-        P_prImprimirNotaVenta(Tb_Id.Text, False, False)
+        Dim idChofer As String = L_fnObtenerDatoTabla("TO001C", "oaccbnumi", "oacoanumi=" + Tb_Id.Text.Trim)
+        If idChofer <> String.Empty Then
+            frmBillingDispatch.P_prImprimirNotaVenta(Tb_Id.Text.Trim, True, True, idChofer, cbPreVendedor.Text)
+        End If
+        'P_prImprimirNotaVenta(Tb_Id.Text, False, False)
     End Sub
 
     Private Sub P_prImprimirNotaVenta(idPedido As String, impFactura As Boolean, grabarPDF As Boolean)

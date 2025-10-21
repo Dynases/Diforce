@@ -21,6 +21,14 @@ Public Class Efecto
     Public email As String
     Public tipoDoc As Integer
 
+    Public cliente2 As String
+    Public pedido As Integer
+    Public contado As Double
+    Public credito As Double
+    Public transferencia As Double
+    Public total As Double
+
+
     Private Sub Efecto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
 
@@ -35,6 +43,8 @@ Public Class Efecto
                 _prLogin()
             Case 5
                 _prDatosFactura()
+            Case 6
+                _prDatosMontosPedido()
         End Select
     End Sub
     Public Sub _prLogin()
@@ -107,6 +117,33 @@ Public Class Efecto
             razonsocial = frmAyuda.razonsocial
             email = frmAyuda.email
             tipoDoc = frmAyuda.tipoDoc
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
+    End Sub
+
+    Sub _prDatosMontosPedido()
+
+        Dim frmAyuda As F1_MontosPedido
+        frmAyuda = New F1_MontosPedido
+        frmAyuda.cliente = cliente2
+        frmAyuda.pedido = pedido
+        frmAyuda.contado = contado
+        frmAyuda.credito = credito
+        frmAyuda.transferencia = transferencia
+        frmAyuda.total = total
+        'frmAyuda.Cantidad = 1
+        frmAyuda.ShowDialog()
+
+        If frmAyuda.bandera = True Then
+
+            pedido = frmAyuda.pedido
+            contado = frmAyuda.contado
+            credito = frmAyuda.credito
+            transferencia = frmAyuda.transferencia
             band = True
             Me.Close()
         Else

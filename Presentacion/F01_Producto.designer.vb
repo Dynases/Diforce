@@ -1369,8 +1369,8 @@ Partial Class F01_Producto
         '
         Me.tbCodBarra.Border.Class = "TextBoxBorder"
         Me.tbCodBarra.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodBarra.DisabledBackColor = System.Drawing.Color.White
         Me.tbCodBarra.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbCodBarra.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.tbCodBarra.Location = New System.Drawing.Point(109, 30)
         Me.tbCodBarra.MaxLength = 15
         Me.tbCodBarra.Name = "tbCodBarra"
@@ -1385,6 +1385,7 @@ Partial Class F01_Producto
         '
         Me.TbCodFlex.Border.Class = "TextBoxBorder"
         Me.TbCodFlex.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbCodFlex.DisabledBackColor = System.Drawing.Color.White
         Me.TbCodFlex.Location = New System.Drawing.Point(309, 3)
         Me.TbCodFlex.MaxLength = 10
         Me.TbCodFlex.Name = "TbCodFlex"
@@ -1467,6 +1468,7 @@ Partial Class F01_Producto
         '
         Me.TbNombreCorto.Border.Class = "TextBoxBorder"
         Me.TbNombreCorto.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbNombreCorto.DisabledBackColor = System.Drawing.Color.White
         Me.TbNombreCorto.Location = New System.Drawing.Point(109, 102)
         Me.TbNombreCorto.MaxLength = 100
         Me.TbNombreCorto.Multiline = True
@@ -1493,6 +1495,7 @@ Partial Class F01_Producto
         '
         Me.TbNombre.Border.Class = "TextBoxBorder"
         Me.TbNombre.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbNombre.DisabledBackColor = System.Drawing.Color.White
         Me.TbNombre.Location = New System.Drawing.Point(109, 55)
         Me.TbNombre.MaxLength = 100
         Me.TbNombre.Multiline = True
@@ -1507,6 +1510,7 @@ Partial Class F01_Producto
         '
         Me.TbCodigo.Border.Class = "TextBoxBorder"
         Me.TbCodigo.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.TbCodigo.DisabledBackColor = System.Drawing.Color.White
         Me.TbCodigo.Location = New System.Drawing.Point(109, 3)
         Me.TbCodigo.Name = "TbCodigo"
         Me.TbCodigo.Size = New System.Drawing.Size(100, 23)

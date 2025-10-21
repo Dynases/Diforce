@@ -55,7 +55,7 @@ Public Class P_Principal
             L_prAbrirConexion(gs_Ip2, gs_UsuarioSql2, gs_ClaveSql2, gs_NombreBD)
         End Try
 
-        If banderaPil Then
+        If gs_supervisor = False Then
             actualizarConexion(1)
             EmpresaSeleccion()
         Else
@@ -90,10 +90,10 @@ Public Class P_Principal
         Next
         Dim dt As DataTable = TraerDatosConexion(gs_NombreBD1, Equipo, Usuario, ipLocal, serial)
         If dt.Rows.Count = 0 Then
-            gs_Ip = "HP" 'dt.Rows(0).Item("serv")
+            gs_Ip = "HP" '"173.212.217.186" 'dt.Rows(0).Item("serv")
             gs_UsuarioSql = "sa" 'dt.Rows(0).Item("usuario")
-            gs_ClaveSql = "123" 'dt.Rows(0).Item("pass")
-            gs_NombreBD = "BDDistBHF_Eduardo" 'dt.Rows(0).Item("bd")
+            gs_ClaveSql = "123" '"Dynasys22*" 'dt.Rows(0).Item("pass") 
+            gs_NombreBD = "BDDistBHF_Arturo" '"BDDistBHF_Cristian" 'dt.Rows(0).Item("bd")
             gs_CarpetaRaiz = "C:/BD/" 'dt.Rows(0).Item("froot")
             gs_NombreBD2 = "" ''dt.Rows(0).Item("bd2")
             gs_NombreBD3 = "" ''dt.Rows(0).Item("bd3")
@@ -266,6 +266,8 @@ Public Class P_Principal
         gs_Ip2 = Archivo(10).Split("=")(1).Trim
         gs_UsuarioSql2 = Archivo(11).Split("=")(1).Trim
         gs_ClaveSql2 = Archivo(12).Split("=")(1).Trim
+        Dim sp As String = Archivo(13).Split("=")(1).Trim
+        gs_supervisor = IIf(sp = "sp", True, False)
         If tipoInicio = 1 Then
             NombreBaseDatos = gs_NombreBD
 
@@ -382,6 +384,8 @@ Public Class P_Principal
             Else
                 FP_CRM.Visible = False
             End If
+
+            FP_GERENCIA.Visible = True
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
         End Try
@@ -396,8 +400,10 @@ Public Class P_Principal
         listaTabs.Add(MetroTilePanelVenta)
         listaTabs.Add(MetroTilePanelInventario)
         listaTabs.Add(MetroTilePanelCRM)
+        listaTabs.Add(MetroTilePanelGerencia)
         listaTabs.Add(MetroTilePanelRRHH)
         listaTabs.Add(MetroTilePanelCompra)
+
 
 
         Dim idRolUsu As String = gi_userRol
@@ -975,7 +981,7 @@ Public Class P_Principal
 
 #Region "Venta"
 
-    Private Sub btVentVenta_Click(sender As Object, e As EventArgs) Handles btVentVenta.Click
+    Private Sub btVentVenta_Click(sender As Object, e As EventArgs)
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         F0G_VentaChoferConciliacion.AllowTransparency = True
@@ -992,7 +998,7 @@ Public Class P_Principal
         'tab3.Icon = frm.Icon
     End Sub
 
-    Private Sub btVentPago_Click(sender As Object, e As EventArgs) Handles btVentPago.Click
+    Private Sub btVentPago_Click(sender As Object, e As EventArgs)
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         F01_Pagos.AllowTransparency = True
@@ -1008,7 +1014,7 @@ Public Class P_Principal
         'tab3.Text = frm.Text
         'tab3.Icon = frm.Icon
     End Sub
-    Private Sub btVentas_Click(sender As Object, e As EventArgs) Handles btVentas.Click
+    Private Sub btVentas_Click(sender As Object, e As EventArgs)
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         F0_Ventas.AllowTransparency = True
@@ -1060,7 +1066,7 @@ Public Class P_Principal
         'tab3.Icon = frm.Icon
     End Sub
 
-    Private Sub btVentRepSaldoCreditoCliente_Click(sender As Object, e As EventArgs) Handles btVentRepSaldoCreditoCliente.Click
+    Private Sub btVentRepSaldoCreditoCliente_Click(sender As Object, e As EventArgs)
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         R01_saldoCreditoCliente.AllowTransparency = True
@@ -1351,7 +1357,7 @@ Public Class P_Principal
         'tab3.Text = frm.Text
     End Sub
 
-    Private Sub btVentIntegradorFletel_Click(sender As Object, e As EventArgs) Handles btVentIntegradorFletel.Click
+    Private Sub btVentIntegradorFletel_Click(sender As Object, e As EventArgs)
         SideNav1.IsMenuExpanded = False
         FP_Ventana.Select()
         Dim frm As New P_IntegradorFlextel
@@ -1367,7 +1373,7 @@ Public Class P_Principal
         tab3.Text = frm.Text
     End Sub
 
-    Private Sub btVentRepEstaClient_Click(sender As Object, e As EventArgs) Handles btVentRepEstaClient.Click
+    Private Sub btVentRepEstaClient_Click(sender As Object, e As EventArgs)
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         R01_EstadoCuentasCliente.AllowTransparency = True
@@ -1384,7 +1390,7 @@ Public Class P_Principal
         'tab3.Icon = frm.Icon
     End Sub
 
-    Private Sub btVentRepCuentaPorCobrar_Click(sender As Object, e As EventArgs) Handles btVentRepCuentaPorCobrar.Click
+    Private Sub btVentRepCuentaPorCobrar_Click(sender As Object, e As EventArgs)
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         R01_EstadoCuentasPorCobrar.AllowTransparency = True
@@ -1435,7 +1441,7 @@ Public Class P_Principal
         'tab3.Text = frm.Text
     End Sub
 
-    Private Sub btVentRepPrestamoVsVentas_Click(sender As Object, e As EventArgs) Handles btVentRepPrestamoVsVentas.Click
+    Private Sub btVentRepPrestamoVsVentas_Click(sender As Object, e As EventArgs)
         SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         R01_EquipoPrestadoVsVenta.AllowTransparency = True
@@ -1502,7 +1508,7 @@ Public Class P_Principal
 
     End Sub
 
-    Private Sub btNotaVenta_Click(sender As Object, e As EventArgs) Handles btNotaVenta.Click
+    Private Sub btNotaVenta_Click(sender As Object, e As EventArgs)
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         R01_NotaVenta.AllowTransparency = True
@@ -1558,7 +1564,7 @@ Public Class P_Principal
         R0_ReportePedidosCosto.AllowTransparency = True
         Dim frm As New R0_ReportePedidosCosto
         'Dim tab3 As SuperTabItem = superTabControlVentana.CreateTab(frm.Text)
-        frm._nameButton = btPediReporteUtilidades.Name
+        frm._nameButton = btPediReporteUtilidades1.Name
         'frm._tab = tab3
         frm._modulo = FP_Pedido
         'Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
@@ -1574,9 +1580,9 @@ Public Class P_Principal
         R0_UTilidadPorProducto.AllowTransparency = True
         Dim frm As New R0_UTilidadPorProducto
         'Dim tab3 As SuperTabItem = superTabControlVentana.CreateTab(frm.Text)
-        frm._nameButton = btPediReporteUtilidades.Name
+        frm._nameButton = btPediReporteUtilidadesPorProducto.Name
         'frm._tab = tab3
-        frm._modulo = FP_Pedido
+        frm._modulo = FP_GERENCIA
         'Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         'superTabControlVentana.SelectedTabIndex = superTabControlVentana.Tabs.Count - 1
         'tab3.AttachedControl.Controls.Add(panel)
@@ -1619,7 +1625,7 @@ Public Class P_Principal
         'tab3.Icon = frm.Icon
     End Sub
 
-    Private Sub btSaldoFisicoValorado_Click(sender As Object, e As EventArgs) Handles btSaldoFisicoValorado.Click
+    Private Sub btSaldoFisicoValorado_Click(sender As Object, e As EventArgs) Handles btSaldoFisicoValorado1.Click, btSaldoFisicoValorado.Click
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         R01_SaldoFisicoValorado.AllowTransparency = True
@@ -1793,7 +1799,7 @@ Public Class P_Principal
         'tab3.Icon = frm.Icon
     End Sub
 
-    Private Sub btnReporteComercial_Click(sender As Object, e As EventArgs) Handles btnReporteComercial.Click
+    Private Sub btnReporteComercial_Click(sender As Object, e As EventArgs)
         'SideNav1.IsMenuExpanded = False
         'FP_Ventana.Select()
         F0_PagosCreditoCompraUlt.AllowTransparency = True
@@ -1830,7 +1836,7 @@ Public Class P_Principal
     End Sub
 
     Private Sub btnVentaAdministrativa_Click(sender As Object, e As EventArgs) Handles btnVentaAdministrativa.Click
-        F0_PagosCreditoCompraUlt.AllowTransparency = True
+        F01_ReporteVentaAdmin.AllowTransparency = True
         Dim frm As New F01_ReporteVentaAdmin
         frm.Show()
     End Sub
@@ -1845,7 +1851,7 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
-    Private Sub btnVentaFacturacion_Click(sender As Object, e As EventArgs) Handles btnVentaFacturacion.Click
+    Private Sub btnVentaFacturacion_Click(sender As Object, e As EventArgs)
         F0_PagosCreditoCompraUlt.AllowTransparency = True
         Dim frm As New F01_ReporteFactura02
 
@@ -1894,7 +1900,7 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
-    Private Sub btEstadoCuentaCliente_Click(sender As Object, e As EventArgs) Handles btEstadoCuentaCliente.Click
+    Private Sub btEstadoCuentaCliente_Click(sender As Object, e As EventArgs)
         R01_EstadoCuentasClientes.AllowTransparency = True
         Dim frm As New R01_EstadoCuentasClientes
         frm._nameButton = btEstadoCuentaCliente.Name
@@ -1902,7 +1908,7 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
-    Private Sub btEstadoCuentasClientesTodos_Click(sender As Object, e As EventArgs) Handles btEstadoCuentasClientesTodos.Click
+    Private Sub btEstadoCuentasClientesTodos_Click(sender As Object, e As EventArgs)
         R01_EstadoCuentasClientesTodos.AllowTransparency = True
         Dim frm As New R01_EstadoCuentasClientesTodos
         frm._nameButton = btEstadoCuentasClientesTodos.Name
@@ -2015,7 +2021,7 @@ Public Class P_Principal
 
     End Sub
 
-    Private Sub btIngresosEgresos_Click(sender As Object, e As EventArgs) Handles btIngresosEgresos.Click
+    Private Sub btIngresosEgresos_Click(sender As Object, e As EventArgs)
         Dim frm As New F1_IngresosEgresos
         frm.Show()
     End Sub
@@ -2023,6 +2029,8 @@ Public Class P_Principal
 
     Private Sub btKPI_click(sender As Object, e As EventArgs) Handles btKPI.Click
         Dim frm As New Dashboard
+        frm._modulo = FP_CRM
+        frm._nameButton = btKPI.Name
         frm.Show()
 
     End Sub
@@ -2084,7 +2092,7 @@ Public Class P_Principal
         frm.Show()
     End Sub
 
-    Private Sub btVentRepProducto_CheckedChanged(sender As Object, e As EventArgs) Handles btVentRepProducto.CheckedChanged
+    Private Sub btVentRepProducto_CheckedChanged(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -2103,17 +2111,17 @@ Public Class P_Principal
 
     End Sub
 
-    Private Sub btVentaEfectivaCliente_Click(sender As Object, e As EventArgs) Handles btVentaEfectivaCliente.Click
+    Private Sub btVentaEfectivaCliente_Click(sender As Object, e As EventArgs) Handles btVentaEfectivaCliente1.Click
         Dim frm As New R01_VentaEfectivaCliente
         frm._modulo = FP_CRM
-        frm._nameButton = btVentaEfectivaCliente.Name
+        frm._nameButton = btVentaEfectivaCliente1.Name
         frm.Show()
     End Sub
 
-    Private Sub btVentaEfectivaProducto_Click(sender As Object, e As EventArgs) Handles btVentaEfectivaProducto.Click
+    Private Sub btVentaEfectivaProducto_Click(sender As Object, e As EventArgs) Handles btVentaEfectivaProducto2.Click
         Dim frm As New R01_VentaEfectivaProducto
         frm._modulo = FP_CRM
-        frm._nameButton = btVentaEfectivaProducto.Name
+        frm._nameButton = btVentaEfectivaProducto2.Name
         frm.Show()
     End Sub
 
@@ -2128,6 +2136,77 @@ Public Class P_Principal
         Dim frm As New R01_ReporteCobertura
         frm._nameButton = btReporteCobertura.Name
         frm._modulo = FP_CRM
+        frm.Show()
+    End Sub
+
+    Private Sub FP_GERENCIA_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btEfectividadVendedor_Click_1(sender As Object, e As EventArgs) Handles btEfectividadVendedor1.Click
+        Dim frm As New R01_EfectividadCliente
+        frm._nameButton = btReporteCobertura1.Name
+        frm._modulo = FP_GERENCIA
+        frm.Show()
+    End Sub
+
+    Private Sub btReporteCobertura_Click_1(sender As Object, e As EventArgs) Handles btReporteCobertura1.Click
+        Dim frm As New R01_CoberturaVendedor
+        frm._nameButton = btReporteCobertura1.Name
+        frm._modulo = FP_GERENCIA
+        frm.Show()
+    End Sub
+
+    Private Sub btVentaEfectivaCliente_Click_1(sender As Object, e As EventArgs) Handles btVentaEfectivaCliente.Click
+        Dim frm As New R01_VentaEfectivaCliente
+        frm._modulo = FP_GERENCIA
+        frm._nameButton = btVentaEfectivaCliente.Name
+        frm.Show()
+    End Sub
+
+    Private Sub btVentaEfectivaProducto_Click_1(sender As Object, e As EventArgs) Handles btVentaEfectivaProducto.Click
+        Dim frm As New R01_VentaEfectivaProducto
+        frm._modulo = FP_GERENCIA
+        frm._nameButton = btVentaEfectivaProducto.Name
+        frm.Show()
+    End Sub
+
+    Private Sub btTablaVentas_Click_1(sender As Object, e As EventArgs) Handles btTablaVentas1.Click
+        Dim frm As New R01_CoberturaVendedor2
+        frm._nameButton = btReporteCobertura1.Name
+        frm._modulo = FP_GERENCIA
+        frm.Show()
+    End Sub
+
+    Private Sub btTablaCobertura_Click_1(sender As Object, e As EventArgs) Handles btTablaCobertura1.Click
+        Dim frm As New R01_ReporteCobertura
+        frm._nameButton = btReporteCobertura1.Name
+        frm._modulo = FP_GERENCIA
+        frm.Show()
+    End Sub
+
+    Private Sub btnRepProdInv_Click_1(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btDetalleVentas_Click(sender As Object, e As EventArgs) Handles btDetalleVentas.Click
+        Dim frm As New R01_FlujoCaja 'R01_DetalleVentas
+        frm._nameButton = btDetalleVentas.Name
+        frm._modulo = FP_Venta
+        frm.Show()
+    End Sub
+
+    Private Sub btIngresosEgresos_Click_1(sender As Object, e As EventArgs) Handles btIngresosEgresos.Click
+        Dim frm As New F1_IngresosEgresos
+        frm._nameButton = btIngresosEgresos.Name
+        frm._modulo = FP_Venta
+        frm.Show()
+    End Sub
+
+    Private Sub btFlujoCaja_Click(sender As Object, e As EventArgs) Handles btFlujoCaja.Click
+        Dim frm As New R01_FlujoCaja
+        frm._nameButton = btFlujoCaja.Name
+        frm._modulo = FP_GERENCIA
         frm.Show()
     End Sub
 End Class

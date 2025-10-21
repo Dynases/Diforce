@@ -443,7 +443,7 @@ Public Class MoitoreoVisita
 
     Private Sub P_prArmarComboZona()
         Dim Dt As New DataTable
-        Dt = L_GetZonasCPZ().Tables(0)
+        Dt = L_GetZonasCPZ2(cbRepartidor.Value).Tables(0)
 
         With cbZona.DropDownList
             .Columns.Add(Dt.Columns("lanumi").ToString).Width = 50
@@ -460,6 +460,8 @@ Public Class MoitoreoVisita
 
         If Dt.Rows.Count > 0 Then
             cbZona.SelectedIndex = 0
+        Else
+            cbZona.Text = ""
         End If
     End Sub
 
@@ -636,6 +638,12 @@ Public Class MoitoreoVisita
     Private Sub btnz2_Click(sender As Object, e As EventArgs) Handles btnz2.Click
         If (Gmc_Cliente.Zoom >= Gmc_Cliente.MinZoom) Then
             Gmc_Cliente.Zoom = Gmc_Cliente.Zoom - 1
+        End If
+    End Sub
+
+    Private Sub cbRepartidor_ValueChanged(sender As Object, e As EventArgs) Handles cbRepartidor.ValueChanged
+        If cbRepartidor.Value <> -1 Then
+            P_prArmarComboZona()
         End If
     End Sub
 End Class

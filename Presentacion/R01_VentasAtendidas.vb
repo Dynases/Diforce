@@ -241,4 +241,8 @@ Public Class R01_VentasAtendidas
         'Me.Opacity = 100
         'Timer1.Enabled = False
     End Sub
+
+    Private Sub MBtGenerar_Click_1(sender As Object, e As EventArgs) Handles MBtGenerar.Click
+
+    End Sub
 End Class

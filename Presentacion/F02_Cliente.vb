@@ -160,6 +160,11 @@ Public Class F02_Cliente
         Else
             stiFrecuencia.Visible = False
         End If
+        If gs_Mon = "Ars" Then
+            LabelX16.Text = "Cuil:"
+        Else
+            LabelX16.Text = "Nit:"
+        End If
     End Sub
 
     Private Function VerificarUsuario() As Boolean

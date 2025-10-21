@@ -65,8 +65,6 @@ Partial Class Dashboard
         Me.PanelEx20 = New DevComponents.DotNetBar.PanelEx()
         Me.ProductosMas = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.SuperGridControl2 = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
-        Me.DsReportesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsReportes = New Presentacion.dsReportes()
         Me.ConMenu_Opciones3 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.RETORNARPEDIDOACONFIRMACIONDEENTREGAToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GRABARRECLAMOToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -125,6 +123,8 @@ Partial Class Dashboard
         Me.PanelEx13 = New DevComponents.DotNetBar.PanelEx()
         Me.CRVendedores = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.SuperGridControl4 = New DevComponents.DotNetBar.SuperGrid.SuperGridControl()
+        Me.DsReportesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsReportes = New Presentacion.dsReportes()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
@@ -155,8 +155,6 @@ Partial Class Dashboard
         CType(Me.tbFechaFin, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaIni, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx20.SuspendLayout()
-        CType(Me.DsReportesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsReportes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ConMenu_Opciones3.SuspendLayout()
         Me.ConMenu_Opciones1.SuspendLayout()
         Me.ConMenu_Rechazado.SuspendLayout()
@@ -179,6 +177,8 @@ Partial Class Dashboard
         CType(Me.tbFechaF3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaI3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx13.SuspendLayout()
+        CType(Me.DsReportesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsReportes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabControl1
@@ -196,9 +196,9 @@ Partial Class Dashboard
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel6)
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel5)
         Me.SuperTabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.SuperTabControl1.SelectedTabIndex = 1
@@ -207,10 +207,10 @@ Partial Class Dashboard
         Me.SuperTabControl1.Text = "PEDIDOS ENTREGADOS"
         Me.SuperTabControl1.Controls.SetChildIndex(Me.SuperTabControlPanel1, 0)
         Me.SuperTabControl1.Controls.SetChildIndex(Me.SuperTabControlPanel5, 0)
-        Me.SuperTabControl1.Controls.SetChildIndex(Me.SuperTabControlPanel4, 0)
         Me.SuperTabControl1.Controls.SetChildIndex(Me.SuperTabControlPanel6, 0)
         Me.SuperTabControl1.Controls.SetChildIndex(Me.SuperTabControlPanel2, 0)
         Me.SuperTabControl1.Controls.SetChildIndex(Me.SuperTabControlPanel3, 0)
+        Me.SuperTabControl1.Controls.SetChildIndex(Me.SuperTabControlPanel4, 0)
         '
         'SuperTabControlPanel2
         '
@@ -222,7 +222,8 @@ Partial Class Dashboard
         Me.SuperTabControlPanel2.Controls.Add(Me.SuperGridControl1)
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.None
         Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(4)
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(27284, 7136)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(42084, 10836)
+        Me.SuperTabControlPanel2.Visible = True
         '
         'SuperTabItem2
         '
@@ -1153,16 +1154,6 @@ Partial Class Dashboard
         Me.SuperGridControl2.TabIndex = 0
         Me.SuperGridControl2.Text = "SuperGridControl2"
         '
-        'DsReportesBindingSource
-        '
-        Me.DsReportesBindingSource.DataSource = Me.DsReportes
-        Me.DsReportesBindingSource.Position = 0
-        '
-        'DsReportes
-        '
-        Me.DsReportes.DataSetName = "dsReporteEquipoPrestadoVsVenta"
-        Me.DsReportes.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
         'ConMenu_Opciones3
         '
         Me.ConMenu_Opciones3.ImageScalingSize = New System.Drawing.Size(20, 20)
@@ -1257,7 +1248,7 @@ Partial Class Dashboard
         Me.SuperGridControl1.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
         Me.SuperGridControl1.Location = New System.Drawing.Point(0, 0)
         Me.SuperGridControl1.Name = "SuperGridControl1"
-        Me.SuperGridControl1.Size = New System.Drawing.Size(27284, 7136)
+        Me.SuperGridControl1.Size = New System.Drawing.Size(42084, 10836)
         Me.SuperGridControl1.TabIndex = 8
         Me.SuperGridControl1.Text = "Eficiencia"
         '
@@ -1271,7 +1262,7 @@ Partial Class Dashboard
         Me.PanelEx6.DisabledBackColor = System.Drawing.Color.Empty
         Me.PanelEx6.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx6.Name = "PanelEx6"
-        Me.PanelEx6.Size = New System.Drawing.Size(324, 7136)
+        Me.PanelEx6.Size = New System.Drawing.Size(324, 10836)
         Me.PanelEx6.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelEx6.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
         Me.PanelEx6.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
@@ -1290,7 +1281,7 @@ Partial Class Dashboard
         Me.GroupPanelDatosGenerales.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupPanelDatosGenerales.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanelDatosGenerales.Name = "GroupPanelDatosGenerales"
-        Me.GroupPanelDatosGenerales.Size = New System.Drawing.Size(324, 7136)
+        Me.GroupPanelDatosGenerales.Size = New System.Drawing.Size(324, 10836)
         '
         '
         '
@@ -1332,7 +1323,7 @@ Partial Class Dashboard
         Me.PanelExDatosGenerales.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelExDatosGenerales.Location = New System.Drawing.Point(0, 0)
         Me.PanelExDatosGenerales.Name = "PanelExDatosGenerales"
-        Me.PanelExDatosGenerales.Size = New System.Drawing.Size(318, 7115)
+        Me.PanelExDatosGenerales.Size = New System.Drawing.Size(318, 10815)
         Me.PanelExDatosGenerales.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelExDatosGenerales.Style.BackColor1.Color = System.Drawing.SystemColors.Control
         Me.PanelExDatosGenerales.Style.BackColor2.Color = System.Drawing.SystemColors.Control
@@ -1373,6 +1364,7 @@ Partial Class Dashboard
         '
         Me.tbAño.Border.Class = "TextBoxBorder"
         Me.tbAño.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbAño.DisabledBackColor = System.Drawing.Color.White
         Me.tbAño.Location = New System.Drawing.Point(83, 67)
         Me.tbAño.Name = "tbAño"
         Me.tbAño.PreventEnterBeep = True
@@ -1416,7 +1408,7 @@ Partial Class Dashboard
         Me.grPresupuesto.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
         Me.grPresupuesto.Location = New System.Drawing.Point(327, 0)
         Me.grPresupuesto.Name = "grPresupuesto"
-        Me.grPresupuesto.Size = New System.Drawing.Size(26957, 7136)
+        Me.grPresupuesto.Size = New System.Drawing.Size(41757, 10836)
         Me.grPresupuesto.TabIndex = 120
         Me.grPresupuesto.Text = "SuperGridControl2"
         '
@@ -2056,6 +2048,16 @@ Partial Class Dashboard
         Me.SuperGridControl4.TabIndex = 0
         Me.SuperGridControl4.Text = "SuperGridControl4"
         '
+        'DsReportesBindingSource
+        '
+        Me.DsReportesBindingSource.DataSource = Me.DsReportes
+        Me.DsReportesBindingSource.Position = 0
+        '
+        'DsReportes
+        '
+        Me.DsReportes.DataSetName = "dsReporteEquipoPrestadoVsVenta"
+        Me.DsReportes.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'Dashboard
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2099,8 +2101,6 @@ Partial Class Dashboard
         CType(Me.tbFechaFin, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaIni, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEx20.ResumeLayout(False)
-        CType(Me.DsReportesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsReportes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ConMenu_Opciones3.ResumeLayout(False)
         Me.ConMenu_Opciones1.ResumeLayout(False)
         Me.ConMenu_Rechazado.ResumeLayout(False)
@@ -2126,6 +2126,8 @@ Partial Class Dashboard
         CType(Me.tbFechaF3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaI3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEx13.ResumeLayout(False)
+        CType(Me.DsReportesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsReportes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

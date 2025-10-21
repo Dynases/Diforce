@@ -22,6 +22,8 @@ Partial Class frmCajaGeneral
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim cbRepartidor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCajaGeneral))
         Me.PanelSuperior = New System.Windows.Forms.Panel()
         Me.btGenerar = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
@@ -30,14 +32,19 @@ Partial Class frmCajaGeneral
         Me.Tb_FechaDesde = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.bt_Imprimir = New DevComponents.DotNetBar.ButtonX()
         Me.Dgv_Caja = New Janus.Windows.GridEX.GridEX()
+        Me.cbRepartidor = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.PanelSuperior.SuspendLayout()
         CType(Me.TB_FechaHasta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Tb_FechaDesde, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Dgv_Caja, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbRepartidor, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelSuperior
         '
+        Me.PanelSuperior.Controls.Add(Me.LabelX3)
+        Me.PanelSuperior.Controls.Add(Me.cbRepartidor)
         Me.PanelSuperior.Controls.Add(Me.btGenerar)
         Me.PanelSuperior.Controls.Add(Me.LabelX2)
         Me.PanelSuperior.Controls.Add(Me.TB_FechaHasta)
@@ -204,6 +211,30 @@ Partial Class frmCajaGeneral
         Me.Dgv_Caja.Size = New System.Drawing.Size(922, 433)
         Me.Dgv_Caja.TabIndex = 3
         '
+        'cbRepartidor
+        '
+        cbRepartidor_DesignTimeLayout.LayoutString = resources.GetString("cbRepartidor_DesignTimeLayout.LayoutString")
+        Me.cbRepartidor.DesignTimeLayout = cbRepartidor_DesignTimeLayout
+        Me.cbRepartidor.Location = New System.Drawing.Point(562, 22)
+        Me.cbRepartidor.Name = "cbRepartidor"
+        Me.cbRepartidor.SelectedIndex = -1
+        Me.cbRepartidor.SelectedItem = Nothing
+        Me.cbRepartidor.Size = New System.Drawing.Size(172, 20)
+        Me.cbRepartidor.TabIndex = 237
+        Me.cbRepartidor.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'LabelX3
+        '
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Location = New System.Drawing.Point(470, 19)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.Size = New System.Drawing.Size(64, 23)
+        Me.LabelX3.TabIndex = 238
+        Me.LabelX3.Text = "Repartidor:"
+        '
         'frmCajaGeneral
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -214,9 +245,11 @@ Partial Class frmCajaGeneral
         Me.Name = "frmCajaGeneral"
         Me.Text = "frmCajaGeneral"
         Me.PanelSuperior.ResumeLayout(False)
+        Me.PanelSuperior.PerformLayout()
         CType(Me.TB_FechaHasta, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Tb_FechaDesde, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Dgv_Caja, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbRepartidor, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -229,4 +262,6 @@ Partial Class frmCajaGeneral
     Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
     Friend WithEvents TB_FechaHasta As DevComponents.Editors.DateTimeAdv.DateTimeInput
     Friend WithEvents btGenerar As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbRepartidor As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

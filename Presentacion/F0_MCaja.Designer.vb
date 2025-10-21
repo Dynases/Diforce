@@ -27,6 +27,8 @@ Partial Class F0_MCaja
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F0_MCaja))
         Me.GroupPanel4 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.LabelX13 = New DevComponents.DotNetBar.LabelX()
+        Me.tb_Gastos = New DevComponents.Editors.DoubleInput()
         Me.LabelX11 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX12 = New DevComponents.DotNetBar.LabelX()
         Me.Tb_TCredito = New DevComponents.Editors.DoubleInput()
@@ -68,6 +70,7 @@ Partial Class F0_MCaja
         Me.TbCodigo = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.btnCierreDirecto = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.PanelSuperior.SuspendLayout()
         Me.PanelInferior.SuspendLayout()
         CType(Me.BubbleBarUsuario, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -89,6 +92,7 @@ Partial Class F0_MCaja
         Me.SuperTabControl1.SuspendLayout()
         Me.GroupPanel4.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        CType(Me.tb_Gastos, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Tb_TCredito, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Tb_TDiferencia, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Tb_TDeposito, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -191,11 +195,17 @@ Partial Class F0_MCaja
         '
         'PanelToolBar2
         '
-        Me.PanelToolBar2.Location = New System.Drawing.Point(1204, 0)
+        Me.PanelToolBar2.Controls.Add(Me.ButtonX1)
+        Me.PanelToolBar2.Location = New System.Drawing.Point(1124, 0)
         Me.PanelToolBar2.Margin = New System.Windows.Forms.Padding(4)
+        Me.PanelToolBar2.Size = New System.Drawing.Size(160, 72)
+        Me.PanelToolBar2.Controls.SetChildIndex(Me.btnImprimir, 0)
+        Me.PanelToolBar2.Controls.SetChildIndex(Me.ButtonX1, 0)
         '
         'btnImprimir
         '
+        Me.btnImprimir.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnImprimir.Location = New System.Drawing.Point(80, 0)
         '
         'btnUltimo
         '
@@ -313,12 +323,14 @@ Partial Class F0_MCaja
         '
         'GroupPanel4
         '
+        Me.GroupPanel4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupPanel4.CanvasColor = System.Drawing.SystemColors.Control
         Me.GroupPanel4.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007
         Me.GroupPanel4.Controls.Add(Me.Panel4)
         Me.GroupPanel4.Controls.Add(Me.Dgv_PedidoTotal)
         Me.GroupPanel4.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupPanel4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupPanel4.Location = New System.Drawing.Point(0, 244)
         Me.GroupPanel4.Margin = New System.Windows.Forms.Padding(2)
@@ -358,6 +370,8 @@ Partial Class F0_MCaja
         'Panel4
         '
         Me.Panel4.BackColor = System.Drawing.Color.Transparent
+        Me.Panel4.Controls.Add(Me.LabelX13)
+        Me.Panel4.Controls.Add(Me.tb_Gastos)
         Me.Panel4.Controls.Add(Me.LabelX11)
         Me.Panel4.Controls.Add(Me.LabelX12)
         Me.Panel4.Controls.Add(Me.Tb_TCredito)
@@ -380,6 +394,37 @@ Partial Class F0_MCaja
         Me.Panel4.Size = New System.Drawing.Size(1246, 70)
         Me.Panel4.TabIndex = 24
         Me.Panel4.Tag = ""
+        '
+        'LabelX13
+        '
+        Me.LabelX13.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.LabelX13.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX13.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX13.Location = New System.Drawing.Point(755, 15)
+        Me.LabelX13.Name = "LabelX13"
+        Me.LabelX13.Size = New System.Drawing.Size(90, 23)
+        Me.LabelX13.TabIndex = 37
+        Me.LabelX13.Text = "Total Gastos"
+        '
+        'tb_Gastos
+        '
+        Me.tb_Gastos.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        '
+        '
+        '
+        Me.tb_Gastos.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tb_Gastos.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tb_Gastos.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
+        Me.tb_Gastos.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tb_Gastos.Increment = 1.0R
+        Me.tb_Gastos.Location = New System.Drawing.Point(878, 15)
+        Me.tb_Gastos.Name = "tb_Gastos"
+        Me.tb_Gastos.Size = New System.Drawing.Size(120, 23)
+        Me.tb_Gastos.TabIndex = 36
         '
         'LabelX11
         '
@@ -576,7 +621,7 @@ Partial Class F0_MCaja
         '
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX5.Location = New System.Drawing.Point(848, 19)
+        Me.LabelX5.Location = New System.Drawing.Point(966, 15)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.Size = New System.Drawing.Size(120, 23)
         Me.LabelX5.TabIndex = 22
@@ -592,7 +637,7 @@ Partial Class F0_MCaja
         '
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX6.Location = New System.Drawing.Point(974, 19)
+        Me.LabelX6.Location = New System.Drawing.Point(1092, 15)
         Me.LabelX6.Name = "LabelX6"
         Me.LabelX6.Size = New System.Drawing.Size(120, 23)
         Me.LabelX6.TabIndex = 23
@@ -610,7 +655,7 @@ Partial Class F0_MCaja
         Me.tbdRecibido.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbdRecibido.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbdRecibido.Increment = 1.0R
-        Me.tbdRecibido.Location = New System.Drawing.Point(848, 44)
+        Me.tbdRecibido.Location = New System.Drawing.Point(966, 40)
         Me.tbdRecibido.Name = "tbdRecibido"
         Me.tbdRecibido.Size = New System.Drawing.Size(120, 23)
         Me.tbdRecibido.TabIndex = 21
@@ -627,7 +672,7 @@ Partial Class F0_MCaja
         Me.tbdSaldo.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2
         Me.tbdSaldo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbdSaldo.Increment = 1.0R
-        Me.tbdSaldo.Location = New System.Drawing.Point(974, 44)
+        Me.tbdSaldo.Location = New System.Drawing.Point(1092, 40)
         Me.tbdSaldo.Name = "tbdSaldo"
         Me.tbdSaldo.Size = New System.Drawing.Size(120, 23)
         Me.tbdSaldo.TabIndex = 20
@@ -635,6 +680,9 @@ Partial Class F0_MCaja
         '
         'Dgv_PedidoTotal
         '
+        Me.Dgv_PedidoTotal.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Dgv_PedidoTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_PedidoTotal.HeaderFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Dgv_PedidoTotal.Location = New System.Drawing.Point(0, 0)
@@ -643,7 +691,7 @@ Partial Class F0_MCaja
         Me.Dgv_PedidoTotal.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
         Me.Dgv_PedidoTotal.Office2007CustomColor = System.Drawing.Color.DodgerBlue
         Me.Dgv_PedidoTotal.RowFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Dgv_PedidoTotal.Size = New System.Drawing.Size(1097, 220)
+        Me.Dgv_PedidoTotal.Size = New System.Drawing.Size(1238, 207)
         Me.Dgv_PedidoTotal.TabIndex = 0
         Me.Dgv_PedidoTotal.TotalRowFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold)
         Me.Dgv_PedidoTotal.TotalRowFormatStyle.FontBold = Janus.Windows.GridEX.TriState.[True]
@@ -719,8 +767,8 @@ Partial Class F0_MCaja
         Me.SuperTabControl2.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl2.ControlBox.Name = ""
         Me.SuperTabControl2.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl2.ControlBox.MenuBox, Me.SuperTabControl2.ControlBox.CloseBox})
-        Me.SuperTabControl2.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl2.Controls.Add(Me.SuperTabControlPanel3)
+        Me.SuperTabControl2.Controls.Add(Me.SuperTabControlPanel4)
         Me.SuperTabControl2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl2.Location = New System.Drawing.Point(0, 0)
         Me.SuperTabControl2.Margin = New System.Windows.Forms.Padding(2)
@@ -1068,13 +1116,30 @@ Partial Class F0_MCaja
         Me.btnCierreDirecto.Image = Global.Presentacion.My.Resources.Resources.BONOS_DESC
         Me.btnCierreDirecto.ImageFixedSize = New System.Drawing.Size(48, 48)
         Me.btnCierreDirecto.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnCierreDirecto.Location = New System.Drawing.Point(1072, 0)
+        Me.btnCierreDirecto.Location = New System.Drawing.Point(992, 0)
         Me.btnCierreDirecto.Name = "btnCierreDirecto"
         Me.btnCierreDirecto.Size = New System.Drawing.Size(132, 72)
         Me.btnCierreDirecto.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.btnCierreDirecto.TabIndex = 15
         Me.btnCierreDirecto.Text = "CIERRE DIRECTO"
         Me.btnCierreDirecto.TextColor = System.Drawing.Color.Black
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.ButtonX1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold)
+        Me.ButtonX1.Image = Global.Presentacion.My.Resources.Resources.printee
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(50, 50)
+        Me.ButtonX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX1.Location = New System.Drawing.Point(0, 0)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(75, 72)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 0
+        Me.ButtonX1.Text = "RESUMEN"
+        Me.ButtonX1.TextColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
         '
         'F0_MCaja
         '
@@ -1109,6 +1174,7 @@ Partial Class F0_MCaja
         Me.SuperTabControl1.ResumeLayout(False)
         Me.GroupPanel4.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
+        CType(Me.tb_Gastos, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Tb_TCredito, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Tb_TDiferencia, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Tb_TDeposito, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1178,4 +1244,7 @@ Partial Class F0_MCaja
     Friend WithEvents LabelX14 As DevComponents.DotNetBar.LabelX
     Friend WithEvents Timer1 As Timer
     Friend WithEvents btnCierreDirecto As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents LabelX13 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tb_Gastos As DevComponents.Editors.DoubleInput
+    Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
 End Class
