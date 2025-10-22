@@ -2414,7 +2414,7 @@ Partial Class F0_PedidosAsignacion
         Me.ConMenu_Opciones3.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ConMenu_Opciones3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RETORNARPEDIDOACONFIRMACIONDEENTREGAToolStripMenuItem, Me.GRABARRECLAMOToolStripMenuItem, Me.GRABARRECLAMOREPARTIDORToolStripMenuItem2, Me.ToolStripMenuItem3, Me.VERHISTORIALToolStripMenuItem2})
         Me.ConMenu_Opciones3.Name = "ConMenu_Opciones3"
-        Me.ConMenu_Opciones3.Size = New System.Drawing.Size(353, 136)
+        Me.ConMenu_Opciones3.Size = New System.Drawing.Size(353, 114)
         '
         'RETORNARPEDIDOACONFIRMACIONDEENTREGAToolStripMenuItem
         '
@@ -2425,25 +2425,25 @@ Partial Class F0_PedidosAsignacion
         'GRABARRECLAMOToolStripMenuItem
         '
         Me.GRABARRECLAMOToolStripMenuItem.Name = "GRABARRECLAMOToolStripMenuItem"
-        Me.GRABARRECLAMOToolStripMenuItem.Size = New System.Drawing.Size(247, 22)
+        Me.GRABARRECLAMOToolStripMenuItem.Size = New System.Drawing.Size(352, 22)
         Me.GRABARRECLAMOToolStripMenuItem.Text = "GRABAR RECLAMO CLIENTE"
         '
         'GRABARRECLAMOREPARTIDORToolStripMenuItem2
         '
         Me.GRABARRECLAMOREPARTIDORToolStripMenuItem2.Name = "GRABARRECLAMOREPARTIDORToolStripMenuItem2"
-        Me.GRABARRECLAMOREPARTIDORToolStripMenuItem2.Size = New System.Drawing.Size(247, 22)
+        Me.GRABARRECLAMOREPARTIDORToolStripMenuItem2.Size = New System.Drawing.Size(352, 22)
         Me.GRABARRECLAMOREPARTIDORToolStripMenuItem2.Text = "GRABAR RECLAMO REPARTIDOR"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(247, 22)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(352, 22)
         Me.ToolStripMenuItem3.Text = "IMPRIMIR RECIBO"
         '
         'VERHISTORIALToolStripMenuItem2
         '
         Me.VERHISTORIALToolStripMenuItem2.Name = "VERHISTORIALToolStripMenuItem2"
-        Me.VERHISTORIALToolStripMenuItem2.Size = New System.Drawing.Size(247, 22)
+        Me.VERHISTORIALToolStripMenuItem2.Size = New System.Drawing.Size(352, 22)
         Me.VERHISTORIALToolStripMenuItem2.Text = "VER ESTADOS"
         '
         'ConMenu_Opciones1
