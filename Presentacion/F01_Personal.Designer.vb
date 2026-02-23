@@ -56,6 +56,8 @@ Partial Class F01_Personal
         Me.LabelX8 = New DevComponents.DotNetBar.LabelX()
         Me.LabelX7 = New DevComponents.DotNetBar.LabelX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
+        Me.DateTimeInput1 = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         CType(Me.MSuperTabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MSuperTabControlPrincipal.SuspendLayout()
         Me.MSuperTabControlPanelRegistro.SuspendLayout()
@@ -79,6 +81,7 @@ Partial Class F01_Personal
         CType(Me.cbTipo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanelPreferencias.SuspendLayout()
         Me.PanelEx2.SuspendLayout()
+        CType(Me.DateTimeInput1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MSuperTabControlPrincipal
@@ -600,6 +603,8 @@ Partial Class F01_Personal
         Me.PanelEx2.AutoScroll = True
         Me.PanelEx2.CanvasColor = System.Drawing.SystemColors.Control
         Me.PanelEx2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.PanelEx2.Controls.Add(Me.DateTimeInput1)
+        Me.PanelEx2.Controls.Add(Me.LabelX10)
         Me.PanelEx2.Controls.Add(Me.swModificarPedido)
         Me.PanelEx2.Controls.Add(Me.LabelX9)
         Me.PanelEx2.Controls.Add(Me.swZona)
@@ -720,6 +725,67 @@ Partial Class F01_Personal
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 500
         '
+        'LabelX10
+        '
+        '
+        '
+        '
+        Me.LabelX10.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!)
+        Me.LabelX10.Location = New System.Drawing.Point(22, 131)
+        Me.LabelX10.Name = "LabelX10"
+        Me.LabelX10.Size = New System.Drawing.Size(102, 23)
+        Me.LabelX10.TabIndex = 376
+        Me.LabelX10.Text = "Hora Limite:"
+        '
+        'DateTimeInput1
+        '
+        '
+        '
+        '
+        Me.DateTimeInput1.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.DateTimeInput1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.DateTimeInput1.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.DateTimeInput1.ButtonDropDown.Visible = True
+        Me.DateTimeInput1.DateTimeSelectorVisibility = DevComponents.Editors.DateTimeAdv.eDateTimeSelectorVisibility.TimeSelector
+        Me.DateTimeInput1.Format = DevComponents.Editors.eDateTimePickerFormat.ShortTime
+        Me.DateTimeInput1.IsPopupCalendarOpen = False
+        Me.DateTimeInput1.Location = New System.Drawing.Point(133, 131)
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.DateTimeInput1.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.DateTimeInput1.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.DateTimeInput1.MonthCalendar.ClearButtonVisible = True
+        '
+        '
+        '
+        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.DateTimeInput1.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.DateTimeInput1.MonthCalendar.DisplayMonth = New Date(2026, 2, 1, 0, 0, 0, 0)
+        Me.DateTimeInput1.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        '
+        '
+        '
+        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.DateTimeInput1.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.DateTimeInput1.MonthCalendar.TodayButtonVisible = True
+        Me.DateTimeInput1.MonthCalendar.Visible = False
+        Me.DateTimeInput1.Name = "DateTimeInput1"
+        Me.DateTimeInput1.Size = New System.Drawing.Size(93, 20)
+        Me.DateTimeInput1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.DateTimeInput1.TabIndex = 377
+        '
         'F01_Personal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -759,6 +825,7 @@ Partial Class F01_Personal
         CType(Me.cbTipo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanelPreferencias.ResumeLayout(False)
         Me.PanelEx2.ResumeLayout(False)
+        CType(Me.DateTimeInput1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -791,4 +858,6 @@ Partial Class F01_Personal
     Friend WithEvents swPrecio As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents swModificarPedido As DevComponents.DotNetBar.Controls.SwitchButton
     Friend WithEvents LabelX9 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX10 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents DateTimeInput1 As DevComponents.Editors.DateTimeAdv.DateTimeInput
 End Class

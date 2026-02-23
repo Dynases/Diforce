@@ -330,6 +330,10 @@ Partial Class F02_Pedido
         Me.MBtPrimero.Margin = New System.Windows.Forms.Padding(4)
         Me.MBtPrimero.Size = New System.Drawing.Size(43, 29)
         '
+        'MPanelToolBarAccion
+        '
+        Me.MPanelToolBarAccion.Size = New System.Drawing.Size(375, 70)
+        '
         'MBtSalir
         '
         '

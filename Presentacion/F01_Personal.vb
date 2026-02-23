@@ -140,6 +140,8 @@ Public Class F01_Personal
         _Parametros()
         MBtImprimir.Visible = False
 
+        DateTimeInput1.Value = TimeString
+
         'Poner titulo al formulario
         Me.Text = "P E R S O N A L"
 
@@ -194,6 +196,7 @@ Public Class F01_Personal
             GroupPanelPreferencias.Visible = False
             GroupPanelDatosGenerales.Dock = DockStyle.Fill
         End If
+
     End Sub
     Private Sub _prCargarComboLibreriaDeposito(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
@@ -286,6 +289,7 @@ Public Class F01_Personal
         Dim pre As Integer
         Dim zon As Integer
         Dim ped As Integer
+        Dim hora As String
         TbNombre.Select()
         If (Nuevo) Then
             If (P_Validar()) Then
@@ -329,9 +333,10 @@ Public Class F01_Personal
                 Else
                     ped = "0"
                 End If
+                hora = DateTimeInput1.Text
                 'Grabar cabecera
                 Dim res As Boolean = L_fnGrabarPersonal(numi, desc, direc, telef, cat, sal, ci, obs, fnac, fing,
-                                                        fret, fot, est, eciv, plan, reloj, cbSucursal.Value, pre, zon, ped)
+                                                        fret, fot, est, eciv, plan, reloj, cbSucursal.Value, pre, zon, ped, hora)
 
                 If (res) Then
                     P_Limpiar()
@@ -394,9 +399,10 @@ Public Class F01_Personal
                 Else
                     ped = "0"
                 End If
+                hora = DateTimeInput1.Text
                 'Modificar
                 Dim res As Boolean = L_fnModificarPersonal(numi, desc, direc, telef, cat, sal, ci, obs, fnac, fing,
-                                                           fret, fot, est, eciv, plan, reloj, cbSucursal.Value, pre, zon, ped)
+                                                           fret, fot, est, eciv, plan, reloj, cbSucursal.Value, pre, zon, ped, hora)
 
                 If (res) Then
                     Bool = False
@@ -600,6 +606,7 @@ Public Class F01_Personal
                 swPrecio.Value = IIf(.Cells("precio").Value = 0, False, True)
                 swZona.Value = IIf(.Cells("zona").Value = 0, False, True)
                 swModificarPedido.Value = IIf(.Cells("pedido").Value = 0, False, True)
+                DateTimeInput1.Text = .Cells("hora").Value.ToString
             End With
 
         Else
@@ -833,6 +840,10 @@ Public Class F01_Personal
                 End If
             End If
         End If
+
+    End Sub
+
+    Private Sub LabelX10_Click(sender As Object, e As EventArgs) Handles LabelX10.Click
 
     End Sub
 

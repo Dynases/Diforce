@@ -567,7 +567,7 @@ Partial Class Pr_ReporteVentasGrafico
         '
         Me.grvendedor.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grvendedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grvendedor.HeaderFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grvendedor.HeaderFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.80000019!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grvendedor.Location = New System.Drawing.Point(0, 39)
         Me.grvendedor.Margin = New System.Windows.Forms.Padding(2)
         Me.grvendedor.Name = "grvendedor"

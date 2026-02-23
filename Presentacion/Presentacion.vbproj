@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86.v8-xfa.props" Condition="Exists('..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86.v8-xfa.props')" />
+  <Import Project="..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86_64.v8-xfa.props" Condition="Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86_64.v8-xfa.props')" />
   <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -281,8 +283,8 @@
     <Reference Include="OnBarcode.Barcode.WinForms">
       <HintPath>C:\librerias\QrCode\OnBarcode.Barcode.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="PdfiumViewer, Version=1.6.1.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
-      <HintPath>..\packages\PdfiumViewer.1.6.1.0\lib\net20\PdfiumViewer.dll</HintPath>
+    <Reference Include="PdfiumViewer, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfiumViewer.Core.1.0.4\lib\net20\PdfiumViewer.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="RestSharp, Version=105.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -300,6 +302,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -388,6 +391,12 @@
       <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DispatchedOrder\Report\NotaVenta18.vb">
+      <DependentUpon>NotaVenta18.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DispatchedOrder\Report\NotaVenta17.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -405,6 +414,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NotaVenta8.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DispatchedOrder\Report\SubNotaVenta2.vb">
+      <DependentUpon>SubNotaVenta2.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="DispatchedOrder\Report\SubNotaVenta.vb">
       <DependentUpon>SubNotaVenta.rpt</DependentUpon>
@@ -658,6 +673,12 @@
     <Compile Include="F1_Empresas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="F1_IngresosEgresosAlmacen.Designer.vb">
+      <DependentUpon>F1_IngresosEgresosAlmacen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="F1_IngresosEgresosAlmacen.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="F1_IngresosEgresos.Designer.vb">
       <DependentUpon>F1_IngresosEgresos.vb</DependentUpon>
     </Compile>
@@ -665,6 +686,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facturacion\AeconomicaResp.vb" />
+    <Compile Include="Facturacion\AnularFactura.vb" />
+    <Compile Include="Facturacion\ClienteRequest.vb" />
     <Compile Include="Facturacion\DBApi.vb" />
     <Compile Include="Facturacion\TopeCF.vb" />
     <Compile Include="Facturacion\ResNumeracion.vb" />
@@ -680,6 +703,7 @@
     <Compile Include="Facturacion\RespPDF.vb" />
     <Compile Include="Facturacion\NitValida.vb" />
     <Compile Include="Facturacion\UmedidaResp.vb" />
+    <Compile Include="Facturacion\verificarNit.vb" />
     <Compile Include="Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>
@@ -1167,6 +1191,12 @@
     <Compile Include="R0_Credito.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="R0_ReportePedidosCostoGastos.Designer.vb">
+      <DependentUpon>R0_ReportePedidosCostoGastos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="R0_ReportePedidosCostoGastos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Reportes\MAM_RepExistenciaProducto.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1178,6 +1208,36 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MAM_ZonasRepartidor.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_FlujoCajaCredito.vb">
+      <DependentUpon>R_FlujoCajaCredito.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\R_FlujoCajaEgreso.vb">
+      <DependentUpon>R_FlujoCajaEgreso.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\R_FlujoIngresoCobro.vb">
+      <DependentUpon>R_FlujoIngresoCobro.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\R_FlujoIngresoVenta.vb">
+      <DependentUpon>R_FlujoIngresoVenta.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\R_FlujoCajaDetallado.vb">
+      <DependentUpon>R_FlujoCajaDetallado.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reportes\R_FlujoCaja.vb">
       <DependentUpon>R_FlujoCaja.rpt</DependentUpon>
@@ -1210,9 +1270,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\R_Pedido_PrecioCosto.vb">
+      <DependentUpon>R_Pedido_PrecioCosto.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reportes\R_Pedido_PrecioCostoGastos.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>R_Pedido_PrecioCosto.rpt</DependentUpon>
+      <DependentUpon>R_Pedido_PrecioCostoGastos.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reportes\R_ReporteCobertura.vb">
@@ -2022,6 +2088,12 @@
     <Compile Include="Utils\Efecto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utils\F1_Anular.Designer.vb">
+      <DependentUpon>F1_Anular.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\F1_Anular.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Utils\F1_MontosPedido.Designer.vb">
       <DependentUpon>F1_MontosPedido.vb</DependentUpon>
     </Compile>
@@ -2087,6 +2159,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta13.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta18.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NotaVenta18.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta17.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta17.vb</LastGenOutput>
@@ -2098,6 +2174,10 @@
     <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta8.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta8.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DispatchedOrder\Report\SubNotaVenta2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>SubNotaVenta2.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\Report\SubNotaVenta.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2237,6 +2317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="F1_Empresas.resx">
       <DependentUpon>F1_Empresas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F1_IngresosEgresosAlmacen.resx">
+      <DependentUpon>F1_IngresosEgresosAlmacen.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F1_IngresosEgresos.resx">
       <DependentUpon>F1_IngresosEgresos.vb</DependentUpon>
@@ -2606,6 +2689,9 @@
     <EmbeddedResource Include="R0_Credito.resx">
       <DependentUpon>R0_Credito.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="R0_ReportePedidosCostoGastos.resx">
+      <DependentUpon>R0_ReportePedidosCostoGastos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\MAM_RepExistenciaProducto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MAM_RepExistenciaProducto.vb</LastGenOutput>
@@ -2613,6 +2699,26 @@
     <EmbeddedResource Include="Reportes\MAM_ZonasRepartidor.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MAM_ZonasRepartidor.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_FlujoCajaCredito.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_FlujoCajaCredito.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_FlujoCajaEgreso.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_FlujoCajaEgreso.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_FlujoIngresoCobro.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_FlujoIngresoCobro.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_FlujoIngresoVenta.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_FlujoIngresoVenta.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_FlujoCajaDetallado.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_FlujoCajaDetallado.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_FlujoCaja.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -2637,6 +2743,10 @@
     <EmbeddedResource Include="Reportes\R_Pedido_PrecioCosto.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_Pedido_PrecioCosto.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_Pedido_PrecioCostoGastos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_Pedido_PrecioCostoGastos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_ReporteCobertura.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -3156,6 +3266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\Efecto.resx">
       <DependentUpon>Efecto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\F1_Anular.resx">
+      <DependentUpon>F1_Anular.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\F1_MontosPedido.resx">
       <DependentUpon>F1_MontosPedido.vb</DependentUpon>
@@ -4009,6 +4122,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
     <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86_64.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86_64.v8-xfa.props'))" />
+    <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\Build\PdfiumViewer.Native.x86.v8-xfa.props'))" />
   </Target>
   <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -29,21 +29,22 @@ Partial Class R01_FlujoCaja
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.btGenerar = New DevComponents.DotNetBar.ButtonX()
         Me.PanelEx4 = New DevComponents.DotNetBar.PanelEx()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tbFechaF = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.ColorDialogZona = New System.Windows.Forms.ColorDialog()
-        Me.tbFechaF = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.PanelEx2 = New DevComponents.DotNetBar.PanelEx()
+        Me.ColorDialogZona = New System.Windows.Forms.ColorDialog()
+        Me.swTipoVenta = New DevComponents.DotNetBar.Controls.SwitchButton()
         Me.PanelEx1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.PanelEx3.SuspendLayout()
         Me.PanelEx4.SuspendLayout()
+        CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
-        CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelEx2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -149,6 +150,7 @@ Partial Class R01_FlujoCaja
         '
         Me.PanelEx4.CanvasColor = System.Drawing.SystemColors.Control
         Me.PanelEx4.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.PanelEx4.Controls.Add(Me.swTipoVenta)
         Me.PanelEx4.Controls.Add(Me.Label3)
         Me.PanelEx4.Controls.Add(Me.Label1)
         Me.PanelEx4.Controls.Add(Me.tbFechaF)
@@ -168,12 +170,80 @@ Partial Class R01_FlujoCaja
         Me.PanelEx4.Style.GradientAngle = 90
         Me.PanelEx4.TabIndex = 14
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label3.Location = New System.Drawing.Point(39, 164)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(25, 18)
+        Me.Label3.TabIndex = 237
+        Me.Label3.Text = "Al:"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(39, 118)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(36, 18)
+        Me.Label1.TabIndex = 236
+        Me.Label1.Text = "Del:"
+        '
+        'tbFechaF
+        '
+        '
+        '
+        '
+        Me.tbFechaF.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbFechaF.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbFechaF.ButtonDropDown.Visible = True
+        Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaF.IsPopupCalendarOpen = False
+        Me.tbFechaF.Location = New System.Drawing.Point(100, 164)
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbFechaF.MonthCalendar.ClearButtonVisible = True
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbFechaF.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.TodayButtonVisible = True
+        Me.tbFechaF.Name = "tbFechaF"
+        Me.tbFechaF.Size = New System.Drawing.Size(120, 22)
+        Me.tbFechaF.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbFechaF.TabIndex = 235
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(6, 26)
+        Me.Label2.Location = New System.Drawing.Point(6, 85)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(55, 18)
         Me.Label2.TabIndex = 234
@@ -190,7 +260,7 @@ Partial Class R01_FlujoCaja
         Me.tbFechaI.ButtonDropDown.Visible = True
         Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaI.IsPopupCalendarOpen = False
-        Me.tbFechaI.Location = New System.Drawing.Point(101, 61)
+        Me.tbFechaI.Location = New System.Drawing.Point(100, 118)
         '
         '
         '
@@ -241,74 +311,6 @@ Partial Class R01_FlujoCaja
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1063, 653)
         Me.TableLayoutPanel1.TabIndex = 11
         '
-        'tbFechaF
-        '
-        '
-        '
-        '
-        Me.tbFechaF.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbFechaF.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaF.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
-        Me.tbFechaF.ButtonDropDown.Visible = True
-        Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaF.IsPopupCalendarOpen = False
-        Me.tbFechaF.Location = New System.Drawing.Point(101, 107)
-        '
-        '
-        '
-        '
-        '
-        '
-        Me.tbFechaF.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaF.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
-        Me.tbFechaF.MonthCalendar.ClearButtonVisible = True
-        '
-        '
-        '
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaF.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
-        Me.tbFechaF.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
-        '
-        '
-        '
-        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
-        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
-        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaF.MonthCalendar.TodayButtonVisible = True
-        Me.tbFechaF.Name = "tbFechaF"
-        Me.tbFechaF.Size = New System.Drawing.Size(120, 22)
-        Me.tbFechaF.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.tbFechaF.TabIndex = 235
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Label1.Location = New System.Drawing.Point(40, 61)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(36, 18)
-        Me.Label1.TabIndex = 236
-        Me.Label1.Text = "Del:"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(49, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(40, 107)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(25, 18)
-        Me.Label3.TabIndex = 237
-        Me.Label3.Text = "Al:"
-        '
         'PanelEx2
         '
         Me.PanelEx2.CanvasColor = System.Drawing.SystemColors.Control
@@ -329,6 +331,22 @@ Partial Class R01_FlujoCaja
         Me.PanelEx2.TabIndex = 11
         Me.PanelEx2.Text = "PanelEx2"
         '
+        'swTipoVenta
+        '
+        '
+        '
+        '
+        Me.swTipoVenta.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.swTipoVenta.Location = New System.Drawing.Point(78, 32)
+        Me.swTipoVenta.Name = "swTipoVenta"
+        Me.swTipoVenta.OffBackColor = System.Drawing.Color.Gold
+        Me.swTipoVenta.OffText = "RESUMEN"
+        Me.swTipoVenta.OnBackColor = System.Drawing.Color.LawnGreen
+        Me.swTipoVenta.OnText = "DETALLE"
+        Me.swTipoVenta.Size = New System.Drawing.Size(142, 22)
+        Me.swTipoVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.swTipoVenta.TabIndex = 238
+        '
         'R01_FlujoCaja
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -343,9 +361,9 @@ Partial Class R01_FlujoCaja
         Me.PanelEx3.ResumeLayout(False)
         Me.PanelEx4.ResumeLayout(False)
         Me.PanelEx4.PerformLayout()
+        CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel1.ResumeLayout(False)
-        CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelEx2.ResumeLayout(False)
         Me.PanelEx2.PerformLayout()
         Me.ResumeLayout(False)
@@ -366,4 +384,5 @@ Partial Class R01_FlujoCaja
     Friend WithEvents Label3 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents PanelEx2 As DevComponents.DotNetBar.PanelEx
+    Friend WithEvents swTipoVenta As DevComponents.DotNetBar.Controls.SwitchButton
 End Class

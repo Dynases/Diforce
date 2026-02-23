@@ -156,6 +156,24 @@ Public Class F01_Producto
         If (Not P_fnValidarRequisitos() = String.Empty) Then
             Return
         End If
+
+        'Inicializar componentes de homologacion 
+
+        If gi_Facturacion = 1 Then
+            If (gs_Mon = "Bs") Then
+                '------HABILITAR PARA FACTURACION------
+                SuperTabItem1.Visible = True
+                Dim tokenSifac As String = ObtToken()
+                UnidadMedida(tokenSifac)
+                CbUmedida.SelectedIndex = -1
+                ActividadesEconomicas(tokenSifac)
+                CbAeconomica.SelectedIndex = -1
+                ListarProductoServicio(tokenSifac)
+                CbProdServ.SelectedIndex = -1
+            End If
+        Else
+            SuperTabItem1.Visible = False
+        End If
         'Dim tokenSifac As String = ObtToken()
         'UnidadMedida(tokenSifac)
         'CbUmedida.SelectedIndex = -1
@@ -311,12 +329,14 @@ Public Class F01_Producto
         cbgrupo3.ReadOnly = Not flat
         cbgrupo4.ReadOnly = Not flat
         cbUMed.ReadOnly = Not flat
+        CbAeconomica.ReadOnly = Not flat
         CbUnidVenta.ReadOnly = Not flat
         CbUnidMax.ReadOnly = Not flat
         TbConversion.IsInputReadOnly = Not flat
 
         swPack.IsReadOnly = Not flat
         JGProdPack.Enabled = flat
+
 
     End Sub
 
@@ -421,6 +441,13 @@ Public Class F01_Producto
                     Me.TbConversion.Value = .GetValue("caconv")
                     Me.swPack.Value = .GetValue("capack")
                     Me.tbPeso.Value = .GetValue("capeso")
+
+
+
+                    Me.CbAeconomica.Value = .GetValue("codAct")
+                    Me.CbUmedida.Value = .GetValue("codUniM")
+                    Me.CbProdServ.Value = .GetValue("codSin")
+
 
                     Dim s As String = .GetValue("nimg").ToString
                     If (.GetValue("nimg").ToString.Equals("")) Then
@@ -546,6 +573,9 @@ Public Class F01_Producto
         Dim umax As String
         Dim conv As Integer
         Dim pack As Integer
+        Dim codAct As Integer
+        Dim codUniM As Integer
+        Dim codSin As Integer
 
 
         If (BoNuevo) Then
@@ -573,6 +603,15 @@ Public Class F01_Producto
                 umin = CbUnidVenta.Value
                 umax = CbUnidMax.Value
                 pack = IIf(swPack.Value, "1", "0")
+                If gi_Facturacion = 1 Then
+                    codAct = IIf(gs_Mon = "Bs", CbAeconomica.Value, 0)
+                    codUniM = IIf(gs_Mon = "Bs", CbUmedida.Value, 0)
+                    codSin = IIf(gs_Mon = "Bs", CbProdServ.Value, 0)
+                Else
+                    codAct = 0
+                    codUniM = 0
+                    codSin = 0
+                End If
                 If (TbConversion.Text.Trim = "") Then
                     conv = 0
                 Else
@@ -587,7 +626,7 @@ Public Class F01_Producto
 
                 'Grabar
                 Dim res As Boolean = L_fnProductoGrabar(numi, cod, desc, desc2, cat, img, stc, est, serie, pcom, fing, cemp, barra, smin, gr1, gr2, gr3, gr4, umed, umin,
-                                                        umax, conv, pack, CType(JGProdPack.DataSource, DataTable), tbPeso.Value)
+                                                        umax, conv, pack, CType(JGProdPack.DataSource, DataTable), tbPeso.Value, codAct, codUniM, codSin)
 
                 If (res) Then
                     If (IsNothing(vlImagen) = False) Then
@@ -643,65 +682,73 @@ Public Class F01_Producto
                 umin = CbUnidVenta.Value
                 umax = CbUnidMax.Value
                 pack = IIf(swPack.Value, "1", "0")
-
+                If gi_Facturacion = 1 Then
+                    codAct = IIf(gs_Mon = "Bs", CbAeconomica.Value, 0)
+                    codUniM = IIf(gs_Mon = "Bs", CbUmedida.Value, 0)
+                    codSin = IIf(gs_Mon = "Bs", CbProdServ.Value, 0)
+                Else
+                    codAct = 0
+                    codUniM = 0
+                    codSin = 0
+                End If
                 If (TbConversion.Text.Trim = "") Then
-                    conv = 0
-                Else
-                    conv = TbConversion.Text.Trim
-                End If
-
-                If (IsNothing(vlImagen) = True) Then
-                    If (UcImagen.Tag.ToString = String.Empty) Then
-                        img = ""
+                        conv = 0
                     Else
-                        Dim ini As Integer = UcImagen.Tag.ToString.Split("_")(0).Length + 1
-                        img = UcImagen.Tag.ToString.Substring(ini, 15)
+                        conv = TbConversion.Text.Trim
                     End If
-                Else
-                    img = P_fnObtenerID()
-                End If
 
-                Dim dt As New DataTable
-                dt = CType(JGProdPack.DataSource, DataTable).DefaultView.ToTable(False, "cbnumi", "cbtccanumi", "cbtccanumi1", "cadesc", "cbcant", "estado")
-
-
-                'Grabar
-                Dim res As Boolean = L_fnProductoModificar(numi, cod, desc, desc2, cat, img, stc, est, serie, pcom, fing, cemp, barra, smin, gr1, gr2, gr3, gr4, umed,
-                                                           umin, umax, conv, pack, dt, tbPeso.Value)
-
-                If (res) Then
-                    If (IsNothing(vlImagen) = False) Then
-                        vlImagen.nombre = img
-                        P_prGuardarImagen()
+                    If (IsNothing(vlImagen) = True) Then
+                        If (UcImagen.Tag.ToString = String.Empty) Then
+                            img = ""
+                        Else
+                            Dim ini As Integer = UcImagen.Tag.ToString.Split("_")(0).Length + 1
+                            img = UcImagen.Tag.ToString.Substring(ini, 15)
+                        End If
+                    Else
+                        img = P_fnObtenerID()
                     End If
-                    BoNavegar = False
-                    If (gi_ftp = 1) Then
-                        P_prDescargarFotoFTP(img + ".jpg")
-                        'P_prDescargarFotosFTP(DtBusqueda, "nimg", StRutaImagenes)
-                    End If
-                    P_prArmarGrillaBusqueda()
-                    BoNavegar = True
 
-                    P_prMoverIndexActual()
+                    Dim dt As New DataTable
+                    dt = CType(JGProdPack.DataSource, DataTable).DefaultView.ToTable(False, "cbnumi", "cbtccanumi", "cbtccanumi1", "cadesc", "cbcant", "estado")
 
-                    TbNombre.Select()
-                    MBtSalir.PerformClick()
 
-                    ToastNotification.Show(Me, "Codigo de producto ".ToUpper + TbCodigo.Text + " Modificado con Exito.".ToUpper,
+                    'Grabar
+                    Dim res As Boolean = L_fnProductoModificar(numi, cod, desc, desc2, cat, img, stc, est, serie, pcom, fing, cemp, barra, smin, gr1, gr2, gr3, gr4, umed,
+                                                           umin, umax, conv, pack, dt, tbPeso.Value, codAct, codUniM, codSin)
+
+                    If (res) Then
+                        If (IsNothing(vlImagen) = False) Then
+                            vlImagen.nombre = img
+                            P_prGuardarImagen()
+                        End If
+                        BoNavegar = False
+                        If (gi_ftp = 1) Then
+                            P_prDescargarFotoFTP(img + ".jpg")
+                            'P_prDescargarFotosFTP(DtBusqueda, "nimg", StRutaImagenes)
+                        End If
+                        P_prArmarGrillaBusqueda()
+                        BoNavegar = True
+
+                        P_prMoverIndexActual()
+
+                        TbNombre.Select()
+                        MBtSalir.PerformClick()
+
+                        ToastNotification.Show(Me, "Codigo de producto ".ToUpper + TbCodigo.Text + " Modificado con Exito.".ToUpper,
                                        My.Resources.GRABACION_EXITOSA,
                                        InDuracion * 1000,
                                        eToastGlowColor.Green,
                                        eToastPosition.TopCenter)
-                Else
-                    ToastNotification.Show(Me, "No se pudo modificar el codigo de producto ".ToUpper + TbCodigo.Text + ", intente nuevamente.".ToUpper,
+                    Else
+                        ToastNotification.Show(Me, "No se pudo modificar el codigo de producto ".ToUpper + TbCodigo.Text + ", intente nuevamente.".ToUpper,
                                        My.Resources.WARNING,
                                        InDuracion * 1000,
                                        eToastGlowColor.Red,
                                        eToastPosition.TopCenter)
+                    End If
+                    vlImagen = Nothing
                 End If
-                vlImagen = Nothing
             End If
-        End If
     End Sub
 
     Private Sub P_prCancelarRegistro()
@@ -1733,43 +1780,32 @@ Public Class F01_Producto
         'Token = result.data.access_token.ToString
         'Return Token
         Try
+            Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+            Dim usuario As String = TraerLinkFacturacion(1).Rows(0).Item("descr")
+            Dim password As String = TraerLinkFacturacion(2).Rows(0).Item("descr")
+
             ServicePointManager.Expect100Continue = True
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
-            Dim request = TryCast(System.Net.WebRequest.Create("https://contadores.sige.company/api/v1.0.0/users/get-token"), System.Net.HttpWebRequest)
+            Dim request = TryCast(System.Net.WebRequest.Create(link + "api/v1.0.0/users/get-token"), System.Net.HttpWebRequest)
 
             request.Method = "POST"
 
             request.ContentType = "application/json"
 
-            Using writer As BinaryWriter = New BinaryWriter(request.GetRequestStream())
-                'writer.AutoFlush = True
+            Using writer As New BinaryWriter(request.GetRequestStream())
 
+                Dim json As String =
+        "{" &
+        """username"": """ & usuario & """," &
+        """password"": """ & password & """" &
+        "}"
 
-
-                Dim byteArray As Byte()
-
-                byteArray = System.Text.Encoding.UTF8.GetBytes("{
-                     ""username"": ""wil"",
-                     ""password"": ""12345""
-                }")
-                'request.ContentLength = byteArray.Length
-
-                Dim TxtEncodedValue As String = System.Text.Encoding.UTF8.GetString(byteArray)
+                Dim byteArray As Byte() =
+        System.Text.Encoding.UTF8.GetBytes(json)
 
                 writer.Write(byteArray)
 
-                'Dim lectura As StreamReader = New System.IO.StreamReader(request.GetRequestStream())
-
-                'Dim stringReader As String
-                'stringReader = lectura.ReadToEnd()
-
-                writer.Close()
-
-
             End Using
-
-            '
-
 
             Dim responseContent As String
             Using response = TryCast(request.GetResponse(), System.Net.HttpWebResponse)
@@ -1798,7 +1834,8 @@ Public Class F01_Producto
 
     Public Function UnidadMedida(tokenObtenido)
 
-        Dim request = TryCast(System.Net.WebRequest.Create("https://contadores.sige.company/api/invoices/siat/v2/sync-unidades-medida"), System.Net.HttpWebRequest)
+        Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+        Dim request = TryCast(System.Net.WebRequest.Create(link + "api/invoices/siat/v2/sync-unidades-medida"), System.Net.HttpWebRequest)
 
         request.Method = "GET"
 
@@ -1831,8 +1868,8 @@ Public Class F01_Producto
 
 
     Public Function ActividadesEconomicas(tokenObtenido)
-
-        Dim request = TryCast(System.Net.WebRequest.Create("https://contadores.sige.company/api/invoices/siat/v2/actividades"), System.Net.HttpWebRequest)
+        Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+        Dim request = TryCast(System.Net.WebRequest.Create(link + "api/invoices/siat/v2/actividades"), System.Net.HttpWebRequest)
 
         request.Method = "GET"
 
@@ -1849,11 +1886,11 @@ Public Class F01_Producto
 
                 With CbAeconomica
                     .DropDownList.Columns.Clear()
-                    .DropDownList.Columns.Add("codigoActividad").Width = 70
-                    .DropDownList.Columns("codigoActividad").Caption = "COD"
+                    .DropDownList.Columns.Add("codigoCaeb").Width = 70
+                    .DropDownList.Columns("codigoCaeb").Caption = "COD"
                     .DropDownList.Columns.Add("descripcion").Width = 300
                     .DropDownList.Columns("descripcion").Caption = "DESCRIPCION"
-                    .ValueMember = "codigoActividad"
+                    .ValueMember = "codigoCaeb"
                     .DisplayMember = "descripcion"
                     .DataSource = result.data.RespuestaListaActividades.listaActividades
                     .Refresh()
@@ -1866,7 +1903,8 @@ Public Class F01_Producto
     End Function
 
     Public Function ListarProductoServicio(tokenObtenido As String, Optional ae As Integer = 5)
-        Dim request = TryCast(System.Net.WebRequest.Create("https://contadores.sige.company/api/invoices/siat/v2/lista-productos-servicios"), System.Net.HttpWebRequest)
+        Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+        Dim request = TryCast(System.Net.WebRequest.Create(link + "api/invoices/siat/v2/lista-productos-servicios"), System.Net.HttpWebRequest)
 
         request.Method = "GET"
 
@@ -1897,23 +1935,6 @@ Public Class F01_Producto
             End Using
         End Using
 
-        'Dim result = JsonConvert.DeserializeObject(Of ProServ)(responseContent)
-        'Dim resultError = JsonConvert.DeserializeObject(Of ProServ1)(responseContent)
-
-        'Dim codigo = result.meta.code
-
-
-
-        'Dim json = JsonConvert.SerializeObject(result)
-        'MsgBox(json)
-        'For Each y In result.data
-
-        'Next
-        ' Mid(cadena, 8, 6)
-        'If codigo = 200 Then
-
-
-        'End If
         Return ""
     End Function
 

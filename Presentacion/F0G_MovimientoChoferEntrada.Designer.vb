@@ -153,16 +153,27 @@ Partial Class F0G_MovimientoChoferEntrada
         '
         'MBtUltimo
         '
+        Me.MBtUltimo.Location = New System.Drawing.Point(131, 0)
         Me.MBtUltimo.Margin = New System.Windows.Forms.Padding(2)
+        Me.MBtUltimo.Size = New System.Drawing.Size(42, 36)
         '
         'MBtSiguiente
         '
+        Me.MBtSiguiente.Location = New System.Drawing.Point(89, 0)
+        Me.MBtSiguiente.Size = New System.Drawing.Size(42, 36)
         '
         'MBtAnterior
         '
+        Me.MBtAnterior.Location = New System.Drawing.Point(47, 0)
+        Me.MBtAnterior.Size = New System.Drawing.Size(42, 36)
         '
         'MBtPrimero
         '
+        Me.MBtPrimero.Size = New System.Drawing.Size(42, 36)
+        '
+        'MPanelToolBarAccion
+        '
+        Me.MPanelToolBarAccion.Size = New System.Drawing.Size(375, 70)
         '
         'MBtSalir
         '
@@ -216,6 +227,8 @@ Partial Class F0G_MovimientoChoferEntrada
         '
         '
         Me.MLbPaginacion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.MLbPaginacion.Location = New System.Drawing.Point(173, 0)
+        Me.MLbPaginacion.Size = New System.Drawing.Size(142, 36)
         '
         'MRlAccion
         '

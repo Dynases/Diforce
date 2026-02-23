@@ -9,6 +9,14 @@ Imports GMap.NET.MapProviders
 Imports GMap.NET.WindowsForms.Markers
 Imports GMap.NET.WindowsForms.ToolTips
 Imports DevComponents.DotNetBar.Controls
+Imports Newtonsoft.Json
+Imports Presentacion.LoginResp
+Imports System.Net.Http
+Imports System.Text
+Imports Presentacion.ClienteRequest
+Imports Newtonsoft.Json.Linq
+Imports Presentacion.verificarNit
+Imports System.Net.Http.Headers
 
 Public Class F02_Cliente
     Dim _inter As Integer = 0
@@ -52,6 +60,9 @@ Public Class F02_Cliente
     Dim RutaGlobal As String = gs_CarpetaRaiz
     Dim RutaTemporal As String = "C:\Temporal"
     Dim nameImg As String = "Default.jpg"
+
+    Dim tokenSifac As String
+    Dim customerId As String = ""
 
 #End Region
 
@@ -122,7 +133,35 @@ Public Class F02_Cliente
         If (Not gb_ConexionAbierta) Then
             L_prAbrirConexion()
         End If
+        If gi_Facturacion = 1 Then
+            If (gs_Mon = "Bs") Then
+                LabelApellido.Visible = True
+                TbApellido.Visible = True
+                LabelDocFact.Visible = True
+                MultiComFact.Visible = True
+                tokenSifac = F01_Producto.ObtToken()
+                ListarDocumentosIdentidad(tokenSifac)
+                MultiComFact.SelectedIndex = -1
+            End If
+        Else
+            If (gs_Mon = "Bs") Then
+                LabelApellido.Visible = False
+                TbApellido.Visible = False
+                LabelDocFact.Visible = False
+                MultiComFact.Visible = False
 
+            End If
+        End If
+
+        If gs_Mon = "Bs" Then
+            LabelX2.Text = "Nombre:"
+            LabelX10.Visible = True
+            TbNombreFactura.Visible = True
+        ElseIf gs_Mon = "Ars" Then
+            LabelX2.Text = "Razón Social:"
+            LabelX10.Visible = False
+            TbNombreFactura.Visible = False
+        End If
         'Validar requisitos del programa
         If (Not P_fnValidarRequisitos() = String.Empty) Then
             Return
@@ -304,7 +343,7 @@ Public Class F02_Cliente
         tbLatitud.ReadOnly = Not flat
         tbLongitud.ReadOnly = Not flat
         tbRecorrido.ReadOnly = Not flat
-
+        TbApellido.ReadOnly = Not flat
         'ComboBox
         CbZona.ReadOnly = Not flat
         CbTipoDoc.ReadOnly = Not flat
@@ -313,7 +352,7 @@ Public Class F02_Cliente
         cbPrevendedor.ReadOnly = Not flat
         cbTipoCredito.ReadOnly = Not flat
         cbCatCliente.ReadOnly = Not flat
-
+        MultiComFact.ReadOnly = Not flat
         'DateTimer
         DtiFechaNac.IsInputReadOnly = Not flat
         DtiFechaNac.ButtonDropDown.Enabled = flat
@@ -378,6 +417,7 @@ Public Class F02_Cliente
         TbNit.Clear()
         tbLatitud.Clear()
         tbLongitud.Clear()
+        TbApellido.Clear()
         tbRecorrido.Text = "0"
         TbiCantEntrante.Value = 0
         TbiCantSaliente.Value = 0
@@ -549,7 +589,14 @@ Public Class F02_Cliente
                     'Me.cbTipoCredito.Clear()
                     Dim s As String = .GetValue("tcre").ToString
                     Me.cbTipoCredito.Value = .GetValue("tcre")
+                    '--------habilitar para facturacion--------------------------------------------------------------
 
+                    If gi_Facturacion = 1 Then
+                        Me.MultiComFact.Value = Convert.ToInt32(.GetValue("docFact"))
+
+                        Me.TbApellido.Text = .GetValue("ccapellido").ToString
+                    End If
+                    '------------------------------------------------------------------------------------------------
                     'Aqui de coloca los datos del Mapa
                     If (gb_mostrarMapa) Then
                         If (CDbl(tbLatitud.Text.Replace("-", "")) > 0 And CDbl(tbLongitud.Text.Replace("-", "")) > 0) Then
@@ -663,7 +710,6 @@ Public Class F02_Cliente
 
         _prCargarGridCategoria(TbCodigo.Text)
     End Sub
-
     Public Function filtrarImagenes(Id As Integer) As DataTable
         Dim dt As DataTable = dtImagenesAll.Copy
         dt.Rows.Clear()
@@ -811,233 +857,288 @@ Public Class F02_Cliente
         Dim frecvisita As String
         Dim usuesp As Integer
 
-
-
+        Dim apellido As String
+        Dim docFact As String
         DgjEquipo.Refetch()
         If (BoNuevo) Then
             If (P_fnValidarGrabacion()) Then
-
-                numi = L_GetLastIdTablas("TC004", "ccnumi") + 1
-                cod = tbCodCliente.Text.Trim
-                desc = TbNombre.Text.Trim
-
-                zona = CbZona.Value
-                dct = CbTipoDoc.Value
-                dctnum = IIf(TbNroDoc.Text.Trim.Equals(""), "0", TbNroDoc.Text.Trim)
-                direc = IIf(TbDireccion.Text.Trim.Equals(""), "S/DIR", TbDireccion.Text.Trim)
-                telf1 = IIf(TbTelefono1.Text.Trim.Equals(""), "0", TbTelefono1.Text.Trim)
-                telf2 = IIf(TbTelefono2.Text.Trim.Equals(""), "0", TbTelefono2.Text.Trim)
-                cat = CbCategoria.Value
-                est = "1"
-                If (RbActivo.Checked) Then
-                    est = "1"
-                ElseIf (RbPasivo.Checked) Then
-                    est = "0"
-                ElseIf (RbDevuelto.Checked) Then
-                    est = "2"
-                End If
-                lat = IIf(tbLatitud.Text.Trim.Equals(""), 0, tbLatitud.Text.Trim)
-                lon = IIf(tbLongitud.Text.Trim.Equals(""), 0, tbLongitud.Text.Trim)
-                prconsu = "0"
-                even = IIf(SbEventual.Value, "0", "1")
-                obs = IIf(TbObs.Text.Trim.Equals(""), "S/OBS", TbObs.Text.Trim)
-                fnac = DtiFechaNac.Value.ToString("yyyy/MM/dd")
-                nomfac = IIf(TbNombreFactura.Text.Trim.Equals(""), "S/N", TbNombreFactura.Text.Trim)
-                nit = IIf(TbNit.Text.Trim.Equals(""), "0", TbNit.Text.Trim)
-                ultped = DtiUltimoPedido.Value.ToString("yyyy/MM/dd")
-                fecing = DtiFechaIng.Value.ToString("yyyy/MM/dd")
-                ultvent = "2000/01/01"
-                recven = tbRecorrido.Text.Trim
-                supven = cbSupervisor.Value.ToString
-                preven = cbPrevendedor.Value.ToString
-
-                tcre = cbTipoCredito.Value.ToString
-
-                Dim dtDet1 As DataTable = Nothing
-                Dim dtDet2 As DataTable = Nothing
-                If (gi_vacu = 1) Then
-                    dtDet1 = CType(dgjDias.DataSource, DataTable).Clone
-                    dtDet2 = CType(dgjProducto.DataSource, DataTable).Clone
-                End If
-
-                If (gi_vacu = 1 And dgjProducto.GetRows.Count > 1) Then
-                    tacu = cbTipoAcuerdo.Value.ToString
-                    fini = dtFechaInicio.Value.ToString("yyyy/MM/dd")
-                    ffin = dtFechaFinal.Value.ToString("yyyy/MM/dd")
-                    fre = cbFrecuencia.Value.ToString
-                    acuEst = IIf(btEstado.Value, "1", "0")
-                    acuObs = tbAcuObs.Text.Trim
-
-                    For Each fil As DataRow In CType(dgjDias.DataSource, DataTable).Rows
-                        If (fil.Item("check")) Then
-                            fil.Item("estado") = 1
-                            dtDet1.ImportRow(fil)
+                If gi_Facturacion = 1 Then
+                    If gs_Mon = "Bs" Then
+                        If MultiComFact.Value = "5" Then
+                            If verificarNit(tokenSifac, TbNit.Text) = "400" Then
+                                MessageBox.Show($"El número de NIT {TbNit.Text} no es válido")
+                                Exit Sub
+                            Else
+                                If CrearClienteHttpClient(tokenSifac) = "200" Then
+                                    GoTo ContinuarProceso
+                                End If
+                            End If
+                        Else
+                            If CrearClienteHttpClient(tokenSifac) = "200" Then
+                                GoTo ContinuarProceso
+                            End If
                         End If
-                    Next
 
-                    dtDet1 = dtDet1.DefaultView.ToTable(False, "ccaanumi", "ccatc4anumi", "ccaandia", "estado")
-                    dtDet2 = CType(dgjProducto.DataSource, DataTable).DefaultView.ToTable(False, "ccabnumi", "ccabtc4anumi", "ccabprod", "ccabcant", "estado")
-                Else
-                    tacu = "-1"
+                    End If
                 End If
+ContinuarProceso:
+                    numi = L_GetLastIdTablas("TC004", "ccnumi") + 1
+                    cod = tbCodCliente.Text.Trim
+                    desc = TbNombre.Text.Trim
 
-                'Para registrar frecuencia de visitas
-                giFrec = gi_frecvisita.ToString
-                frecvisita = tbiFrecuencia.Value.ToString
-                usuesp = cbCatCliente.Value
+                    zona = CbZona.Value
+                    dct = CbTipoDoc.Value
+                    dctnum = IIf(TbNroDoc.Text.Trim.Equals(""), "0", TbNroDoc.Text.Trim)
+                    direc = IIf(TbDireccion.Text.Trim.Equals(""), "S/DIR", TbDireccion.Text.Trim)
+                    telf1 = IIf(TbTelefono1.Text.Trim.Equals(""), "0", TbTelefono1.Text.Trim)
+                    telf2 = IIf(TbTelefono2.Text.Trim.Equals(""), "0", TbTelefono2.Text.Trim)
+                    cat = CbCategoria.Value
+                    est = "1"
+                    If (RbActivo.Checked) Then
+                        est = "1"
+                    ElseIf (RbPasivo.Checked) Then
+                        est = "0"
+                    ElseIf (RbDevuelto.Checked) Then
+                        est = "2"
+                    End If
+                    lat = IIf(tbLatitud.Text.Trim.Equals(""), 0, tbLatitud.Text.Trim)
+                    lon = IIf(tbLongitud.Text.Trim.Equals(""), 0, tbLongitud.Text.Trim)
+                    prconsu = "0"
+                    even = IIf(SbEventual.Value, "0", "1")
+                    obs = IIf(TbObs.Text.Trim.Equals(""), "S/OBS", TbObs.Text.Trim)
+                    fnac = DtiFechaNac.Value.ToString("yyyy/MM/dd")
+                    nomfac = IIf(TbNombreFactura.Text.Trim.Equals(""), "S/N", TbNombreFactura.Text.Trim)
+                    nit = IIf(TbNit.Text.Trim.Equals(""), "0", TbNit.Text.Trim)
+                    ultped = DtiUltimoPedido.Value.ToString("yyyy/MM/dd")
+                    fecing = DtiFechaIng.Value.ToString("yyyy/MM/dd")
+                    ultvent = "2000/01/01"
+                    recven = tbRecorrido.Text.Trim
+                    supven = cbSupervisor.Value.ToString
+                    preven = cbPrevendedor.Value.ToString
+
+                    tcre = cbTipoCredito.Value.ToString
+
+                    apellido = IIf(gs_Mon = "Bs", TbApellido.Text, "")
+                    docFact = IIf(gs_Mon = "Bs", MultiComFact.Value, "0")
+                    Dim dtDet1 As DataTable = Nothing
+                    Dim dtDet2 As DataTable = Nothing
+                    If (gi_vacu = 1) Then
+                        dtDet1 = CType(dgjDias.DataSource, DataTable).Clone
+                        dtDet2 = CType(dgjProducto.DataSource, DataTable).Clone
+                    End If
+
+                    If (gi_vacu = 1 And dgjProducto.GetRows.Count > 1) Then
+                        tacu = cbTipoAcuerdo.Value.ToString
+                        fini = dtFechaInicio.Value.ToString("yyyy/MM/dd")
+                        ffin = dtFechaFinal.Value.ToString("yyyy/MM/dd")
+                        fre = cbFrecuencia.Value.ToString
+                        acuEst = IIf(btEstado.Value, "1", "0")
+                        acuObs = tbAcuObs.Text.Trim
+
+                        For Each fil As DataRow In CType(dgjDias.DataSource, DataTable).Rows
+                            If (fil.Item("check")) Then
+                                fil.Item("estado") = 1
+                                dtDet1.ImportRow(fil)
+                            End If
+                        Next
+
+                        dtDet1 = dtDet1.DefaultView.ToTable(False, "ccaanumi", "ccatc4anumi", "ccaandia", "estado")
+                        dtDet2 = CType(dgjProducto.DataSource, DataTable).DefaultView.ToTable(False, "ccabnumi", "ccabtc4anumi", "ccabprod", "ccabcant", "estado")
+                    Else
+                        tacu = "-1"
+                    End If
+
+                    'Para registrar frecuencia de visitas
+                    giFrec = gi_frecvisita.ToString
+                    frecvisita = tbiFrecuencia.Value.ToString
+                    usuesp = cbCatCliente.Value
 
 
-                BtAddEquipo.Select()
+                    BtAddEquipo.Select()
 
-                Dim dt As DataTable = CType(DgjEquipo.DataSource, DataTable).DefaultView.ToTable(False, "chnumi", "chfec", "chcod", "chdesc", "chtmov", "chnrem", "chcan", "chmonbs", "chmonsus", "chnota", "chlin", "chobs", "estado")
-                Dim dt2 As DataTable = CType(grCatProd.DataSource, DataTable).DefaultView.ToTable(False, "cpnumi", "cpcli", "cpprod", "cpcat")
-                'Grabar
-                Dim res As Boolean = L_fnGrabarCliente(numi, cod, desc, zona, dct, dctnum, direc, telf1, telf2, cat,
+                    Dim dt As DataTable = CType(DgjEquipo.DataSource, DataTable).DefaultView.ToTable(False, "chnumi", "chfec", "chcod", "chdesc", "chtmov", "chnrem", "chcan", "chmonbs", "chmonsus", "chnota", "chlin", "chobs", "estado")
+                    Dim dt2 As DataTable = CType(grCatProd.DataSource, DataTable).DefaultView.ToTable(False, "cpnumi", "cpcli", "cpprod", "cpcat")
+                    'Grabar
+                    Dim res As Boolean = L_fnGrabarCliente(numi, cod, desc, zona, dct, dctnum, direc, telf1, telf2, cat,
                                                        est, lat, lon, prconsu, even, obs, fnac, nomfac, nit, ultped,
                                                        fecing, ultvent, recven, supven, preven, dt, dt2, tacu, fini, ffin,
                                                        fre, acuEst, acuObs, tcre, dtDet1, dtDet2, giFrec, frecvisita,
                                                        IIf(chbLunes.Checked, 1, 0), IIf(chbMartes.Checked, 1, 0),
                                                        IIf(chbMiercoles.Checked, 1, 0), IIf(chbJueves.Checked, 1, 0),
                                                        IIf(chbViernes.Checked, 1, 0), IIf(chbSabado.Checked, 1, 0),
-                                                       IIf(chbDomingo.Checked, 1, 0), TablaImagenes, usuesp)
+                                                       IIf(chbDomingo.Checked, 1, 0), TablaImagenes, usuesp, apellido, customerId, docFact)
 
 
-                If (res) Then
+                    If (res) Then
 
-                    _prCrearCarpetaImagenes("ProductosTodos")
-                    _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
-                    P_prLimpiar()
-                    BoNavegar = False
-                    P_prArmarGrillaBusqueda()
-                    P_ArmarGrillaSugerencia()
+                        _prCrearCarpetaImagenes("ProductosTodos")
+                        _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
+                        P_prLimpiar()
+                        BoNavegar = False
+                        P_prArmarGrillaBusqueda()
+                        P_ArmarGrillaSugerencia()
 
-                    dtImagenesAll = L_prCargarImagenesClienteAll()
-                    BoNavegar = True
+                        dtImagenesAll = L_prCargarImagenesClienteAll()
+                        BoNavegar = True
 
-                    TbNombre.Select()
-                    ToastNotification.Show(Me, "Codigo de cliente ".ToUpper + TbCodigo.Text + " Grabado con Exito.".ToUpper,
+                        TbNombre.Select()
+                        ToastNotification.Show(Me, "Codigo de cliente ".ToUpper + TbCodigo.Text + " Grabado con Exito.".ToUpper,
                                        My.Resources.GRABACION_EXITOSA,
                                        InDuracion * 1000,
                                        eToastGlowColor.Green,
                                        eToastPosition.TopCenter)
-                Else
-                    ToastNotification.Show(Me, "No se pudo grabar el codigo de cliente ".ToUpper + TbCodigo.Text + ", intente nuevamente.".ToUpper,
+                    Else
+                        ToastNotification.Show(Me, "No se pudo grabar el codigo de cliente ".ToUpper + TbCodigo.Text + ", intente nuevamente.".ToUpper,
                                        My.Resources.WARNING,
                                        InDuracion * 1000,
                                        eToastGlowColor.Red,
                                        eToastPosition.TopCenter)
+                    End If
                 End If
-            End If
-        ElseIf (BoModificar) Then
+            ElseIf (BoModificar) Then
             If (P_fnValidarGrabacion()) Then
-                numi = TbCodigo.Text.Trim
-                cod = tbCodCliente.Text
-                desc = TbNombre.Text.Trim
-                zona = CbZona.Value
-                dct = CbTipoDoc.Value
-                dctnum = TbNroDoc.Text
-                direc = TbDireccion.Text
-                telf1 = TbTelefono1.Text
-                telf2 = TbTelefono2.Text
-                cat = CbCategoria.Value
-                est = "1"
-                If (RbActivo.Checked) Then
-                    est = "1"
-                ElseIf (RbPasivo.Checked) Then
-                    est = "0"
-                ElseIf (RbDevuelto.Checked) Then
-                    est = "2"
-                End If
-                lat = IIf(tbLatitud.Text.Trim.Equals(""), 0, tbLatitud.Text.Trim)
-                lon = IIf(tbLongitud.Text.Trim.Equals(""), 0, tbLongitud.Text.Trim)
-                even = IIf(SbEventual.Value, "0", "1")
-                obs = IIf(TbObs.Text.Trim.Equals(""), "S/OBS", TbObs.Text.Trim)
-                fnac = DtiFechaNac.Value.ToString("yyyy/MM/dd")
-                nomfac = TbNombreFactura.Text.Trim
-                nit = TbNit.Text.Trim
-                ultped = DtiUltimoPedido.Value.ToString("yyyy/MM/dd")
-                fecing = DtiFechaIng.Value.ToString("yyyy/MM/dd")
-                ultvent = DtiUltimaVenta.Value.ToString("yyyy/MM/dd")
-                recven = tbRecorrido.Text.Trim
-                supven = cbSupervisor.Value.ToString
-                preven = cbPrevendedor.Value.ToString
-
-                tcre = cbTipoCredito.Value.ToString
-
-                Dim dtDet1 As DataTable = Nothing
-                Dim dtDet2 As DataTable = Nothing
-                If (gi_vacu = 1) Then
-                    dtDet1 = CType(dgjDias.DataSource, DataTable).Clone
-                    dtDet2 = CType(dgjProducto.DataSource, DataTable).Clone
-                End If
-
-                If (gi_vacu = 1 And dgjProducto.GetRows.Count > 1) Then
-                    tacu = cbTipoAcuerdo.Value.ToString
-                    fini = dtFechaInicio.Value.ToString("yyyy/MM/dd")
-                    ffin = dtFechaFinal.Value.ToString("yyyy/MM/dd")
-                    fre = cbFrecuencia.Value.ToString
-                    acuEst = IIf(btEstado.Value, "1", "0")
-                    acuObs = tbAcuObs.Text.Trim
-
-                    For Each fil As DataRow In CType(dgjDias.DataSource, DataTable).Rows
-                        If (fil.Item("check")) Then
-                            fil.Item("estado") = 1
-                            dtDet1.ImportRow(fil)
+                If gi_Facturacion = 1 Then
+                    If gs_Mon = "Bs" Then
+                        If MultiComFact.Value = "5" Then
+                            If verificarNit(tokenSifac, TbNit.Text) = "400" Then
+                                MessageBox.Show($"El número de NIT {TbNit.Text} no es válido")
+                                Exit Sub
+                            Else
+                                If DgjBusqueda.GetValue("customerid").ToString <> "0" Then
+                                    If actualizarCliente(tokenSifac, DgjBusqueda.GetValue("customerid").ToString) = "200" Then
+                                        GoTo ContinuarProceso1
+                                    End If
+                                Else
+                                    If CrearClienteHttpClient(tokenSifac) = "200" Then
+                                        GoTo ContinuarProceso1
+                                    End If
+                                End If
+                            End If
+                                    Else
+                            If DgjBusqueda.GetValue("customerid").ToString <> "0" Then
+                                If actualizarCliente(tokenSifac, DgjBusqueda.GetValue("customerid").ToString) = "200" Then
+                                    GoTo ContinuarProceso1
+                                End If
+                            Else
+                                If CrearClienteHttpClient(tokenSifac) = "200" Then
+                                    GoTo ContinuarProceso1
+                                End If
+                            End If
                         End If
-                    Next
 
-                    dtDet1 = dtDet1.DefaultView.ToTable(False, "ccaanumi", "ccatc4anumi", "ccaandia", "estado")
-                    dtDet2 = CType(dgjProducto.DataSource, DataTable).DefaultView.ToTable(False, "ccabnumi", "ccabtc4anumi", "ccabprod", "ccabcant", "estado")
-                Else
-                    tacu = "-1"
+                    End If
                 End If
+ContinuarProceso1:
+                    numi = TbCodigo.Text.Trim
+                    cod = tbCodCliente.Text
+                    desc = TbNombre.Text.Trim
+                    zona = CbZona.Value
+                    dct = CbTipoDoc.Value
+                    dctnum = TbNroDoc.Text
+                    direc = TbDireccion.Text
+                    telf1 = TbTelefono1.Text
+                    telf2 = TbTelefono2.Text
+                    cat = CbCategoria.Value
+                    est = "1"
+                    If (RbActivo.Checked) Then
+                        est = "1"
+                    ElseIf (RbPasivo.Checked) Then
+                        est = "0"
+                    ElseIf (RbDevuelto.Checked) Then
+                        est = "2"
+                    End If
+                    lat = IIf(tbLatitud.Text.Trim.Equals(""), 0, tbLatitud.Text.Trim)
+                    lon = IIf(tbLongitud.Text.Trim.Equals(""), 0, tbLongitud.Text.Trim)
+                    even = IIf(SbEventual.Value, "0", "1")
+                    obs = IIf(TbObs.Text.Trim.Equals(""), "S/OBS", TbObs.Text.Trim)
+                    fnac = DtiFechaNac.Value.ToString("yyyy/MM/dd")
+                    nomfac = TbNombreFactura.Text.Trim
+                    nit = TbNit.Text.Trim
+                    ultped = DtiUltimoPedido.Value.ToString("yyyy/MM/dd")
+                    fecing = DtiFechaIng.Value.ToString("yyyy/MM/dd")
+                    ultvent = DtiUltimaVenta.Value.ToString("yyyy/MM/dd")
+                    recven = tbRecorrido.Text.Trim
+                    supven = cbSupervisor.Value.ToString
+                    preven = cbPrevendedor.Value.ToString
 
-                'Para modificar o registrar frecuencia de visitas
-                giFrec = gi_frecvisita.ToString
-                frecvisita = tbiFrecuencia.Value.ToString
-                usuesp = cbCatCliente.Value
-                BtAddEquipo.Select()
+                    tcre = cbTipoCredito.Value.ToString
 
-                Dim dt As DataTable = CType(DgjEquipo.DataSource, DataTable).DefaultView.ToTable(False, "chnumi", "chfec", "chcod", "chdesc", "chtmov", "chnrem", "chcan", "chmonbs", "chmonsus", "chnota", "chlin", "chobs", "estado")
-                Dim dt2 As DataTable = CType(grCatProd.DataSource, DataTable).DefaultView.ToTable(False, "cpnumi", "cpcli", "cpprod", "cpcat")
-                'Grabar
-                Dim res As Boolean = L_fnModificarCliente(numi, cod, desc, zona, dct, dctnum, direc, telf1, telf2, cat,
+                    apellido = IIf(gs_Mon = "Bs", TbApellido.Text, "")
+                    docFact = IIf(gs_Mon = "Bs", MultiComFact.Value, "0")
+                    Dim dtDet1 As DataTable = Nothing
+                    Dim dtDet2 As DataTable = Nothing
+                    If (gi_vacu = 1) Then
+                        dtDet1 = CType(dgjDias.DataSource, DataTable).Clone
+                        dtDet2 = CType(dgjProducto.DataSource, DataTable).Clone
+                    End If
+
+                    If (gi_vacu = 1 And dgjProducto.GetRows.Count > 1) Then
+                        tacu = cbTipoAcuerdo.Value.ToString
+                        fini = dtFechaInicio.Value.ToString("yyyy/MM/dd")
+                        ffin = dtFechaFinal.Value.ToString("yyyy/MM/dd")
+                        fre = cbFrecuencia.Value.ToString
+                        acuEst = IIf(btEstado.Value, "1", "0")
+                        acuObs = tbAcuObs.Text.Trim
+
+                        For Each fil As DataRow In CType(dgjDias.DataSource, DataTable).Rows
+                            If (fil.Item("check")) Then
+                                fil.Item("estado") = 1
+                                dtDet1.ImportRow(fil)
+                            End If
+                        Next
+
+                        dtDet1 = dtDet1.DefaultView.ToTable(False, "ccaanumi", "ccatc4anumi", "ccaandia", "estado")
+                        dtDet2 = CType(dgjProducto.DataSource, DataTable).DefaultView.ToTable(False, "ccabnumi", "ccabtc4anumi", "ccabprod", "ccabcant", "estado")
+                    Else
+                        tacu = "-1"
+                    End If
+
+                    'Para modificar o registrar frecuencia de visitas
+                    giFrec = gi_frecvisita.ToString
+                    frecvisita = tbiFrecuencia.Value.ToString
+                    usuesp = cbCatCliente.Value
+                    BtAddEquipo.Select()
+
+                    Dim dt As DataTable = CType(DgjEquipo.DataSource, DataTable).DefaultView.ToTable(False, "chnumi", "chfec", "chcod", "chdesc", "chtmov", "chnrem", "chcan", "chmonbs", "chmonsus", "chnota", "chlin", "chobs", "estado")
+                    Dim dt2 As DataTable = CType(grCatProd.DataSource, DataTable).DefaultView.ToTable(False, "cpnumi", "cpcli", "cpprod", "cpcat")
+                    'Grabar
+                    Dim res As Boolean = L_fnModificarCliente(numi, cod, desc, zona, dct, dctnum, direc, telf1, telf2, cat,
                                                           est, lat, lon, even, obs, fnac, nomfac, nit, ultped,
                                                           fecing, ultvent, recven, supven, preven, dt, dt2, tacu, fini, ffin,
                                                           fre, acuEst, acuObs, tcre, dtDet1, dtDet2, giFrec, frecvisita,
                                                           IIf(chbLunes.Checked, 1, 0), IIf(chbMartes.Checked, 1, 0),
                                                           IIf(chbMiercoles.Checked, 1, 0), IIf(chbJueves.Checked, 1, 0),
                                                           IIf(chbViernes.Checked, 1, 0), IIf(chbSabado.Checked, 1, 0),
-                                                          IIf(chbDomingo.Checked, 1, 0), TablaImagenes, usuesp)
+                                                          IIf(chbDomingo.Checked, 1, 0), TablaImagenes, usuesp, apellido, docFact, customerId)
 
-                If (res) Then
-                    _prCrearCarpetaImagenes("ProductosTodos")
-                    _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
-                    dtImagenesAll = L_prCargarImagenesClienteAll()
-                    BoNavegar = False
-                    P_prArmarGrillaBusqueda()
-                    P_ArmarGrillaSugerencia()
-                    BoNavegar = True
+                    If (res) Then
+                        _prCrearCarpetaImagenes("ProductosTodos")
+                        _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
+                        dtImagenesAll = L_prCargarImagenesClienteAll()
+                        BoNavegar = False
+                        P_prArmarGrillaBusqueda()
+                        P_ArmarGrillaSugerencia()
+                        BoNavegar = True
 
-                    P_prMoverIndexActual()
+                        P_prMoverIndexActual()
 
-                    TbNombre.Select()
-                    MBtSalir.PerformClick()
+                        TbNombre.Select()
+                        MBtSalir.PerformClick()
 
-                    ToastNotification.Show(Me, "Codigo de cliente ".ToUpper + TbCodigo.Text + " Modificado con Exito.".ToUpper,
+                        ToastNotification.Show(Me, "Codigo de cliente ".ToUpper + TbCodigo.Text + " Modificado con Exito.".ToUpper,
                                        My.Resources.GRABACION_EXITOSA,
                                        InDuracion * 1000,
                                        eToastGlowColor.Green,
                                        eToastPosition.TopCenter)
-                Else
-                    ToastNotification.Show(Me, "No se pudo modificar el codigo de cliente ".ToUpper + TbCodigo.Text + ", intente nuevamente.".ToUpper,
+                    Else
+                        ToastNotification.Show(Me, "No se pudo modificar el codigo de cliente ".ToUpper + TbCodigo.Text + ", intente nuevamente.".ToUpper,
                                        My.Resources.WARNING,
                                        InDuracion * 1000,
                                        eToastGlowColor.Red,
                                        eToastPosition.TopCenter)
+                    End If
                 End If
             End If
-        End If
     End Sub
 
     Private Sub P_prCancelarRegistro()
@@ -1629,6 +1730,28 @@ Public Class F02_Cliente
             .CellStyle.Font = FtNormal
             .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
             .Visible = True
+            '.CellStyle.BackColor = Color.AliceBlue
+        End With
+        With DgjBusqueda.RootTable.Columns(36)
+            .Caption = ""
+            .Key = "docFact"
+            .Width = 0
+            .HeaderStyle.Font = FtTitulo
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .CellStyle.Font = FtNormal
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
+            '.CellStyle.BackColor = Color.AliceBlue
+        End With
+        With DgjBusqueda.RootTable.Columns(37)
+            .Caption = ""
+            .Key = "customerid"
+            .Width = 0
+            .HeaderStyle.Font = FtTitulo
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .CellStyle.Font = FtNormal
+            .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
+            .Visible = False
             '.CellStyle.BackColor = Color.AliceBlue
         End With
         'Habilitar Filtradores
@@ -3243,8 +3366,8 @@ Public Class F02_Cliente
         End If
     End Sub
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        _Inter = _Inter + 1
-        If _Inter = 1 Then
+        _inter = _inter + 1
+        If _inter = 1 Then
             Me.WindowState = FormWindowState.Normal
 
         Else
@@ -3620,4 +3743,186 @@ Public Class F02_Cliente
             End If
         End If
     End Sub
+#Region "Facturacion"
+    ' Clase para cada item del combo
+    Public Class TipoDocumentoItem
+        Public Property codigoClasificador As Integer
+        Public Property descripcion As String
+    End Class
+    Public Function ListarDocumentosIdentidad(tokenObtenido As String, Optional ae As Integer = 5)
+        Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+        Dim request = TryCast(System.Net.WebRequest.Create(link + "api/invoices/siat/v2/sync-documentos-identidad"), System.Net.HttpWebRequest)
+
+        request.Method = "GET"
+
+        request.ContentType = "application/json"
+        Dim bearer As String = "Bearer " + tokenObtenido
+        request.Headers.Add("authorization", bearer)
+
+        request.ContentLength = 0
+        Dim responseContent As String
+        Using response = TryCast(request.GetResponse(), System.Net.HttpWebResponse)
+            Using reader = New System.IO.StreamReader(response.GetResponseStream())
+                responseContent = reader.ReadToEnd()
+                Dim result = JsonConvert.DeserializeObject(Of listaTipoDocumento)(responseContent)
+
+                Dim arr As JToken = JObject.Parse(responseContent) _
+    .SelectToken("data.RespuestaListaParametricas.listaCodigos")
+
+                Dim lista As List(Of TipoDocumentoItem) =
+    arr.ToObject(Of List(Of TipoDocumentoItem))()
+
+                With MultiComFact
+                    .DropDownList.Columns.Clear()
+
+                    With .DropDownList.Columns.Add("codigoClasificador")
+                        .Caption = "COD"
+                        .Width = 80
+                    End With
+                    With .DropDownList.Columns.Add("descripcion")
+                        .Caption = "DESCRIPCION"
+                        .Width = 300   ' ajusta a gusto
+                    End With
+
+                    .ValueMember = "codigoClasificador"
+                    .DisplayMember = "descripcion"
+                    .DataSource = lista
+                    .Refresh()
+                End With
+            End Using
+        End Using
+
+        Return ""
+    End Function
+
+    Public Function verificarNit(tokenObtenido As String, Optional nit As String = "8933347") As String
+        Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+        Dim request = CType(System.Net.WebRequest.Create(link + $"api/invoices/siat/v2/validate-nit?nit={nit}"), System.Net.HttpWebRequest)
+        request.Method = "GET"
+        request.Headers.Add("Authorization", "Bearer " & F01_Producto.ObtToken())
+
+        Try
+            Using response = CType(request.GetResponse(), System.Net.HttpWebResponse)
+                Using reader As New System.IO.StreamReader(response.GetResponseStream())
+                    Dim contenido As String = reader.ReadToEnd()
+                    ' Parsear el JSON para obtener el campo "code"
+                    Dim jsonObj As JObject = JObject.Parse(contenido)
+                    Dim codigo As String = jsonObj("code")?.ToString()
+                    Return codigo
+                End Using
+            End Using
+
+        Catch ex As System.Net.WebException
+            If ex.Response IsNot Nothing Then
+                Using reader As New System.IO.StreamReader(ex.Response.GetResponseStream())
+                    Dim errorJson As String = reader.ReadToEnd()
+                    Dim obj As JObject = JObject.Parse(errorJson)
+                    Dim codigoError As String = obj("code")?.ToString()
+                    Return codigoError
+                End Using
+            End If
+
+            Return $"Excepción: {ex.Message}"
+        End Try
+    End Function
+
+    Public Function CrearClienteHttpClient(tokenObtenido As String)
+        Dim cliente As New ClienteRequest With {
+            .code = "",
+            .group_id = -1,
+            .store_id = 0,
+            .first_name = TbNombre.Text.Trim(),
+            .last_name = TbApellido.Text.Trim(),
+            .identity_document = CLng(TbNroDoc.Text),
+            .company = "",
+            .date_of_birth = Nothing,
+            .gender = "",
+            .phone = "",
+            .mobile = "",
+            .fax = "",
+            .email = "",
+            .website = "",
+            .address_1 = TbDireccion.Text.Trim(),
+            .address_2 = "",
+            .zip_code = "",
+            .city = "",
+            .country = "Bolivia",
+            .country_code = "BO",
+            .meta = New MetaCliente With {
+                .nit_ruc_nif = TbNit.Text.Trim(),
+                .billing_name = Nothing
+            }
+        }
+
+        Dim json As String = JsonConvert.SerializeObject(cliente)
+
+        Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+        Dim url As String = link + "api/customers"
+
+        Dim jsonBody = JsonConvert.SerializeObject(cliente, Formatting.None,
+            New JsonSerializerSettings With {.NullValueHandling = NullValueHandling.Include})
+
+        Using client As New HttpClient()
+            client.DefaultRequestHeaders.Clear()
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " & tokenObtenido)
+
+            Dim content = New StringContent(jsonBody, Encoding.UTF8, "application/json")
+            Dim resp = client.PostAsync(url, content).Result
+            Dim result = resp.Content.ReadAsStringAsync().Result
+            Dim jo As JObject = JObject.Parse(result)
+            Dim code As String = jo("code")
+            customerId = jo("data")("customer")("customer_id")
+            Return code
+        End Using
+    End Function
+
+    Public Function actualizarCliente(tokenObtenido As String, customer As String)
+        Dim cliente As New ClienteRequest With {
+            .customer_id = customer,
+        .code = "",
+            .group_id = -1,
+            .store_id = 0,
+            .first_name = TbNombre.Text.Trim(),
+            .last_name = TbApellido.Text.Trim(),
+            .identity_document = CLng(TbNroDoc.Text),
+            .company = "",
+            .date_of_birth = Nothing,
+            .gender = "",
+            .phone = "",
+            .mobile = "",
+            .fax = "",
+            .email = "",
+            .website = "",
+            .address_1 = TbDireccion.Text.Trim(),
+            .address_2 = "",
+            .zip_code = "",
+            .city = "",
+            .country = "Bolivia",
+            .country_code = "BO",
+            .meta = New MetaCliente With {
+                .nit_ruc_nif = TbNit.Text.Trim(),
+                .billing_name = Nothing
+            }
+        }
+        Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+        Dim url As String = link + "api/customers"
+
+        Dim jsonBody = JsonConvert.SerializeObject(cliente, Formatting.None,
+            New JsonSerializerSettings With {.NullValueHandling = NullValueHandling.Include})
+
+        Using client As New HttpClient()
+            client.DefaultRequestHeaders.Clear()
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " & tokenObtenido)
+
+            Dim content = New StringContent(jsonBody, Encoding.UTF8, "application/json")
+            Dim resp = client.PostAsync(url, content).Result
+            Dim result = resp.Content.ReadAsStringAsync().Result
+            Dim jo As JObject = JObject.Parse(result)
+            Dim code As String = jo("code")
+            customerId = jo("data")("customer")("customer_id")
+            Return code
+        End Using
+    End Function
+
+#End Region
 End Class

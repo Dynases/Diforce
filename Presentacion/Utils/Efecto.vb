@@ -45,12 +45,36 @@ Public Class Efecto
                 _prDatosFactura()
             Case 6
                 _prDatosMontosPedido()
+            Case 7
+                _prDatosAnularFactura()
         End Select
     End Sub
     Public Sub _prLogin()
         Dim Frm As New Login
         Frm.ShowDialog()
         Me.Close()
+    End Sub
+
+    Sub _prDatosAnularFactura()
+
+        Dim frmAyuda As F1_Anular
+        frmAyuda = New F1_Anular
+        frmAyuda.cliente = cliente
+        'frmAyuda.Cantidad = 1
+        frmAyuda.ShowDialog()
+
+        If frmAyuda.bandera = True Then
+
+            nit = frmAyuda.nit
+            razonsocial = frmAyuda.razonsocial
+            email = frmAyuda.email
+            tipoDoc = frmAyuda.tipoDoc
+            band = True
+            Me.Close()
+        Else
+            band = False
+            Me.Close()
+        End If
     End Sub
     Sub _prMostrarFormAyuda()
 

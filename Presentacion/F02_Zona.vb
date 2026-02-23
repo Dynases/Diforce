@@ -1383,17 +1383,40 @@ Public Class F02_Zona
 
     End Sub
     Private Sub MBtImprimir_Click(sender As Object, e As EventArgs) Handles MBtImprimir.Click
-        '_PCargarZonas()
-        ReasignarzZonas()
+        _PCargarZonas()
+        'ReasignarzZonas()
     End Sub
 
 
     Private Sub ReasignarzZonas()
         Dim poligono1 As New List(Of Tuple(Of Double, Double)) From {
-New Tuple(Of Double, Double)(-19.215209, -66.250305),
-New Tuple(Of Double, Double)(-19.248922, -65.006104),
-New Tuple(Of Double, Double)(-20.032709, -65.014343),
-New Tuple(Of Double, Double)(-19.973349, -66.332703)
+New Tuple(Of Double, Double)(-19.771873, -63.173447),
+New Tuple(Of Double, Double)(-19.769288, -63.152847),
+New Tuple(Of Double, Double)(-19.760242, -63.131561),
+New Tuple(Of Double, Double)(-19.764765, -63.106842),
+New Tuple(Of Double, Double)(-19.783504, -63.094482),
+New Tuple(Of Double, Double)(-19.806116, -63.091049),
+New Tuple(Of Double, Double)(-19.86231, -63.075943),
+New Tuple(Of Double, Double)(-19.901699, -63.075256),
+New Tuple(Of Double, Double)(-19.941724, -63.07045),
+New Tuple(Of Double, Double)(-19.979157, -63.069763),
+New Tuple(Of Double, Double)(-20.020452, -63.062897),
+New Tuple(Of Double, Double)(-20.037225, -63.067703),
+New Tuple(Of Double, Double)(-20.068831, -63.062897),
+New Tuple(Of Double, Double)(-20.122998, -63.067017),
+New Tuple(Of Double, Double)(-20.15652, -63.075256),
+New Tuple(Of Double, Double)(-20.187457, -63.075256),
+New Tuple(Of Double, Double)(-20.18359, -63.138428),
+New Tuple(Of Double, Double)(-20.159098, -63.196106),
+New Tuple(Of Double, Double)(-20.088178, -63.207092),
+New Tuple(Of Double, Double)(-20.006903, -63.242798),
+New Tuple(Of Double, Double)(-19.934623, -63.256531),
+New Tuple(Of Double, Double)(-19.909124, -63.250694),
+New Tuple(Of Double, Double)(-19.891369, -63.236961),
+New Tuple(Of Double, Double)(-19.868768, -63.213272),
+New Tuple(Of Double, Double)(-19.843581, -63.198853),
+New Tuple(Of Double, Double)(-19.817098, -63.188553),
+New Tuple(Of Double, Double)(-19.790611, -63.180313)
         }
 
         ' Definir el punto a verificar
@@ -1407,7 +1430,7 @@ New Tuple(Of Double, Double)(-19.973349, -66.332703)
             Dim resultado As Boolean
             resultado = PuntoEnPoligono(punto, poligono1)
             If resultado Then
-                L_prReasignarCliente(PuntosClientes.Rows(i).Item("ccnumi"), 6)
+                L_prReasignarCliente(PuntosClientes.Rows(i).Item("ccnumi"), 17)
                 'Else
                 '    resultado = PuntoEnPoligono(punto, poligono2)
                 '    If resultado Then

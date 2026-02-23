@@ -114,11 +114,11 @@ Public Class F0_IngresoStock
             .Width = 70
             .Visible = False
         End With
-        'With grprecio.RootTable.Columns("cacod")
-        '    .Caption = "COD INTERNO"
-        '    .Width = 100
-        '    .Visible = True
-        'End With
+        With grprecio.RootTable.Columns("cacod")
+            .Caption = "COD INTERNO"
+            .Width = 100
+            .Visible = True
+        End With
         With grprecio.RootTable.Columns("iccprod")
             .Caption = "COD PROD"
             .Width = 70

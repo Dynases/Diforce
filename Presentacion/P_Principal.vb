@@ -84,16 +84,13 @@ Public Class P_Principal
         Dim ipLocal As String = Dns.GetHostByName(hostname).AddressList(0).ToString()
         Dim searcher As New ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMedia")
         Dim serial As String = ""
-        For Each obj In searcher.Get()
-            serial = obj("SerialNumber")?.ToString().Trim()
-            Exit For ' Solo uno
-        Next
+        serial = ObtenerSerialSeguro()
         Dim dt As DataTable = TraerDatosConexion(gs_NombreBD1, Equipo, Usuario, ipLocal, serial)
         If dt.Rows.Count = 0 Then
             gs_Ip = "HP" '"173.212.217.186" 'dt.Rows(0).Item("serv")
             gs_UsuarioSql = "sa" 'dt.Rows(0).Item("usuario")
             gs_ClaveSql = "123" '"Dynasys22*" 'dt.Rows(0).Item("pass") 
-            gs_NombreBD = "BDDistBHF_Arturo" '"BDDistBHF_Cristian" 'dt.Rows(0).Item("bd")
+            gs_NombreBD = "BDDistBHF_Seberino" '"BDDistBHF_Cristian" 'dt.Rows(0).Item("bd")
             gs_CarpetaRaiz = "C:/BD/" 'dt.Rows(0).Item("froot")
             gs_NombreBD2 = "" ''dt.Rows(0).Item("bd2")
             gs_NombreBD3 = "" ''dt.Rows(0).Item("bd3")
@@ -125,6 +122,24 @@ Public Class P_Principal
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
 
     End Sub
+
+    Private Function ObtenerSerialSeguro() As String
+        Try
+            Dim searcher As New ManagementObjectSearcher(
+            "SELECT SerialNumber FROM Win32_BIOS")
+
+            searcher.Options.Timeout = New TimeSpan(0, 0, 3)
+
+            For Each obj As ManagementObject In searcher.Get()
+                Return obj("SerialNumber")?.ToString().Trim()
+            Next
+
+        Catch
+            Return "SIN_SERIAL"
+        End Try
+
+        Return "SIN_SERIAL"
+    End Function
 
     Private Sub actualizarConexionPil(tipo As Integer)
         Dim empresa = gs_empresaDesc
@@ -170,7 +185,7 @@ Public Class P_Principal
             Me.Close()
             Exit Sub
         End If
-        _prLeerArchivoConfig(2)
+        _prLeerArchivoConfig(1)
         gb_ConexionAbierta = True
         Try
             L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
@@ -379,6 +394,7 @@ Public Class P_Principal
             gi_pdev = dtConfSistema.Rows(0).Item("cccPDev")
             gs_Mon = IIf(IsDBNull(dtConfSistema.Rows(0).Item("cccMon")), "Bs", dtConfSistema.Rows(0).Item("cccMon"))
             gs_MonLar = IIf(IsDBNull(dtConfSistema.Rows(0).Item("cccMonLar")), "Bolivianos", dtConfSistema.Rows(0).Item("cccMonLar"))
+            gi_Facturacion = IIf(IsDBNull(dtConfSistema.Rows(0).Item("cccFact")), 0, dtConfSistema.Rows(0).Item("cccFact"))
             If gi_CRM = 1 Then
                 FP_CRM.Visible = True
             Else
@@ -1877,7 +1893,7 @@ Public Class P_Principal
 
     Private Sub btComisiones_Click(sender As Object, e As EventArgs) Handles btComisiones.Click
         F02_Comisiones.AllowTransparency = True
-        Dim frm As New F02_ComisionesCategoria
+        Dim frm As New F02_Comisiones
         frm._nameButton = btComisiones.Name
         frm._modulo = FP_CRM
         frm.Show()
@@ -2206,6 +2222,20 @@ Public Class P_Principal
     Private Sub btFlujoCaja_Click(sender As Object, e As EventArgs) Handles btFlujoCaja.Click
         Dim frm As New R01_FlujoCaja
         frm._nameButton = btFlujoCaja.Name
+        frm._modulo = FP_GERENCIA
+        frm.Show()
+    End Sub
+
+    Private Sub btIngresosEgresosAlmacen_Click(sender As Object, e As EventArgs) Handles btIngresosEgresosAlmacen.Click
+        Dim frm As New F1_IngresosEgresosAlmacen 'R01_DetalleVentas
+        frm._nameButton = btIngresosEgresosAlmacen.Name
+        frm._modulo = FP_Venta
+        frm.Show()
+    End Sub
+
+    Private Sub btUtilidadesGastos_Click(sender As Object, e As EventArgs) Handles btUtilidadesGastos.Click
+        Dim frm As New R0_ReportePedidosCostoGastos
+        frm._nameButton = btUtilidadesGastos.Name
         frm._modulo = FP_GERENCIA
         frm.Show()
     End Sub

@@ -24,6 +24,7 @@ Partial Class F02_Cliente
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim CbFiltroResumenEquipo_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim MultiComFact_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbCatCliente_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbTipoCredito_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbPrevendedor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
@@ -101,6 +102,10 @@ Partial Class F02_Cliente
         Me.StiUbicacion = New DevComponents.DotNetBar.SuperTabItem()
         Me.GroupPanelDatosGenerales = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.PnDatosGenerales = New DevComponents.DotNetBar.PanelEx()
+        Me.MultiComFact = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelDocFact = New DevComponents.DotNetBar.LabelX()
+        Me.TbApellido = New System.Windows.Forms.TextBox()
+        Me.LabelApellido = New DevComponents.DotNetBar.LabelX()
         Me.cbCatCliente = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.LabelX37 = New DevComponents.DotNetBar.LabelX()
         Me.cbTipoCredito = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
@@ -237,6 +242,7 @@ Partial Class F02_Cliente
         Me.GroupPanelCoordenadas.SuspendLayout()
         Me.GroupPanelDatosGenerales.SuspendLayout()
         Me.PnDatosGenerales.SuspendLayout()
+        CType(Me.MultiComFact, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbCatCliente, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbTipoCredito, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupPanelEncargados.SuspendLayout()
@@ -347,16 +353,27 @@ Partial Class F02_Cliente
         '
         'MBtUltimo
         '
+        Me.MBtUltimo.Location = New System.Drawing.Point(131, 0)
         Me.MBtUltimo.Margin = New System.Windows.Forms.Padding(2)
+        Me.MBtUltimo.Size = New System.Drawing.Size(42, 36)
         '
         'MBtSiguiente
         '
+        Me.MBtSiguiente.Location = New System.Drawing.Point(89, 0)
+        Me.MBtSiguiente.Size = New System.Drawing.Size(42, 36)
         '
         'MBtAnterior
         '
+        Me.MBtAnterior.Location = New System.Drawing.Point(47, 0)
+        Me.MBtAnterior.Size = New System.Drawing.Size(42, 36)
         '
         'MBtPrimero
         '
+        Me.MBtPrimero.Size = New System.Drawing.Size(42, 36)
+        '
+        'MPanelToolBarAccion
+        '
+        Me.MPanelToolBarAccion.Size = New System.Drawing.Size(375, 70)
         '
         'MBtSalir
         '
@@ -419,6 +436,8 @@ Partial Class F02_Cliente
         '
         '
         Me.MLbPaginacion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.MLbPaginacion.Location = New System.Drawing.Point(173, 0)
+        Me.MLbPaginacion.Size = New System.Drawing.Size(142, 36)
         '
         'MRlAccion
         '
@@ -1485,6 +1504,10 @@ Partial Class F02_Cliente
         Me.PnDatosGenerales.AutoScroll = True
         Me.PnDatosGenerales.CanvasColor = System.Drawing.SystemColors.Control
         Me.PnDatosGenerales.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.PnDatosGenerales.Controls.Add(Me.MultiComFact)
+        Me.PnDatosGenerales.Controls.Add(Me.LabelDocFact)
+        Me.PnDatosGenerales.Controls.Add(Me.TbApellido)
+        Me.PnDatosGenerales.Controls.Add(Me.LabelApellido)
         Me.PnDatosGenerales.Controls.Add(Me.cbCatCliente)
         Me.PnDatosGenerales.Controls.Add(Me.LabelX37)
         Me.PnDatosGenerales.Controls.Add(Me.cbTipoCredito)
@@ -1537,6 +1560,53 @@ Partial Class F02_Cliente
         Me.PnDatosGenerales.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.PnDatosGenerales.Style.GradientAngle = 90
         Me.PnDatosGenerales.TabIndex = 38
+        '
+        'MultiComFact
+        '
+        Me.MultiComFact.BackColor = System.Drawing.SystemColors.ActiveCaption
+        MultiComFact_DesignTimeLayout.LayoutString = resources.GetString("MultiComFact_DesignTimeLayout.LayoutString")
+        Me.MultiComFact.DesignTimeLayout = MultiComFact_DesignTimeLayout
+        Me.MultiComFact.DisabledBackColor = System.Drawing.SystemColors.ButtonFace
+        Me.MultiComFact.Location = New System.Drawing.Point(515, 94)
+        Me.MultiComFact.Name = "MultiComFact"
+        Me.MultiComFact.SelectedIndex = -1
+        Me.MultiComFact.SelectedItem = Nothing
+        Me.MultiComFact.Size = New System.Drawing.Size(127, 23)
+        Me.MultiComFact.TabIndex = 55
+        '
+        'LabelDocFact
+        '
+        '
+        '
+        '
+        Me.LabelDocFact.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelDocFact.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelDocFact.Location = New System.Drawing.Point(417, 96)
+        Me.LabelDocFact.Name = "LabelDocFact"
+        Me.LabelDocFact.Size = New System.Drawing.Size(100, 23)
+        Me.LabelDocFact.TabIndex = 54
+        Me.LabelDocFact.Text = "Doc. Facturar."
+        '
+        'TbApellido
+        '
+        Me.TbApellido.Location = New System.Drawing.Point(111, 71)
+        Me.TbApellido.Margin = New System.Windows.Forms.Padding(2)
+        Me.TbApellido.Name = "TbApellido"
+        Me.TbApellido.Size = New System.Drawing.Size(301, 23)
+        Me.TbApellido.TabIndex = 53
+        '
+        'LabelApellido
+        '
+        '
+        '
+        '
+        Me.LabelApellido.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelApellido.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelApellido.Location = New System.Drawing.Point(5, 70)
+        Me.LabelApellido.Name = "LabelApellido"
+        Me.LabelApellido.Size = New System.Drawing.Size(87, 23)
+        Me.LabelApellido.TabIndex = 52
+        Me.LabelApellido.Text = "Apellido:"
         '
         'cbCatCliente
         '
@@ -1836,7 +1906,7 @@ Partial Class F02_Cliente
         Me.DtiFechaIng.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.DtiFechaIng.ButtonDropDown.Visible = True
         Me.DtiFechaIng.IsPopupCalendarOpen = False
-        Me.DtiFechaIng.Location = New System.Drawing.Point(111, 205)
+        Me.DtiFechaIng.Location = New System.Drawing.Point(112, 220)
         '
         '
         '
@@ -1881,7 +1951,7 @@ Partial Class F02_Cliente
         Me.DtiFechaNac.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
         Me.DtiFechaNac.ButtonDropDown.Visible = True
         Me.DtiFechaNac.IsPopupCalendarOpen = False
-        Me.DtiFechaNac.Location = New System.Drawing.Point(111, 176)
+        Me.DtiFechaNac.Location = New System.Drawing.Point(112, 191)
         '
         '
         '
@@ -2107,11 +2177,11 @@ Partial Class F02_Cliente
         CbCategoria_DesignTimeLayout.LayoutString = resources.GetString("CbCategoria_DesignTimeLayout.LayoutString")
         Me.CbCategoria.DesignTimeLayout = CbCategoria_DesignTimeLayout
         Me.CbCategoria.DisabledBackColor = System.Drawing.SystemColors.ButtonFace
-        Me.CbCategoria.Location = New System.Drawing.Point(518, 118)
+        Me.CbCategoria.Location = New System.Drawing.Point(515, 118)
         Me.CbCategoria.Name = "CbCategoria"
         Me.CbCategoria.SelectedIndex = -1
         Me.CbCategoria.SelectedItem = Nothing
-        Me.CbCategoria.Size = New System.Drawing.Size(120, 23)
+        Me.CbCategoria.Size = New System.Drawing.Size(126, 23)
         Me.CbCategoria.TabIndex = 8
         '
         'TbDireccion
@@ -2135,7 +2205,7 @@ Partial Class F02_Cliente
         Me.CbTipoDoc.BackColor = System.Drawing.SystemColors.ActiveCaption
         CbTipoDoc_DesignTimeLayout.LayoutString = resources.GetString("CbTipoDoc_DesignTimeLayout.LayoutString")
         Me.CbTipoDoc.DesignTimeLayout = CbTipoDoc_DesignTimeLayout
-        Me.CbTipoDoc.Location = New System.Drawing.Point(111, 118)
+        Me.CbTipoDoc.Location = New System.Drawing.Point(112, 133)
         Me.CbTipoDoc.Name = "CbTipoDoc"
         Me.CbTipoDoc.SelectedIndex = -1
         Me.CbTipoDoc.SelectedItem = Nothing
@@ -2150,7 +2220,7 @@ Partial Class F02_Cliente
         Me.TbNroDoc.Border.Class = "TextBoxBorder"
         Me.TbNroDoc.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.TbNroDoc.DisabledBackColor = System.Drawing.Color.White
-        Me.TbNroDoc.Location = New System.Drawing.Point(111, 147)
+        Me.TbNroDoc.Location = New System.Drawing.Point(112, 162)
         Me.TbNroDoc.MaxLength = 20
         Me.TbNroDoc.Name = "TbNroDoc"
         Me.TbNroDoc.PreventEnterBeep = True
@@ -2164,7 +2234,7 @@ Partial Class F02_Cliente
         Me.CbZona.ControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.FlatBorderless
         CbZona_DesignTimeLayout.LayoutString = resources.GetString("CbZona_DesignTimeLayout.LayoutString")
         Me.CbZona.DesignTimeLayout = CbZona_DesignTimeLayout
-        Me.CbZona.Location = New System.Drawing.Point(111, 89)
+        Me.CbZona.Location = New System.Drawing.Point(112, 104)
         Me.CbZona.Name = "CbZona"
         Me.CbZona.SelectedIndex = -1
         Me.CbZona.SelectedItem = Nothing
@@ -2201,7 +2271,7 @@ Partial Class F02_Cliente
         Me.TbNombre.Multiline = True
         Me.TbNombre.Name = "TbNombre"
         Me.TbNombre.PreventEnterBeep = True
-        Me.TbNombre.Size = New System.Drawing.Size(300, 45)
+        Me.TbNombre.Size = New System.Drawing.Size(300, 23)
         Me.TbNombre.TabIndex = 0
         '
         'TbTelefono1
@@ -2297,7 +2367,7 @@ Partial Class F02_Cliente
         '
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX3.Location = New System.Drawing.Point(5, 93)
+        Me.LabelX3.Location = New System.Drawing.Point(6, 108)
         Me.LabelX3.Name = "LabelX3"
         Me.LabelX3.Size = New System.Drawing.Size(100, 23)
         Me.LabelX3.TabIndex = 11
@@ -2311,7 +2381,7 @@ Partial Class F02_Cliente
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LabelX4.Location = New System.Drawing.Point(4, 121)
+        Me.LabelX4.Location = New System.Drawing.Point(5, 136)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.Size = New System.Drawing.Size(120, 23)
         Me.LabelX4.TabIndex = 12
@@ -2325,7 +2395,7 @@ Partial Class F02_Cliente
         Me.LabelX5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX5.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LabelX5.Location = New System.Drawing.Point(5, 150)
+        Me.LabelX5.Location = New System.Drawing.Point(6, 165)
         Me.LabelX5.Name = "LabelX5"
         Me.LabelX5.Size = New System.Drawing.Size(100, 23)
         Me.LabelX5.TabIndex = 13
@@ -2339,7 +2409,7 @@ Partial Class F02_Cliente
         Me.LabelX15.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX15.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.LabelX15.Location = New System.Drawing.Point(6, 179)
+        Me.LabelX15.Location = New System.Drawing.Point(7, 194)
         Me.LabelX15.Name = "LabelX15"
         Me.LabelX15.Size = New System.Drawing.Size(100, 23)
         Me.LabelX15.TabIndex = 26
@@ -2404,7 +2474,7 @@ Partial Class F02_Cliente
         '
         Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX9.Location = New System.Drawing.Point(420, 118)
+        Me.LabelX9.Location = New System.Drawing.Point(412, 118)
         Me.LabelX9.Name = "LabelX9"
         Me.LabelX9.Size = New System.Drawing.Size(100, 23)
         Me.LabelX9.TabIndex = 18
@@ -2417,7 +2487,7 @@ Partial Class F02_Cliente
         '
         Me.LabelX17.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX17.Location = New System.Drawing.Point(6, 207)
+        Me.LabelX17.Location = New System.Drawing.Point(7, 222)
         Me.LabelX17.Name = "LabelX17"
         Me.LabelX17.Size = New System.Drawing.Size(100, 23)
         Me.LabelX17.TabIndex = 31
@@ -3165,6 +3235,7 @@ Partial Class F02_Cliente
         Me.GroupPanelDatosGenerales.ResumeLayout(False)
         Me.PnDatosGenerales.ResumeLayout(False)
         Me.PnDatosGenerales.PerformLayout()
+        CType(Me.MultiComFact, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbCatCliente, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbTipoCredito, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupPanelEncargados.ResumeLayout(False)
@@ -3356,4 +3427,8 @@ Partial Class F02_Cliente
     Friend WithEvents cbCatCliente As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelX37 As DevComponents.DotNetBar.LabelX
     Friend WithEvents ButtonX1 As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents TbApellido As TextBox
+    Friend WithEvents LabelApellido As DevComponents.DotNetBar.LabelX
+    Friend WithEvents MultiComFact As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelDocFact As DevComponents.DotNetBar.LabelX
 End Class

@@ -33,6 +33,9 @@ Partial Class frmBillingDispatch
         Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.grFactura = New Janus.Windows.GridEX.GridEX()
         Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.grFacturasAnuladas = New Janus.Windows.GridEX.GridEX()
+        Me.SuperTabItem3 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.dgjPedido = New Janus.Windows.GridEX.GridEX()
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
@@ -61,6 +64,7 @@ Partial Class frmBillingDispatch
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.btVolverDist = New DevComponents.DotNetBar.ButtonX()
         Me.cbChoferes = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.btnAnularFactura = New DevComponents.DotNetBar.ButtonX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.PanelBase.SuspendLayout()
         Me.PanelPedido.SuspendLayout()
@@ -69,6 +73,8 @@ Partial Class frmBillingDispatch
         Me.SuperTabControl1.SuspendLayout()
         Me.SuperTabControlPanel2.SuspendLayout()
         CType(Me.grFactura, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel3.SuspendLayout()
+        CType(Me.grFacturasAnuladas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel1.SuspendLayout()
         CType(Me.dgjPedido, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelProducto.SuspendLayout()
@@ -127,8 +133,9 @@ Partial Class frmBillingDispatch
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl1.Location = New System.Drawing.Point(0, 37)
         Me.SuperTabControl1.Name = "SuperTabControl1"
@@ -138,7 +145,7 @@ Partial Class frmBillingDispatch
         Me.SuperTabControl1.Size = New System.Drawing.Size(1284, 387)
         Me.SuperTabControl1.TabFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SuperTabControl1.TabIndex = 71
-        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1, Me.SuperTabItem2})
+        Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1, Me.SuperTabItem2, Me.SuperTabItem3})
         Me.SuperTabControl1.Text = "FACTURAS"
         '
         'SuperTabControlPanel2
@@ -166,6 +173,32 @@ Partial Class frmBillingDispatch
         Me.SuperTabItem2.GlobalItem = False
         Me.SuperTabItem2.Name = "SuperTabItem2"
         Me.SuperTabItem2.Text = "FACTURAS"
+        '
+        'SuperTabControlPanel3
+        '
+        Me.SuperTabControlPanel3.Controls.Add(Me.grFacturasAnuladas)
+        Me.SuperTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel3.Location = New System.Drawing.Point(0, 25)
+        Me.SuperTabControlPanel3.Name = "SuperTabControlPanel3"
+        Me.SuperTabControlPanel3.Size = New System.Drawing.Size(1284, 362)
+        Me.SuperTabControlPanel3.TabIndex = 2
+        Me.SuperTabControlPanel3.TabItem = Me.SuperTabItem3
+        '
+        'grFacturasAnuladas
+        '
+        Me.grFacturasAnuladas.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grFacturasAnuladas.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grFacturasAnuladas.Location = New System.Drawing.Point(0, 0)
+        Me.grFacturasAnuladas.Name = "grFacturasAnuladas"
+        Me.grFacturasAnuladas.Size = New System.Drawing.Size(1284, 362)
+        Me.grFacturasAnuladas.TabIndex = 3
+        '
+        'SuperTabItem3
+        '
+        Me.SuperTabItem3.AttachedControl = Me.SuperTabControlPanel3
+        Me.SuperTabItem3.GlobalItem = False
+        Me.SuperTabItem3.Name = "SuperTabItem3"
+        Me.SuperTabItem3.Text = "FACTURAS ANULADAS"
         '
         'SuperTabControlPanel1
         '
@@ -274,6 +307,7 @@ Partial Class frmBillingDispatch
         Me.PanelSuperior.Controls.Add(Me.LabelX2)
         Me.PanelSuperior.Controls.Add(Me.btVolverDist)
         Me.PanelSuperior.Controls.Add(Me.cbChoferes)
+        Me.PanelSuperior.Controls.Add(Me.btnAnularFactura)
         Me.PanelSuperior.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelSuperior.Location = New System.Drawing.Point(0, 0)
         Me.PanelSuperior.Name = "PanelSuperior"
@@ -300,7 +334,7 @@ Partial Class frmBillingDispatch
         Me.ButtonX1.Image = Global.Presentacion.My.Resources.Resources.printee
         Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(30, 30)
         Me.ButtonX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.ButtonX1.Location = New System.Drawing.Point(684, 0)
+        Me.ButtonX1.Location = New System.Drawing.Point(609, 0)
         Me.ButtonX1.Name = "ButtonX1"
         Me.ButtonX1.Size = New System.Drawing.Size(75, 60)
         Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -337,7 +371,7 @@ Partial Class frmBillingDispatch
         Me.btnFactura.Image = CType(resources.GetObject("btnFactura.Image"), System.Drawing.Image)
         Me.btnFactura.ImageFixedSize = New System.Drawing.Size(30, 30)
         Me.btnFactura.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnFactura.Location = New System.Drawing.Point(759, 0)
+        Me.btnFactura.Location = New System.Drawing.Point(684, 0)
         Me.btnFactura.Name = "btnFactura"
         Me.btnFactura.Size = New System.Drawing.Size(75, 60)
         Me.btnFactura.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -352,7 +386,7 @@ Partial Class frmBillingDispatch
         Me.btVentasDirectas.Image = Global.Presentacion.My.Resources.Resources.ENTRADA_SALIDA_ALM
         Me.btVentasDirectas.ImageFixedSize = New System.Drawing.Size(30, 30)
         Me.btVentasDirectas.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btVentasDirectas.Location = New System.Drawing.Point(834, 0)
+        Me.btVentasDirectas.Location = New System.Drawing.Point(759, 0)
         Me.btVentasDirectas.Name = "btVentasDirectas"
         Me.btVentasDirectas.Size = New System.Drawing.Size(75, 60)
         Me.btVentasDirectas.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -450,7 +484,7 @@ Partial Class frmBillingDispatch
         Me.btReporteDespachoPedido.Image = CType(resources.GetObject("btReporteDespachoPedido.Image"), System.Drawing.Image)
         Me.btReporteDespachoPedido.ImageFixedSize = New System.Drawing.Size(30, 30)
         Me.btReporteDespachoPedido.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btReporteDespachoPedido.Location = New System.Drawing.Point(909, 0)
+        Me.btReporteDespachoPedido.Location = New System.Drawing.Point(834, 0)
         Me.btReporteDespachoPedido.Name = "btReporteDespachoPedido"
         Me.btReporteDespachoPedido.Size = New System.Drawing.Size(75, 60)
         Me.btReporteDespachoPedido.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -523,7 +557,7 @@ Partial Class frmBillingDispatch
         Me.btnNotaVenta.Image = Global.Presentacion.My.Resources.Resources.REPORTE2
         Me.btnNotaVenta.ImageFixedSize = New System.Drawing.Size(30, 30)
         Me.btnNotaVenta.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnNotaVenta.Location = New System.Drawing.Point(984, 0)
+        Me.btnNotaVenta.Location = New System.Drawing.Point(909, 0)
         Me.btnNotaVenta.Name = "btnNotaVenta"
         Me.btnNotaVenta.Size = New System.Drawing.Size(75, 60)
         Me.btnNotaVenta.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -538,7 +572,7 @@ Partial Class frmBillingDispatch
         Me.btReporteDespachoCliente.Image = Global.Presentacion.My.Resources.Resources.PEDI_ULTIMOS_PEDIDOS
         Me.btReporteDespachoCliente.ImageFixedSize = New System.Drawing.Size(30, 30)
         Me.btReporteDespachoCliente.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btReporteDespachoCliente.Location = New System.Drawing.Point(1059, 0)
+        Me.btReporteDespachoCliente.Location = New System.Drawing.Point(984, 0)
         Me.btReporteDespachoCliente.Name = "btReporteDespachoCliente"
         Me.btReporteDespachoCliente.Size = New System.Drawing.Size(75, 60)
         Me.btReporteDespachoCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -553,7 +587,7 @@ Partial Class frmBillingDispatch
         Me.btReporteDespachoLinea.Image = Global.Presentacion.My.Resources.Resources.PEDI_ENTRAGA_PEDIDOS
         Me.btReporteDespachoLinea.ImageFixedSize = New System.Drawing.Size(30, 30)
         Me.btReporteDespachoLinea.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btReporteDespachoLinea.Location = New System.Drawing.Point(1134, 0)
+        Me.btReporteDespachoLinea.Location = New System.Drawing.Point(1059, 0)
         Me.btReporteDespachoLinea.Name = "btReporteDespachoLinea"
         Me.btReporteDespachoLinea.Size = New System.Drawing.Size(75, 60)
         Me.btReporteDespachoLinea.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -580,7 +614,7 @@ Partial Class frmBillingDispatch
         Me.btVolverDist.Image = Global.Presentacion.My.Resources.Resources.volver
         Me.btVolverDist.ImageFixedSize = New System.Drawing.Size(30, 30)
         Me.btVolverDist.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btVolverDist.Location = New System.Drawing.Point(1209, 0)
+        Me.btVolverDist.Location = New System.Drawing.Point(1134, 0)
         Me.btVolverDist.Name = "btVolverDist"
         Me.btVolverDist.Size = New System.Drawing.Size(75, 60)
         Me.btVolverDist.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
@@ -598,6 +632,21 @@ Partial Class frmBillingDispatch
         Me.cbChoferes.Size = New System.Drawing.Size(183, 20)
         Me.cbChoferes.TabIndex = 2
         Me.cbChoferes.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'btnAnularFactura
+        '
+        Me.btnAnularFactura.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnAnularFactura.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground
+        Me.btnAnularFactura.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnAnularFactura.Image = Global.Presentacion.My.Resources.Resources.prohibition
+        Me.btnAnularFactura.ImageFixedSize = New System.Drawing.Size(30, 30)
+        Me.btnAnularFactura.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnAnularFactura.Location = New System.Drawing.Point(1209, 0)
+        Me.btnAnularFactura.Name = "btnAnularFactura"
+        Me.btnAnularFactura.Size = New System.Drawing.Size(75, 60)
+        Me.btnAnularFactura.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnAnularFactura.TabIndex = 248
+        Me.btnAnularFactura.Text = "Anular Factura"
         '
         'Timer1
         '
@@ -622,6 +671,8 @@ Partial Class frmBillingDispatch
         Me.SuperTabControl1.ResumeLayout(False)
         Me.SuperTabControlPanel2.ResumeLayout(False)
         CType(Me.grFactura, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel3.ResumeLayout(False)
+        CType(Me.grFacturasAnuladas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel1.ResumeLayout(False)
         CType(Me.dgjPedido, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelProducto.ResumeLayout(False)
@@ -673,4 +724,8 @@ Partial Class frmBillingDispatch
     Friend WithEvents SuperTabControlPanel1 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents SuperTabItem1 As DevComponents.DotNetBar.SuperTabItem
     Friend WithEvents grFactura As Janus.Windows.GridEX.GridEX
+    Friend WithEvents btnAnularFactura As DevComponents.DotNetBar.ButtonX
+    Friend WithEvents SuperTabControlPanel3 As DevComponents.DotNetBar.SuperTabControlPanel
+    Friend WithEvents grFacturasAnuladas As Janus.Windows.GridEX.GridEX
+    Friend WithEvents SuperTabItem3 As DevComponents.DotNetBar.SuperTabItem
 End Class

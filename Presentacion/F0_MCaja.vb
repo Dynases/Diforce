@@ -1245,13 +1245,40 @@ Public Class F0_MCaja
             Exit Sub
         End If
         If (TbCodigo.Text = String.Empty) Then
-            _GuardarNuevo()
+            If ValidarCortes() Then
+                _GuardarNuevo()
+            End If
         Else
-            If (TbCodigo.Text <> String.Empty) Then
+                If (TbCodigo.Text <> String.Empty) Then
                 '_prGuardarModificado()
             End If
         End If
     End Sub
+
+    Private Function ValidarCortes() As Boolean
+        Dim monto As Double = Tb_TEfectivo.Value
+        Dim res As Boolean = False
+        If monto = 0 Then
+            Dim ef = New Efecto
+            ef.tipo = 2
+            ef.Context = "mensaje principal".ToUpper
+            ef.Header = "No tiene cortes ingresados ¿esta seguro que quiere grabar el cierre de caja?".ToUpper
+            ef.ShowDialog()
+            Dim bandera As Boolean = False
+            bandera = ef.band
+            If (bandera = True) Then
+                _prCalcular(0, 1)
+                Dim monto1 As Double = Tb_TEfectivo.Value
+                res = True
+            Else
+                res = False
+            End If
+        Else
+            res = True
+        End If
+
+        Return res
+    End Function
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
         _prhabilitar()

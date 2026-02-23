@@ -62,6 +62,9 @@ Public Class F02_PedidoNuevo
 
         'Ocultar boton Eliminar
         MBtEliminar.Visible = False
+        If gs_Mon = "Ars" Then
+            btAplicarDesc.Visible = False
+        End If
     End Sub
     Private Sub _pCambiarFuente()
         Dim fuente As New Font("Tahoma", gi_fuenteTamano, FontStyle.Regular)
@@ -278,6 +281,20 @@ Public Class F02_PedidoNuevo
                 .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
                 .CellStyle.FontSize = gi_fuenteTamano
                 .AllowSort = False
+            End With
+            With JGr_Buscador.RootTable.Columns("repartidor")
+                .Caption = "repartidor".ToUpper
+                .Width = 150
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .CellStyle.FontSize = gi_fuenteTamano
+                .AllowSort = False
+            End With
+            With JGr_Buscador.RootTable.Columns("conciliacion")
+                .Caption = "conciliacion".ToUpper
+                .Width = 70
+                .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+                .CellStyle.FontSize = gi_fuenteTamano
+                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Far
             End With
 
             With JGr_Buscador.RootTable.Columns("TOTAL")
@@ -1609,10 +1626,12 @@ Public Class F02_PedidoNuevo
             End If
 
             '-----------------HABILITAR SOLO PARA DESCUENTO POR VOLUMEN-------------------------------
-            If (_BanderaDescuentos = False) Then
-                ToastNotification.Show(Me, "Se modificó cantidad y/o precio, por favor vuelva a presione el botón aplicar descuentos".ToUpper, My.Resources.WARNING, 5500, eToastGlowColor.Green, eToastPosition.BottomCenter)
-                _Error = True
+            If gs_Mon = "Bs" Then
+                If (_BanderaDescuentos = False) Then
+                    ToastNotification.Show(Me, "Se modificó cantidad y/o precio, por favor vuelva a presione el botón aplicar descuentos".ToUpper, My.Resources.WARNING, 5500, eToastGlowColor.Green, eToastPosition.BottomCenter)
+                    _Error = True
 
+                End If
             End If
             '------------------------------------------------------------------------------------------------
 
@@ -3628,7 +3647,7 @@ Public Class F02_PedidoNuevo
                     JGr_DetallePedido.CurrentRow.Cells("Monto").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value
                     JGr_DetallePedido.CurrentRow.Cells("Total").Value = JGr_DetallePedido.CurrentRow.Cells("Precio").Value - JGr_DetallePedido.GetValue("Descuento")
                 Else
-                    If (JGr_DetallePedido.GetValue("Cantidad") > 0 And JGr_DetallePedido.GetValue("Cantidad") < JGr_DetallePedido.GetValue("Stock")) Then
+                    If (JGr_DetallePedido.GetValue("Cantidad") > 0 And JGr_DetallePedido.GetValue("Cantidad") <= JGr_DetallePedido.GetValue("Stock")) Then
                         Dim cantidad, precio, descuento, conv As Double
                         Dim atributo As Integer
                         cantidad = JGr_DetallePedido.GetValue("Cantidad")
@@ -4295,4 +4314,7 @@ Public Class F02_PedidoNuevo
         End If
     End Sub
 
+    Private Sub TableLayoutPanelPrincipal_Paint(sender As Object, e As PaintEventArgs) Handles TableLayoutPanelPrincipal.Paint
+
+    End Sub
 End Class

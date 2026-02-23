@@ -31,6 +31,7 @@ Module P_Global
     Public gi_pdev As Byte = 0 '0=no volvera a cargar los productos devueltos a la salida, 1=si volvera a cargar los productos devueltos a la salida
     Public gs_Mon As String = "" 'Abreviatura de la moneda
     Public gs_MonLar As String = "" 'Abreviatura de la moneda
+    Public gi_Facturacion As Integer = 0
 #End Region
 
     Public gs_Ip As String = "localhost"

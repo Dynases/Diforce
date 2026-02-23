@@ -432,20 +432,40 @@ Public Class R01_FlujoCaja
 
         dt = _prInterpretarDatos()
         If dt.Rows.Count > 0 Then
+            If swTipoVenta.Value = False Then
+                Dim objrep As New R_FlujoCaja()
 
-            Dim objrep As New R_FlujoCaja()
 
 
+                objrep.SetDataSource(dt)
 
-            objrep.SetDataSource(dt)
+                objrep.SetParameterValue("fechaI", tbFechaI.Value.ToString("dd/MM/yyyy"))
+                objrep.SetParameterValue("FechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+                'objrep.SetParameterValue("repartidor", cbRepartidor.Text)
 
-            objrep.SetParameterValue("fechaI", tbFechaI.Value.ToString("dd/MM/yyyy"))
-            objrep.SetParameterValue("FechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
-            'objrep.SetParameterValue("repartidor", cbRepartidor.Text)
-            CrystalReportViewer1.ReportSource = objrep
+                CrystalReportViewer1.ReportSource = objrep
+            Else
+                Dim objrep As New R_FlujoCajaDetallado()
+                Dim dtVentas As DataTable = L_prReporteFlujoIngresosVentas(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+                Dim dtCobros As DataTable = L_prReporteFlujoIngresosCobros(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+                Dim dtEgresos As DataTable = L_prReporteFlujoEgresos(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
+                Dim dtCreditos As DataTable = L_prReporteFlujoCredito(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"))
 
+                objrep.SetDataSource(dt)
+
+
+                'objrep.SetParameterValue("repartidor", cbRepartidor.Text)
+                objrep.Subreports.Item("R_FlujoIngresoVenta.rpt").SetDataSource(dtVentas)
+                objrep.Subreports.Item("R_FlujoIngresoCobro.rpt").SetDataSource(dtCobros)
+                objrep.Subreports.Item("R_FlujoCajaEgreso.rpt").SetDataSource(dtEgresos)
+                objrep.Subreports.Item("R_FlujoCajaCredito.rpt").SetDataSource(dtCreditos)
+
+                objrep.SetParameterValue("fechaI", tbFechaI.Value.ToString("dd/MM/yyyy"))
+                objrep.SetParameterValue("FechaF", tbFechaF.Value.ToString("dd/MM/yyyy"))
+                CrystalReportViewer1.ReportSource = objrep
+            End If
         Else
-            MostrarMensajeError("No existen datos para llenar el reporte")
+                MostrarMensajeError("No existen datos para llenar el reporte")
         End If
     End Sub
 

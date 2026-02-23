@@ -1125,7 +1125,7 @@ Public Class F02_Movimiento
                 If (dgjDetalle.GetValue("iccant") > 0) Then
 
                     Dim stock As Double = dgjDetalle.GetValue("stock")
-                    If (dgjDetalle.GetValue("iccant") > stock And cbConcepto.Value = 60) Then
+                    If (dgjDetalle.GetValue("iccant") > stock And cbConcepto.Value = 60) Then '60  'VENTTA
                         Dim lin As Integer = dgjDetalle.GetValue("icid")
                         Dim pos As Integer = -1
                         _fnObtenerFilaDetalle(pos, lin)

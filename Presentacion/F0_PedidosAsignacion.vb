@@ -2253,6 +2253,7 @@ Public Class F0_PedidosAsignacion
         Next
 
         ' Crear el objeto del reporte
+
         Dim objrep As New R_ReciboCliente2
 
         ' Asignar los datos y parámetros
@@ -2443,6 +2444,10 @@ Public Class F0_PedidosAsignacion
     End Sub
 
     Private Sub ConMenu_Opciones3_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ConMenu_Opciones3.Opening
+
+    End Sub
+
+    Private Sub JGr_Registros2_FormattingRow(sender As Object, e As RowLoadEventArgs) Handles JGr_Registros2.FormattingRow
 
     End Sub
 End Class

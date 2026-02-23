@@ -855,6 +855,16 @@ Public Class F0G_MovimientoChoferSalida
         End If
     End Sub
 
+    Private Function VerificarAsignados(chofer As Integer) As Boolean
+        Dim dt As DataTable = TraerPedidosAsignados(chofer)
+        Dim res As Boolean = False
+        If dt.Rows.Count > 0 Then
+            res = False
+        Else
+            res = True
+        End If
+        Return res
+    End Function
     Private Sub TraerDatosTemporal()
         Dim dt1 As DataTable = TraerTemporal(_codChofer)
         If dt1.Rows.Count > 0 Then
@@ -1014,30 +1024,35 @@ Public Class F0G_MovimientoChoferSalida
         bandera = ef.band
         If (bandera = True) Then
             Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            If VerificarAsignados(Row.Cells("cbnumi").Value) Then
+                _codChofer = Row.Cells("cbnumi").Value
+                tbChofer.Text = Row.Cells("cbdesc").Value
+                cbalmacenDestino.Value = Row.Cells("cbalmacen").Value
+                '_fechapedido = Row.Cells("oafdoc").Value
+                cbConcepto.Focus()
 
-            _codChofer = Row.Cells("cbnumi").Value
-            tbChofer.Text = Row.Cells("cbdesc").Value
-            cbalmacenDestino.Value = Row.Cells("cbalmacen").Value
-            '_fechapedido = Row.Cells("oafdoc").Value
-            cbConcepto.Focus()
+                _prCargarDetalleVenta(-1)
+                If gi_pdev = 1 Then
+                    TraerDatosTemporal()
+                Else
+                    _prAddDetalleVenta()
+                End If
+                'With grdetalle.RootTable.Columns("img")
+                '    .Width = 80
+                '    .Caption = "Eliminar".ToUpper
+                '    .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
+                '    .Visible = True
+                'End With
+                _prObtenerNumiConciliacionTI0022()
 
-            _prCargarDetalleVenta(-1)
-            If gi_pdev = 1 Then
-                TraerDatosTemporal()
+                'If (P_Global.gb_despacho) Then
+                'CargarDespachoDeChoferRuta(_codChofer)
+                'End If
             Else
-                _prAddDetalleVenta()
-            End If
-            'With grdetalle.RootTable.Columns("img")
-            '    .Width = 80
-            '    .Caption = "Eliminar".ToUpper
-            '    .CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center
-            '    .Visible = True
-            'End With
-            _prObtenerNumiConciliacionTI0022()
+                Dim img As Bitmap = New Bitmap(My.Resources.Mensaje, 50, 50)
+                ToastNotification.Show(Me, "El Chofer: ".ToUpper + Row.Cells("cbdesc").Value.ToString.ToUpper + " Tiene pedidos asignados, no se puede generar una salida para autoventa".ToUpper, img, 4000, eToastGlowColor.Red, eToastPosition.BottomCenter)
 
-            'If (P_Global.gb_despacho) Then
-            'CargarDespachoDeChoferRuta(_codChofer)
-            'End If
+            End If
         End If
     End Sub
     Public Sub _prObtenerNumiConciliacionTI0022()
@@ -1738,6 +1753,12 @@ salirIf:
         Dim dt As DataTable
         dt = L_fnObtenerTabla("*", "vr_go_comprobanteSalidaItems", "id=" + tbCodigo.Text)
 
+        Dim vista As New DataView(dt)
+        vista.Sort = "nProducto ASC"
+
+        ' Convertir la vista nuevamente a DataTable (opcional)
+        Dim dtOrdenado As DataTable = vista.ToTable()
+
         If Not IsNothing(P_Global.Visualizador) Then
             P_Global.Visualizador.Close()
         End If
@@ -1745,7 +1766,7 @@ salirIf:
         P_Global.Visualizador = New Visualizador
         Dim objrep As New R_ComprobanteSalidaItemsDavid
 
-        objrep.SetDataSource(dt)
+        objrep.SetDataSource(dtOrdenado)
 
         P_Global.Visualizador.CRV1.ReportSource = objrep
         P_Global.Visualizador.Show()

@@ -62,7 +62,7 @@
         Public Property invoice_id As Integer
         Public Property store_id As Integer
         Public Property product_id As Integer
-        Public Property product_code As Integer
+        Public Property product_code As String
         Public Property product_name As String
         Public Property price As Double
         Public Property quantity As Double
