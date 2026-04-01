@@ -36,7 +36,7 @@ Public Class frmCajaGeneral
     Private Sub CargarListaCaja()
         Try
             'listResult = New LCajaCambio().ListarCajaGeneral_Report(Tb_FechaDesde.Value, TB_FechaHasta.Value)
-            Dim dt As DataTable = L_prObtenerReporteCierres(Tb_FechaDesde.Value.ToString("dd/MM/yyyy"), TB_FechaHasta.Value.ToString("dd/MM/yyyy"), cbRepartidor.Value)
+            Dim dt As DataTable = L_prObtenerReporteCierres(Tb_FechaDesde.Value.ToString("dd/MM/yyyy"), TB_FechaHasta.Value.ToString("dd/MM/yyyy"), cbRepartidor.Value, gi_userSuc)
             ArmarLista(dt)
         Catch ex As Exception
             Throw New Exception(ex.Message)
@@ -194,7 +194,7 @@ Public Class frmCajaGeneral
 
     Private Sub btGenerar_Click(sender As Object, e As EventArgs) Handles btGenerar.Click
         'listResult = New LCajaCambio().ListarCajaGeneral_Report(Tb_FechaDesde.Value, TB_FechaHasta.Value)
-        Dim dt As DataTable = L_prObtenerReporteCierres(Tb_FechaDesde.Value.ToString("dd/MM/yyyy"), TB_FechaHasta.Value.ToString("dd/MM/yyyy"), cbRepartidor.Value)
+        Dim dt As DataTable = L_prObtenerReporteCierres(Tb_FechaDesde.Value.ToString("dd/MM/yyyy"), TB_FechaHasta.Value.ToString("dd/MM/yyyy"), cbRepartidor.Value, gi_userSuc)
         ArmarLista(dt)
     End Sub
 
@@ -227,7 +227,7 @@ Public Class frmCajaGeneral
     Private Sub CargarChoferes()
         Try
             'Dim listResult As List(Of VCombo) = New LPersonal().ListarRepatidorCombo()
-            Dim listResult As DataTable = ListarChoferesDespacho()
+            Dim listResult As DataTable = ListarChoferesDespacho(gi_userSuc)
             With cbRepartidor.DropDownList
                 .Columns.Clear()
 

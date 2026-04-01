@@ -222,7 +222,7 @@ Partial Class Dashboard
         Me.SuperTabControlPanel2.Controls.Add(Me.SuperGridControl1)
         Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.None
         Me.SuperTabControlPanel2.Margin = New System.Windows.Forms.Padding(4)
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(65535, 20936)
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(65535, 21236)
         Me.SuperTabControlPanel2.Visible = True
         '
         'SuperTabItem2
@@ -1248,7 +1248,7 @@ Partial Class Dashboard
         Me.SuperGridControl1.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
         Me.SuperGridControl1.Location = New System.Drawing.Point(0, 0)
         Me.SuperGridControl1.Name = "SuperGridControl1"
-        Me.SuperGridControl1.Size = New System.Drawing.Size(65535, 20936)
+        Me.SuperGridControl1.Size = New System.Drawing.Size(65535, 21236)
         Me.SuperGridControl1.TabIndex = 8
         Me.SuperGridControl1.Text = "Eficiencia"
         '
@@ -1262,7 +1262,7 @@ Partial Class Dashboard
         Me.PanelEx6.DisabledBackColor = System.Drawing.Color.Empty
         Me.PanelEx6.Location = New System.Drawing.Point(0, 0)
         Me.PanelEx6.Name = "PanelEx6"
-        Me.PanelEx6.Size = New System.Drawing.Size(324, 20936)
+        Me.PanelEx6.Size = New System.Drawing.Size(324, 21236)
         Me.PanelEx6.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelEx6.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
         Me.PanelEx6.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
@@ -1281,7 +1281,7 @@ Partial Class Dashboard
         Me.GroupPanelDatosGenerales.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupPanelDatosGenerales.Location = New System.Drawing.Point(0, 0)
         Me.GroupPanelDatosGenerales.Name = "GroupPanelDatosGenerales"
-        Me.GroupPanelDatosGenerales.Size = New System.Drawing.Size(324, 20936)
+        Me.GroupPanelDatosGenerales.Size = New System.Drawing.Size(324, 21236)
         '
         '
         '
@@ -1323,7 +1323,7 @@ Partial Class Dashboard
         Me.PanelExDatosGenerales.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelExDatosGenerales.Location = New System.Drawing.Point(0, 0)
         Me.PanelExDatosGenerales.Name = "PanelExDatosGenerales"
-        Me.PanelExDatosGenerales.Size = New System.Drawing.Size(318, 20915)
+        Me.PanelExDatosGenerales.Size = New System.Drawing.Size(318, 21215)
         Me.PanelExDatosGenerales.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.PanelExDatosGenerales.Style.BackColor1.Color = System.Drawing.SystemColors.Control
         Me.PanelExDatosGenerales.Style.BackColor2.Color = System.Drawing.SystemColors.Control
@@ -1408,7 +1408,7 @@ Partial Class Dashboard
         Me.grPresupuesto.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed
         Me.grPresupuesto.Location = New System.Drawing.Point(327, 0)
         Me.grPresupuesto.Name = "grPresupuesto"
-        Me.grPresupuesto.Size = New System.Drawing.Size(65208, 20936)
+        Me.grPresupuesto.Size = New System.Drawing.Size(65208, 21236)
         Me.grPresupuesto.TabIndex = 120
         Me.grPresupuesto.Text = "SuperGridControl2"
         '

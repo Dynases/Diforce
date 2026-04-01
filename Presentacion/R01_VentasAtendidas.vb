@@ -39,22 +39,22 @@ Public Class R01_VentasAtendidas
         If (swTipoVenta.Value = True) Then  ''''''PRE VENDEDOR
             titulo = "PRE VENDEDOR:"
             If (CheckTodosVendedor.Checked) Then
-                _dt = L_prReporteVentasTodosPrevendedores(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userNumi)
+                _dt = L_prReporteVentasTodosPrevendedores(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userNumi, gi_userSuc)
                 Return
             End If
             If (checkUnaVendedor.Checked) Then
-                _dt = L_prReporteVentasUnoPrevendedores(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbCodigoVendedor.Text, gi_userNumi)
+                _dt = L_prReporteVentasUnoPrevendedores(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbCodigoVendedor.Text, gi_userNumi, gi_userSuc)
                 Return
             End If
 
         Else   ''''' DISTRIBUIDOR
             titulo = "DISTRIBUIDOR:"
             If (CheckTodosVendedor.Checked) Then
-                _dt = L_prReporteVentasTodosDistribuidores(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userNumi)
+                _dt = L_prReporteVentasTodosDistribuidores(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userNumi, gi_userSuc)
                 Return
             End If
             If (checkUnaVendedor.Checked) Then
-                _dt = L_prReporteVentasUnoDistribuidor(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbCodigoVendedor.Text, gi_userNumi)
+                _dt = L_prReporteVentasUnoDistribuidor(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbCodigoVendedor.Text, gi_userNumi, gi_userSuc)
                 Return
             End If
         End If
@@ -115,7 +115,7 @@ Public Class R01_VentasAtendidas
     Public Sub _prListarPrevendedores()
 
         Dim dt As DataTable
-        dt = L_prListarPrevendedor()
+        dt = L_prListarPrevendedor(gi_userSuc)
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("cbnumi", True, "ID", 50))
@@ -152,7 +152,7 @@ Public Class R01_VentasAtendidas
     Public Sub _prListarDistribuidores()
 
         Dim dt As DataTable
-        dt = L_prListarDistribuidor()
+        dt = L_prListarDistribuidor(gi_userSuc)
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("cbnumi", True, "ID", 50))

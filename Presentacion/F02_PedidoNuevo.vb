@@ -176,12 +176,12 @@ Public Class F02_PedidoNuevo
             JGr_Buscador.BoundMode = BoundMode.Bound
             If _nuevoBasePeriodico = True Then
                 ''JGr_Buscador.DataSource = L_PedidoCabecera_General_Pedido(-1, " AND oaest=10" + where)
-                JGr_Buscador.DataSource = L_prListaPedidos()
+                JGr_Buscador.DataSource = L_prListaPedidos(gi_userSuc)
             Else
                 If tipo = 1 Then
-                    JGr_Buscador.DataSource = L_prListaPedidos()
+                    JGr_Buscador.DataSource = L_prListaPedidos(gi_userSuc)
                 Else
-                    Dim tPedidos = L_prListaPedidosPorFecha(tbFechaDel.Value.Date.ToString("yyyy/MM/dd"), tbFechaAl.Value.Date.ToString("yyyy/MM/dd"))
+                    Dim tPedidos = L_prListaPedidosPorFecha(tbFechaDel.Value.Date.ToString("yyyy/MM/dd"), tbFechaAl.Value.Date.ToString("yyyy/MM/dd"), gi_userSuc)
                     If tPedidos.Rows.Count = 0 Then
                         Throw New Exception("No se encontro registro con la fecha específicada")
                     End If
@@ -344,6 +344,9 @@ Public Class F02_PedidoNuevo
                 .Visible = False
             End With
             With JGr_Buscador.RootTable.Columns("oaafvenc")
+                .Visible = False
+            End With
+            With JGr_Buscador.RootTable.Columns("oaestfac")
                 .Visible = False
             End With
 
@@ -640,8 +643,8 @@ Public Class F02_PedidoNuevo
     End Sub
     Private Sub _PCargarGridProductosNuevo(idCatCli As Integer, alm As String)
         'Dim dtProd, dtCatPrecios As New DataTable
-        Dim dtProd2 As DataTable = L_ProductosPedido_GeneralNuevoStock(-1, idCatCli, alm, swStock.Value)
-
+        'Dim dtProd2 As DataTable = L_ProductosPedido_GeneralNuevoStock(-1, idCatCli, alm, swStock.Value)
+        Dim dtProd2 As DataTable = L_ProductosPedido_GeneralNuevoStock2(idCatCli, alm, swStock.Value)
         JGr_Productos.BoundMode = BoundMode.Bound
         JGr_Productos.DataSource = dtProd2
         JGr_Productos.RetrieveStructure()
@@ -815,7 +818,8 @@ Public Class F02_PedidoNuevo
         If pasActivos = True Then
             dtProd = L_GetClientes3("", "ccdesc").Tables(0)
         Else
-            dtProd = L_GetClientes3("and ccest=1", "ccdesc").Tables(0)
+            dtProd = L_prCargarClienteAll(gi_userSuc)
+            'dtProd = L_GetClientes3("and ccest=1", "ccdesc").Tables(0)
         End If
 
         JGr_Clientes.BoundMode = BoundMode.Bound
@@ -1335,6 +1339,10 @@ Public Class F02_PedidoNuevo
         Tb_Fecha.Value = Now.Date
         dtpFechaVenc.Value = Now.Date
 
+        cbDistribuidor.SelectedIndex = -1
+        cbPreVendedor.SelectedIndex = -1
+        cbFactura.SelectedIndex = -1
+
         If _nuevoBasePeriodico = True Then
             CheckBoxX1.Checked = False
             CheckBoxX2.Checked = False
@@ -1419,7 +1427,8 @@ Public Class F02_PedidoNuevo
                 MBtModificar.Enabled = True
                 'MBtGrabar.Enabled = True
             End If
-
+            cbFactura.Clear()
+            cbFactura.Value = .GetValue("oaestfac")
             cbDistribuidor.Clear()
             cbDistribuidor.Value = .GetValue("oarepa")
             cbPreVendedor.Clear()
@@ -1559,7 +1568,7 @@ Public Class F02_PedidoNuevo
             Next
             For i = 0 To dt.Rows.Count - 1
                 If dt.Rows(i).Item("obpcant").ToString <> String.Empty Then
-                    Dim res As Boolean = validarStockProducto(dt.Rows(i).Item("obcprod"), dt.Rows(i).Item("obpcant"))
+                    Dim res As Boolean = validarStockProducto(dt.Rows(i).Item("obcprod"), dt.Rows(i).Item("obpcant"), gi_userSuc)
                     If res = False Then
                         ToastNotification.Show(Me, "No existe stock disponible para el producto: " + dt.Rows(i).Item("cadesc").ToUpper, My.Resources.WARNING, 5500, eToastGlowColor.Green, eToastPosition.TopCenter)
                         _Error = True
@@ -1681,7 +1690,7 @@ Public Class F02_PedidoNuevo
 
                 End If
 
-                L_PedidoCabecera_Grabar(Tb_Id.Text, Date.Now.Date.ToString("yyyy/MM/dd"), Tb_Hora.Text, Tb_CliCod.Text, Tb_CliCodZona.Text, cbPreVendedor.Value.ToString, Tb_Observaciones.Text, IIf(_nuevoBasePeriodico = True, "10", "2"), "1", "0")
+                L_PedidoCabecera_Grabar(Tb_Id.Text, Date.Now.Date.ToString("yyyy/MM/dd"), Tb_Hora.Text, Tb_CliCod.Text, Tb_CliCodZona.Text, cbPreVendedor.Value.ToString, Tb_Observaciones.Text, IIf(_nuevoBasePeriodico = True, "10", "2"), "1", "0", cbFactura.Value)
                 L_PedidoCabecera_GrabarExtencion(Tb_Id.Text, cbPreVendedor.Value.ToString, "2", "0", dtpFechaVenc.Value.ToString("yyyy/MM/dd"))
                 If (swTipoVenta.Value = False) Then  ''''Grabar Credito
                     L_prCajaGrabarCredito(Tb_Id.Text, Double.Parse(tbMontoCredito.Text))
@@ -1825,7 +1834,7 @@ Public Class F02_PedidoNuevo
                 'Recupero el estado del pedido
                 Dim oaest As String = L_fnObtenerDatoTabla("TO001", "oaest", "oanumi=" + Tb_Id.Text.Trim)
 
-                L_PedidoCabacera_Modificar(Tb_Id.Text, Tb_Fecha.Value.ToString("yyyy/MM/dd"), Tb_Hora.Text, Tb_CliCod.Text, Tb_CliCodZona.Text, cbDistribuidor.Value.ToString, Tb_Observaciones.Text, IIf(_nuevoBasePeriodico = True, "10", oaest))
+                L_PedidoCabacera_Modificar(Tb_Id.Text, Tb_Fecha.Value.ToString("yyyy/MM/dd"), Tb_Hora.Text, Tb_CliCod.Text, Tb_CliCodZona.Text, cbDistribuidor.Value.ToString, Tb_Observaciones.Text, IIf(_nuevoBasePeriodico = True, "10", oaest), cbFactura.Value)
                 L_PedidoCabacera_ModificarExtencion(Tb_Id.Text, cbPreVendedor.Value.ToString, dtpFechaVenc.Value.ToString("yyyy/MM/dd"))
 
                 'modificar detalle
@@ -1846,6 +1855,7 @@ Public Class F02_PedidoNuevo
                     L_PedidoDetalle_GrabarNuevo(Tb_Id.Text, codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc)
                 Next
                 If (swTipoVenta.Value = False) Then  ''''Grabar Credito
+
                     L_prCajaGrabarCredito(Tb_Id.Text, Double.Parse(tbMontoCredito.Text))
                 End If
 
@@ -2211,7 +2221,7 @@ Public Class F02_PedidoNuevo
         '_Modificar = True
         _PHabilitar()
         JGr_Clientes.Enabled = False
-        _PCargarGridProductosNuevo(Tb_CliCateg.Text, 1)
+        _PCargarGridProductosNuevo(Tb_CliCateg.Text, gi_userSuc)
     End Sub
 
     Private Sub _PEliminarRegistro()
@@ -2297,7 +2307,7 @@ Public Class F02_PedidoNuevo
         If grabar = True Then
             'GRABAR PEDIDO
             Dim idPedido As String = ""
-            L_PedidoCabecera_Grabar(idPedido, fecha, Now.Hour.ToString + ":" + Now.Minute.ToString, Tb_CliCod.Text, Tb_CliCodZona.Text, cbDistribuidor.Value.ToString, Tb_Observaciones.Text, "1", "1", "1")
+            L_PedidoCabecera_Grabar(idPedido, fecha, Now.Hour.ToString + ":" + Now.Minute.ToString, Tb_CliCod.Text, Tb_CliCodZona.Text, cbDistribuidor.Value.ToString, Tb_Observaciones.Text, "1", "1", "1", cbFactura.Value)
 
             'grabar detalle
             Dim codProd, cant, precio, subTotal, desc, total, flia, atributo, descporc As String
@@ -2417,7 +2427,7 @@ Public Class F02_PedidoNuevo
             JGr_TipoProd.Row = 0
 
             ''Carga los productos
-            _PCargarGridProductosNuevo(Tb_CliCateg.Text, 1)
+            _PCargarGridProductosNuevo(Tb_CliCateg.Text, gi_userSuc)
             JGr_Productos.Focus()
             JGr_Productos.MoveTo(JGr_Productos.FilterRow)
             JGr_Productos.Col = 1
@@ -2926,17 +2936,25 @@ Public Class F02_PedidoNuevo
     Private Sub P_prArmarCombos()
         P_prArmarComboDistribuidor()
         P_prArmarComboPreVendedor()
+        P_prArmarComboFactura()
+    End Sub
+
+    Private Sub P_prArmarComboFactura()
+        Dim Dt As New DataTable
+
+        Dt = L_fnObtenerLibreria("108", " 1=1 ")
+        g_prArmarCombo(cbFactura, Dt, 60, 200, "Código", "Descripción")
     End Sub
 
     Private Sub P_prArmarComboDistribuidor()
         Dim dt As DataTable
-        dt = L_fnObtenerTabla("cbnumi as [cod], cbdesc as [desc]", "TC002", "cbcat=1")
+        dt = L_fnObtenerTabla("cbnumi as [cod], cbdesc as [desc]", "TC002", "cbcat=1 and cbsuc = " + gi_userSuc.ToString)
         g_prArmarCombo(cbDistribuidor, dt, 60, 200, "Código", "Distribuidor")
     End Sub
 
     Private Sub P_prArmarComboPreVendedor()
         Dim dt As DataTable
-        dt = L_fnObtenerTabla("cbnumi as [cod], cbdesc as [desc]", "TC002", "cbcat=3")
+        dt = L_fnObtenerTabla("cbnumi as [cod], cbdesc as [desc]", "TC002", "cbcat=3 and cbsuc = " + gi_userSuc.ToString)
         g_prArmarCombo(cbPreVendedor, dt, 60, 200, "Código", "Pre-Vendedor")
     End Sub
 
@@ -2993,7 +3011,7 @@ Public Class F02_PedidoNuevo
             If (Not IsNothing(cbDistribuidor.Value)) Then
                 Dim dt As DataTable = L_fnObtenerTabla("b.lcnumi, d.cedesc",
                                                       "TL001 a inner join TL0012 b on a.lanumi=b.lcnumi
-	                                                   inner join TC002 c on b.lccbnumi=c.cbnumi and c.cbcat=1
+                                                       inner join TC002 c on b.lccbnumi=c.cbnumi and c.cbcat=1
 	                                                   inner join TC0051 d on a.lazona=d.cenum and d.cecon=2",
                                                       "b.lccbnumi=" + cbDistribuidor.Value.ToString)
                 If (dt.Rows.Count > 0) Then
@@ -3154,15 +3172,17 @@ Public Class F02_PedidoNuevo
 
             End If
 
-            L_PedidoCabecera_Grabar(Tb_Id.Text, Date.Now.Date.ToString("yyyy/MM/dd"), Tb_Hora.Text, Tb_CliCod.Text, Tb_CliCodZona.Text, cbDistribuidor.Value.ToString, Tb_Observaciones.Text, IIf(_nuevoBasePeriodico = True, "10", "2"), "1", "0")
-            L_PedidoCabecera_GrabarExtencion(Tb_Id.Text, 1, "2", "0", dtpFechaVenc.Value.ToString("yyyy/MM/dd")) 'Mando 1 porque ese sera el prevendedor por defecto para venta/cierres directos DYNASYS 1 (NO CAMBIAR)
+            L_PedidoCabecera_Grabar(Tb_Id.Text, Date.Now.Date.ToString("yyyy/MM/dd"), Tb_Hora.Text, Tb_CliCod.Text, Tb_CliCodZona.Text, cbDistribuidor.Value.ToString, Tb_Observaciones.Text, IIf(_nuevoBasePeriodico = True, "10", "2"), "1", "0", cbFactura.Value)
+            Dim dtVen As Integer = L_prTraerUsuarioVentaDirecta(3, gi_userSuc)
+            L_PedidoCabecera_GrabarExtencion(Tb_Id.Text, dtVen, "2", "0", dtpFechaVenc.Value.ToString("yyyy/MM/dd")) 'Mando 1 porque ese sera el prevendedor por defecto para venta/cierres directos DYNASYS 1 (NO CAMBIAR)
             If (swTipoVenta.Value = False) Then  ''''Grabar Credito
 
                 L_prCajaGrabarCredito(Tb_Id.Text, Double.Parse(tbMontoCredito.Text))
             End If
 
             'Grabo en la TO001C
-            L_prGrabarTO001C(Tb_Id.Text, 4) 'Mando 4 porque ese sera el repartidor por defecto para venta/cierres directos EMPRESA(NO CAMBIAR)
+            Dim dtAlm As Integer = L_prTraerUsuarioVentaDirecta(1, gi_userSuc)
+            L_prGrabarTO001C(Tb_Id.Text, dtAlm) 'Mando 4 porque ese sera el repartidor por defecto para venta/cierres directos EMPRESA(NO CAMBIAR)
 
             'Cambiar de zona al cliente a la zona del chofer
             L_GrabarModificarCliente("cczona=" + Tb_CliCodZona.Text, "ccnumi=" + Str(Tb_CliCod.Text))
@@ -3221,6 +3241,7 @@ Public Class F02_PedidoNuevo
             'grabar estado del pedido
             L_PedidoEstados_Grabar(Tb_Id.Text, IIf(_nuevoBasePeriodico = True, "10", "1"), Date.Now.Date.ToString("yyyy/MM/dd"), Tb_Hora.Text, gs_user)
             Dim montoTotal As Double = CType(JGr_DetallePedido.DataSource, DataTable).Compute("SUM(obtotal)", "obcprod > 0")
+
             GrabarMontosPedido(Tb_Id.Text, Double.Parse(tbMontoCredito.Text), montoTotal)
             ''actualizar el promedio de pedidos del cliente
             ''If _nuevoBasePeriodico = False Then

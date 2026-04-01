@@ -241,16 +241,27 @@ Partial Class F01_Producto
         '
         'MBtUltimo
         '
+        Me.MBtUltimo.Location = New System.Drawing.Point(131, 0)
         Me.MBtUltimo.Margin = New System.Windows.Forms.Padding(2)
+        Me.MBtUltimo.Size = New System.Drawing.Size(42, 36)
         '
         'MBtSiguiente
         '
+        Me.MBtSiguiente.Location = New System.Drawing.Point(89, 0)
+        Me.MBtSiguiente.Size = New System.Drawing.Size(42, 36)
         '
         'MBtAnterior
         '
+        Me.MBtAnterior.Location = New System.Drawing.Point(47, 0)
+        Me.MBtAnterior.Size = New System.Drawing.Size(42, 36)
         '
         'MBtPrimero
         '
+        Me.MBtPrimero.Size = New System.Drawing.Size(42, 36)
+        '
+        'MPanelToolBarAccion
+        '
+        Me.MPanelToolBarAccion.Size = New System.Drawing.Size(375, 70)
         '
         'MBtSalir
         '
@@ -301,6 +312,8 @@ Partial Class F01_Producto
         '
         '
         Me.MLbPaginacion.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.MLbPaginacion.Location = New System.Drawing.Point(173, 0)
+        Me.MLbPaginacion.Size = New System.Drawing.Size(142, 36)
         '
         'MRlAccion
         '
@@ -1312,7 +1325,7 @@ Partial Class F01_Producto
         '
         '
         Me.LabelX16.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX16.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX16.Location = New System.Drawing.Point(9, 186)
         Me.LabelX16.Name = "LabelX16"
@@ -1340,7 +1353,7 @@ Partial Class F01_Producto
         '
         '
         Me.LabelX13.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX13.Location = New System.Drawing.Point(9, 162)
         Me.LabelX13.Name = "LabelX13"
@@ -1354,7 +1367,7 @@ Partial Class F01_Producto
         '
         '
         Me.LabelX9.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX9.Location = New System.Drawing.Point(8, 29)
         Me.LabelX9.Name = "LabelX9"
@@ -1398,7 +1411,7 @@ Partial Class F01_Producto
         '
         '
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX4.Location = New System.Drawing.Point(222, 3)
         Me.LabelX4.Name = "LabelX4"
@@ -1435,7 +1448,7 @@ Partial Class F01_Producto
         '
         '
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX1.Location = New System.Drawing.Point(8, 3)
         Me.LabelX1.Name = "LabelX1"
@@ -1522,7 +1535,7 @@ Partial Class F01_Producto
         '
         '
         Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX2.Location = New System.Drawing.Point(8, 55)
         Me.LabelX2.Name = "LabelX2"
@@ -1573,7 +1586,7 @@ Partial Class F01_Producto
         '
         '
         Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX3.Location = New System.Drawing.Point(8, 102)
         Me.LabelX3.Name = "LabelX3"
@@ -1600,7 +1613,7 @@ Partial Class F01_Producto
         '
         '
         Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.LabelX6.Location = New System.Drawing.Point(243, 184)
         Me.LabelX6.Name = "LabelX6"
@@ -1614,7 +1627,7 @@ Partial Class F01_Producto
         '
         '
         Me.lbCategoria.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.lbCategoria.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.3!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbCategoria.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.299999!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbCategoria.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
         Me.lbCategoria.Location = New System.Drawing.Point(8, 136)
         Me.lbCategoria.Name = "lbCategoria"

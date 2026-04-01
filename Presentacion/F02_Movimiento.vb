@@ -469,7 +469,7 @@ Public Class F02_Movimiento
 
     Private Sub _prCargarComboLibreriaDeposito(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_fnMovimientoListarSucursales()
+        dt = L_fnMovimientoListarSucursales(gi_userSuc)
         With mCombo
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("aanumi").Width = 60
@@ -841,7 +841,7 @@ Public Class F02_Movimiento
 
     Private Sub P_prArmarGrillaBusqueda()
         DtBusqueda = New DataTable
-        DtBusqueda = L_fnMovimientoGeneral(IIf(tipo = 1, "1", "11"))
+        DtBusqueda = L_fnMovimientoGeneral(IIf(tipo = 1, "1", "11"), gi_userSuc)
 
         dgjBusqueda.BoundMode = Janus.Data.BoundMode.Bound
         dgjBusqueda.DataSource = DtBusqueda

@@ -61,32 +61,32 @@ Public Class frmDispatch
     End Sub
 
     Private Sub dgjZona_RowCheckStateChanged(sender As Object, e As EventArgs) Handles dgjZona.RowCheckStateChanged
-        Dim checks = Me.dgjZona.GetCheckedRows()
-        Dim listIdZona = checks.Select(Function(a) Convert.ToInt32(a.Cells("Id").Value)).ToList()
-        'MessageBox.Show(listIdZona.Count)
-        Dim i As Integer
-        Dim objMapa As New GMapControl
-        Dim _overlay As New GMapOverlay
-        _LimpiarMapa(GM_Mapa, _overlay)
-        For Each item As String In listIdZona
+        'Dim checks = Me.dgjZona.GetCheckedRows()
+        'Dim listIdZona = checks.Select(Function(a) Convert.ToInt32(a.Cells("Id").Value)).ToList()
+        ''MessageBox.Show(listIdZona.Count)
+        'Dim i As Integer
+        'Dim objMapa As New GMapControl
+        'Dim _overlay As New GMapOverlay
+        '_LimpiarMapa(GM_Mapa, _overlay)
+        'For Each item As String In listIdZona
 
-            Dim dtZonas As DataTable
-            'DIBUJAR ZONAS
-            dtZonas = L_ZonaCabecera_GeneralCompletoDistribucion(0, item).Tables(0)
-            Dim colorZona As String
-            Dim idRegZona As Integer
+        '    Dim dtZonas As DataTable
+        '    'DIBUJAR ZONAS
+        '    dtZonas = L_ZonaCabecera_GeneralCompletoDistribucion(0, item).Tables(0)
+        '    Dim colorZona As String
+        '    Dim idRegZona As Integer
 
-            For i = 0 To dtZonas.Rows.Count - 1
+        '    For i = 0 To dtZonas.Rows.Count - 1
 
-                _PCargarMapa(GM_Mapa, _overlay)
+        '        _PCargarMapa(GM_Mapa, _overlay)
 
-                idRegZona = dtZonas.Rows(i).Item("lanumi")
-                colorZona = dtZonas.Rows(i).Item("lacolor")
+        '        idRegZona = dtZonas.Rows(i).Item("lanumi")
+        '        colorZona = dtZonas.Rows(i).Item("lacolor")
 
-                'dibujar zona
-                _PDibujarZona(idRegZona, _overlay, colorZona)
-            Next
-        Next
+        '        'dibujar zona
+        '        _PDibujarZona(idRegZona, _overlay, colorZona)
+        '    Next
+        'Next
     End Sub
 #End Region
 
@@ -179,8 +179,8 @@ Public Class frmDispatch
 
     Public Sub CargarZonas()
         Try
-            Dim listResult As List(Of VCombo) = New LZona().ListarCombo()
-
+            'Dim listResult As List(Of VCombo) = New LZona().ListarCombo()
+            Dim listResult As DataTable = L_GetListarZonasDistribucion(gi_userSuc)
             dgjZona.BoundMode = Janus.Data.BoundMode.Bound
             dgjZona.DataSource = listResult
             dgjZona.RetrieveStructure()
@@ -224,7 +224,15 @@ Public Class frmDispatch
 
     Private Sub CargarChoferes()
         Try
-            Dim listResult As List(Of VCombo) = New LPersonal().ListarRepatidorCombo()
+            Dim listResult As DataTable = L_GetListarChoferesDistribucion(gi_userSuc)
+            'Dim listResult As List(Of VCombo) = New LPersonal().ListarRepatidorCombo()
+            Dim fila As DataRow = listResult.NewRow()
+
+            fila("Id") = -1
+            fila("Descripcion") = "SELECCIONAR CHOFER"
+
+            listResult.Rows.InsertAt(fila, 0)
+
 
             With cbChoferes.DropDownList
                 .Columns.Clear()
@@ -304,8 +312,15 @@ Public Class frmDispatch
                 .Caption = "Zona"
                 .Width = 38
                 .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Center
-                .Visible = True
+                .Visible = False
                 .Position = 4
+            End With
+            With dgjPedido.RootTable.Columns("Zona")
+                .Caption = "Zona"
+                .Width = 200
+                .CellStyle.TextAlignment = Janus.Windows.GridEX.TextAlignment.Near
+                .Visible = True
+                .Position = 5
             End With
 
             dgjPedido.RootTable.Columns.Add(New GridEXColumn("Check"))
@@ -315,7 +330,7 @@ Public Class frmDispatch
                 .ShowRowSelector = True
                 .UseHeaderSelector = True
                 .FilterEditType = FilterEditType.NoEdit
-                .Position = 5
+                .Position = 6
             End With
 
             With dgjPedido
@@ -426,7 +441,7 @@ Public Class frmDispatch
                 Throw New Exception("Debe seleccionar por lo menos un pedido.")
             End If
             Dim idChofer = Me.cbChoferes.Value
-            If (Not IsNumeric(idChofer)) Then
+            If ((idChofer = -1)) Then
                 Throw New Exception("Debe seleccionar un chofer.")
             End If
             If (Convert.ToInt32(idChofer) = ENCombo.ID_SELECCIONAR) Then

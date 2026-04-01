@@ -20,7 +20,7 @@ Public Class R01_VisitasClientes
 
     Private Sub P_prArmarComboZona()
         Dim Dt As New DataTable
-        Dt = L_GetZonasCPZ().Tables(0)
+        Dt = L_GetZonasCPZ(gi_userSuc) '.Tables(0)
 
         With cbZona.DropDownList
             .Columns.Add(Dt.Columns("lanumi").ToString).Width = 50

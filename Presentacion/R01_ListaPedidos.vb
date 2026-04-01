@@ -85,7 +85,7 @@ Public Class R01_ListaPedidos
     Public Sub _prListarPrevendedores()
 
         Dim dt As DataTable
-        dt = L_prListarPrevendedor()
+        dt = L_prListarPrevendedor(gi_userSuc)
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("cbnumi", True, "ID", 50))

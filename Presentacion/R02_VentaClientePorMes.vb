@@ -68,7 +68,7 @@ Public Class R02_VentaClientePorMes
     End Sub
 
     Private Sub GenerarReporte()
-        Dim dt As DataTable = L_fnVentaClientePorMes(IIf(SbFiltroCM.Value, "2", "1"), tbAnho.Value.ToString, cbMeses.Value.ToString, tbCodigoCliente.Text.Trim, tbNombreCliente.Text.Trim)
+        Dim dt As DataTable = L_fnVentaClientePorMes(IIf(SbFiltroCM.Value, "2", "1"), tbAnho.Value.ToString, cbMeses.Value.ToString, tbCodigoCliente.Text.Trim, tbNombreCliente.Text.Trim, gi_userSuc)
         Dim FechaInicial As Date = New Date(tbAnho.Value, cbMeses.Value, 1)
         Dim CantidadDias As Integer = DateTime.DaysInMonth(tbAnho.Value, cbMeses.Value)
         Dim LiteralDia As String = ObtenerDiaLiteral(FechaInicial)

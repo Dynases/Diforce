@@ -29,7 +29,7 @@ Public Class R01_SaldoProducto
 
     Private Sub _prCargarComboLibreriaDeposito(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_fnMovimientoListarSucursales()
+        dt = L_fnMovimientoListarSucursales(gi_userSuc)
         dt.Rows.Add(-1, "Todos")
         With mCombo
             .DropDownList.Columns.Clear()

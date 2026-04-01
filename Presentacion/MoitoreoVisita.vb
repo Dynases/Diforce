@@ -412,7 +412,7 @@ Public Class MoitoreoVisita
     Private Sub CargarChoferes()
         Try
             'Dim listResult As List(Of VCombo) = New LPersonal().ListarRepatidorCombo()
-            Dim listResult As DataTable = ListarUsuariosDespacho()
+            Dim listResult As DataTable = ListarUsuariosDespacho(gi_userSuc)
             With cbRepartidor.DropDownList
                 .Columns.Clear()
 

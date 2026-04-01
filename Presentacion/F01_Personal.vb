@@ -200,7 +200,7 @@ Public Class F01_Personal
     End Sub
     Private Sub _prCargarComboLibreriaDeposito(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_fnMovimientoListarSucursales()
+        dt = L_fnMovimientoListarSucursales(gi_userSuc)
         With mCombo
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("aanumi").Width = 60
@@ -336,7 +336,7 @@ Public Class F01_Personal
                 hora = DateTimeInput1.Text
                 'Grabar cabecera
                 Dim res As Boolean = L_fnGrabarPersonal(numi, desc, direc, telef, cat, sal, ci, obs, fnac, fing,
-                                                        fret, fot, est, eciv, plan, reloj, cbSucursal.Value, pre, zon, ped, hora)
+                                                        fret, fot, est, eciv, plan, reloj, cbSucursal.Value, pre, zon, ped, hora, gi_userSuc)
 
                 If (res) Then
                     P_Limpiar()
@@ -402,7 +402,7 @@ Public Class F01_Personal
                 hora = DateTimeInput1.Text
                 'Modificar
                 Dim res As Boolean = L_fnModificarPersonal(numi, desc, direc, telef, cat, sal, ci, obs, fnac, fing,
-                                                           fret, fot, est, eciv, plan, reloj, cbSucursal.Value, pre, zon, ped, hora)
+                                                           fret, fot, est, eciv, plan, reloj, cbSucursal.Value, pre, zon, ped, hora, gi_userSuc)
 
                 If (res) Then
                     Bool = False
@@ -541,7 +541,7 @@ Public Class F01_Personal
     End Sub
     Private Sub p_prcomboalmacendiavi()
         Dim dt As New DataTable
-        dt = L_fnMovimientoListarSucursales()
+        dt = L_fnMovimientoListarSucursales(gi_userSuc)
 
         With CbAlmacen
             .DropDownList.Columns.Clear()
@@ -626,7 +626,7 @@ Public Class F01_Personal
 
     Private Sub P_ArmarGrillaBusqueda()
         DtCabecera = New DataTable
-        DtCabecera = L_fnPersonal()
+        DtCabecera = L_fnPersonal(gi_userSuc)
 
         Dgj1Busqueda.BoundMode = Janus.Data.BoundMode.Bound
         Dgj1Busqueda.DataSource = DtCabecera

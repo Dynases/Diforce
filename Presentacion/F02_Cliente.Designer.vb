@@ -193,6 +193,7 @@ Partial Class F02_Cliente
         Me.btActualizar = New DevComponents.DotNetBar.ButtonX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.SwitchButton1 = New DevComponents.DotNetBar.Controls.SwitchButton()
         CType(Me.MSuperTabControlPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MSuperTabControlPrincipal.SuspendLayout()
         Me.MSuperTabControlPanelBusqueda.SuspendLayout()
@@ -316,6 +317,7 @@ Partial Class F02_Cliente
         '
         'MPnSuperior
         '
+        Me.MPnSuperior.Controls.Add(Me.SwitchButton1)
         Me.MPnSuperior.Margin = New System.Windows.Forms.Padding(4)
         Me.MPnSuperior.Size = New System.Drawing.Size(1149, 70)
         Me.MPnSuperior.Style.Alignment = System.Drawing.StringAlignment.Center
@@ -325,6 +327,10 @@ Partial Class F02_Cliente
         Me.MPnSuperior.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder
         Me.MPnSuperior.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.MPnSuperior.Style.GradientAngle = 90
+        Me.MPnSuperior.Controls.SetChildIndex(Me.MPanelToolBarAccion, 0)
+        Me.MPnSuperior.Controls.SetChildIndex(Me.MPanelToolBarImprimir, 0)
+        Me.MPnSuperior.Controls.SetChildIndex(Me.MRlAccion, 0)
+        Me.MPnSuperior.Controls.SetChildIndex(Me.SwitchButton1, 0)
         '
         'MPnInferior
         '
@@ -3168,6 +3174,22 @@ Partial Class F02_Cliente
         Me.ButtonX1.Text = "EXCEL"
         Me.ButtonX1.TextColor = System.Drawing.Color.Black
         '
+        'SwitchButton1
+        '
+        '
+        '
+        '
+        Me.SwitchButton1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.SwitchButton1.Location = New System.Drawing.Point(705, 21)
+        Me.SwitchButton1.Name = "SwitchButton1"
+        Me.SwitchButton1.OffText = "TODOS"
+        Me.SwitchButton1.OnText = "ACTIVOS"
+        Me.SwitchButton1.Size = New System.Drawing.Size(155, 22)
+        Me.SwitchButton1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.SwitchButton1.TabIndex = 10
+        Me.SwitchButton1.Value = True
+        Me.SwitchButton1.ValueObject = "Y"
+        '
         'F02_Cliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3431,4 +3453,5 @@ Partial Class F02_Cliente
     Friend WithEvents LabelApellido As DevComponents.DotNetBar.LabelX
     Friend WithEvents MultiComFact As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents LabelDocFact As DevComponents.DotNetBar.LabelX
+    Friend WithEvents SwitchButton1 As DevComponents.DotNetBar.Controls.SwitchButton
 End Class

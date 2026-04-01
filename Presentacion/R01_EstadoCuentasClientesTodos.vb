@@ -110,7 +110,7 @@ Public Class R01_EstadoCuentasClientesTodos
     Private Sub P_prArmarAyudaCliente()
 
         Dim dt As DataTable
-        dt = L_prListarCliente()
+        dt = L_prListarCliente(gi_userSuc)
 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("ccnumi", True, "ID", 50))

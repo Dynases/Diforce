@@ -153,9 +153,9 @@ Public Class R01_PedidosRechazados
 
         Dim dt As DataTable
         If swTipo.Value = True Then
-            dt = L_prListarPrevendedor()
+            dt = L_prListarPrevendedor(gi_userSuc)
         Else
-            dt = L_prListarDistribuidor()
+            dt = L_prListarDistribuidor(gi_userSuc)
         End If
 
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
@@ -194,7 +194,7 @@ Public Class R01_PedidosRechazados
     Public Sub _prListarDistribuidores()
 
         Dim dt As DataTable
-        dt = L_prListarDistribuidor()
+        dt = L_prListarDistribuidor(gi_userSuc)
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("cbnumi", True, "ID", 50))

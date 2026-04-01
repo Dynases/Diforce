@@ -101,7 +101,7 @@ Public Class F01_KardexInventarioEquiProd
 #End Region
     Private Sub _prCargarComboLibreriaDeposito(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_fnMovimientoListarSucursales()
+        dt = L_fnMovimientoListarSucursales(gi_userSuc)
         With mCombo
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("aanumi").Width = 60

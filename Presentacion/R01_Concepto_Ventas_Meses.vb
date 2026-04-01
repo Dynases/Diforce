@@ -22,7 +22,7 @@ Public Class R01_Concepto_Ventas_Meses
     End Sub
 
     Sub _prCargarTableCLIENTEVentas(ByRef dt As DataTable)
-        dt = L_fnObtenerCLientes(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+        dt = L_fnObtenerCLientes(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userSuc)
 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
@@ -54,7 +54,7 @@ Public Class R01_Concepto_Ventas_Meses
                     End If
 
                 End If
-                Dim aux As DataTable = L_fnObtenerVentasClientes(fechaInicialMes.ToString("yyyy/MM/dd"), FechaFinalMes.ToString("yyyy/MM/dd"), numi)
+                Dim aux As DataTable = L_fnObtenerVentasClientes(fechaInicialMes.ToString("yyyy/MM/dd"), FechaFinalMes.ToString("yyyy/MM/dd"), numi, gi_userSuc)
                 Dim columnaMes As String = MonthName(k)
                 If (aux.Rows.Count > 0) Then
                     dt.Rows(i).Item(columnaMes) = aux.Rows(0).Item("total")
@@ -205,7 +205,7 @@ Public Class R01_Concepto_Ventas_Meses
         titulo = "REPORTE ESTADISTICO VENTAS POR PRODUCTO"
     End Sub
     Sub _prCargarTableVendedorVentas(ByRef dt As DataTable)
-        dt = L_fnObtenerVendedores(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+        dt = L_fnObtenerVendedores(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userSuc)
 
         For i As Integer = 0 To dt.Rows.Count - 1 Step 1
 
@@ -237,7 +237,7 @@ Public Class R01_Concepto_Ventas_Meses
                     End If
 
                 End If
-                Dim aux As DataTable = L_fnObtenerVentasVendedores(fechaInicialMes.ToString("yyyy/MM/dd"), FechaFinalMes.ToString("yyyy/MM/dd"), numi)
+                Dim aux As DataTable = L_fnObtenerVentasVendedores(fechaInicialMes.ToString("yyyy/MM/dd"), FechaFinalMes.ToString("yyyy/MM/dd"), numi, gi_userSuc)
                 Dim columnaMes As String = MonthName(k)
                 If (aux.Rows.Count > 0) Then
                     dt.Rows(i).Item(columnaMes) = aux.Rows(0).Item("total")

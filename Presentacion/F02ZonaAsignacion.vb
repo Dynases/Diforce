@@ -433,7 +433,7 @@ Public Class F02ZonaAsignacion
     Private Sub P_prArmarGrillaBusqueda()
         DtBusqueda = New DataTable
         If (IsDBNull(_DtZonas) Or IsNothing(_DtZonas)) Then
-            _DtZonas = L_fnZonaGeneral()
+            _DtZonas = L_fnZonaGeneral(gi_userSuc)
             DtBusqueda = _DtZonas.Copy
         Else
             DtBusqueda = _DtZonas.Copy

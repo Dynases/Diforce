@@ -25,6 +25,7 @@ Public Class P_Usuarios
         'Me.WindowState = FormWindowState.Maximized
 
         _PCargarComboRol(JMC_Categoria)
+        _PCargarCombosSucursal(cbSucursal)
 
         _PFiltrar()
         _PInhabilitar()
@@ -71,6 +72,28 @@ Public Class P_Usuarios
         cb.Refresh()
     End Sub
 
+    Private Sub _PCargarCombosSucursal(ByVal cb As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
+        Dim _Ds As New DataTable
+        _Ds = L_fnTraerSucursales()
+
+        cb.DropDownList.Columns.Clear()
+
+
+        With cb.DropDownList
+            .Columns.Add(_Ds.Columns("aaId").ToString).Width = 50
+            .Columns(0).Caption = "Código"
+
+            .Columns.Add(_Ds.Columns("aaalias").ToString).Width = 150
+            .Columns(1).Caption = "Sucursal"
+        End With
+
+        cb.ValueMember = _Ds.Columns("aaId").ToString
+        cb.DisplayMember = _Ds.Columns("aaalias").ToString
+        cb.DataSource = _Ds
+        cb.Refresh()
+
+    End Sub
+
     Private Sub _PFiltrar()
         _Dsencabezado = New DataSet
         _Dsencabezado = L_Usuario_General2(0)
@@ -96,6 +119,7 @@ Public Class P_Usuarios
             Tb_Estado.Value = CBool(.Item("ydest").ToString)
             swClientesEsp.Value = IIf(CInt(.Item("ydcant").ToString) = 0, False, True)
             Tb_fuenteTam.Value = CInt(.Item("ydfontsize").ToString)
+            cbSucursal.Value = CInt(.Item("ydsuc").ToString)
 
             JMC_Categoria.Value = CInt(.Item("ybnumi").ToString)
         End With
@@ -115,6 +139,7 @@ Public Class P_Usuarios
         BBtn_Grabar.Enabled = False
 
         JMC_Categoria.Enabled = False
+        cbSucursal.Enabled = False
         Tb_Estado.Enabled = False
         JGr_Buscador.Enabled = True
 
@@ -206,6 +231,13 @@ Public Class P_Usuarios
             .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
             .CellStyle.FontSize = gi_fuenteTamano
         End With
+        With JGr_Buscador.RootTable.Columns("ydsuc")
+            .Caption = "Rol"
+            .Width = 150
+            .Visible = False
+            .HeaderAlignment = Janus.Windows.GridEX.TextAlignment.Center
+            .CellStyle.FontSize = gi_fuenteTamano
+        End With
 
         'Habilitar Filtradores
         With JGr_Buscador
@@ -225,6 +257,7 @@ Public Class P_Usuarios
         Tb_Nombre.Enabled = True
         TextBoxX1.Enabled = True
         JMC_Categoria.Enabled = True
+        cbSucursal.Enabled = True
         Tb_Estado.Enabled = True
         'Tb_DiasPedidos.Enabled = True
         swClientesEsp.IsReadOnly = False
@@ -242,6 +275,7 @@ Public Class P_Usuarios
         TextBoxX1.Text = String.Empty
         JMC_Categoria.Value = Nothing
         JMC_Categoria.SelectedIndex = -1
+        cbSucursal.SelectedIndex = -1
         Tb_Estado.Value = True
         'Tb_DiasPedidos.Value = 0
         swClientesEsp.Value = False
@@ -278,6 +312,14 @@ Public Class P_Usuarios
         Else
             JMC_Categoria.BackColor = Color.White
             EP1.SetError(JMC_Categoria, String.Empty)
+        End If
+        If cbSucursal.SelectedIndex < 0 Then
+            cbSucursal.BackColor = Color.Red   'error de validacion
+            EP1.SetError(cbSucursal, "Seleccione una Sucursal!")
+            _Error = False
+        Else
+            cbSucursal.BackColor = Color.White
+            EP1.SetError(cbSucursal, String.Empty)
         End If
 
         'If Tb_DiasPedidos.Text.Trim = String.Empty Then
@@ -337,7 +379,7 @@ Public Class P_Usuarios
             End If
 
             If _Nuevo Then
-                L_Usuario_Grabar(Tb_Id.Text, Tb_Nombre.Text, TextBoxX1.Text, JMC_Categoria.Value, Tb_Estado.Value, IIf(swClientesEsp.Value = False, 0, 1), Tb_fuenteTam.Value)
+                L_Usuario_Grabar(Tb_Id.Text, Tb_Nombre.Text, TextBoxX1.Text, JMC_Categoria.Value, Tb_Estado.Value, IIf(swClientesEsp.Value = False, 0, 1), Tb_fuenteTam.Value, cbSucursal.Value)
 
                 'actualizar el grid de buscador
                 _PCargarBuscador()
@@ -346,7 +388,7 @@ Public Class P_Usuarios
                 ToastNotification.Show(Me, "Codigo Usuario " + Tb_Id.Text + " Grabado con Exito.", My.Resources.OK, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)
                 _PLimpiar()
             Else
-                L_Usuario_Modificar(Tb_Id.Text, Tb_Nombre.Text, TextBoxX1.Text, JMC_Categoria.Value, Tb_Estado.Value, IIf(swClientesEsp.Value = False, 0, 1), Tb_fuenteTam.Value)
+                L_Usuario_Modificar(Tb_Id.Text, Tb_Nombre.Text, TextBoxX1.Text, JMC_Categoria.Value, Tb_Estado.Value, IIf(swClientesEsp.Value = False, 0, 1), Tb_fuenteTam.Value, cbSucursal.Value)
 
 
                 ToastNotification.Show(Me, "Codigo Usuario " + Tb_Id.Text + " Modificado con Exito.", My.Resources.OK, 5000, eToastGlowColor.Green, eToastPosition.TopCenter)

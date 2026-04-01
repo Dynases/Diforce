@@ -27,7 +27,7 @@ Public Class R01_VentasProductos
 
     Private Sub _prCargarReporte()
         Dim _dt As New DataTable
-        _dt = L_prReporteVentasProductos(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+        _dt = L_prReporteVentasProductos(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userSuc)
         If (_dt.Rows.Count > 0) Then
 
             Dim objrep As New R_VentasProductos

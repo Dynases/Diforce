@@ -132,7 +132,7 @@ Public Class R01_ReporteCobertura
 
         Dim dt As DataTable
 
-        dt = L_prListarPrevendedor()
+        dt = L_prListarPrevendedor(gi_userSuc)
 
 
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 

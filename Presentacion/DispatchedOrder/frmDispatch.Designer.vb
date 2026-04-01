@@ -99,11 +99,10 @@ Partial Class frmDispatch
         Me.GroupPanelGeoreferencia.Controls.Add(Me.PanelEx6)
         Me.GroupPanelGeoreferencia.Controls.Add(Me.GM_Mapa)
         Me.GroupPanelGeoreferencia.DisabledBackColor = System.Drawing.Color.Empty
-        Me.GroupPanelGeoreferencia.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupPanelGeoreferencia.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupPanelGeoreferencia.Location = New System.Drawing.Point(457, 0)
+        Me.GroupPanelGeoreferencia.Location = New System.Drawing.Point(1187, 0)
         Me.GroupPanelGeoreferencia.Name = "GroupPanelGeoreferencia"
-        Me.GroupPanelGeoreferencia.Size = New System.Drawing.Size(740, 526)
+        Me.GroupPanelGeoreferencia.Size = New System.Drawing.Size(10, 526)
         '
         '
         '
@@ -135,6 +134,7 @@ Partial Class frmDispatch
         Me.GroupPanelGeoreferencia.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanelGeoreferencia.TabIndex = 3
         Me.GroupPanelGeoreferencia.Text = "UBICACIÓN"
+        Me.GroupPanelGeoreferencia.Visible = False
         '
         'PanelEx6
         '
@@ -205,16 +205,17 @@ Partial Class frmDispatch
         Me.GM_Mapa.ScaleMode = GMap.NET.WindowsForms.ScaleModes.[Integer]
         Me.GM_Mapa.SelectedAreaFillColor = System.Drawing.Color.FromArgb(CType(CType(33, Byte), Integer), CType(CType(65, Byte), Integer), CType(CType(105, Byte), Integer), CType(CType(225, Byte), Integer))
         Me.GM_Mapa.ShowTileGridLines = False
-        Me.GM_Mapa.Size = New System.Drawing.Size(734, 502)
+        Me.GM_Mapa.Size = New System.Drawing.Size(4, 502)
         Me.GM_Mapa.TabIndex = 1
         Me.GM_Mapa.Zoom = 0R
         '
         'dgjPedido
         '
-        Me.dgjPedido.Dock = System.Windows.Forms.DockStyle.Left
+        Me.dgjPedido.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgjPedido.Location = New System.Drawing.Point(0, 0)
         Me.dgjPedido.Name = "dgjPedido"
-        Me.dgjPedido.Size = New System.Drawing.Size(457, 526)
+        Me.dgjPedido.Size = New System.Drawing.Size(1194, 526)
         Me.dgjPedido.TabIndex = 1
         '
         'PanelProducto

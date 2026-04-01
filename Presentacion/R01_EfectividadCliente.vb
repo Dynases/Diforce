@@ -34,7 +34,7 @@ Public Class R01_EfectividadCliente
 
     Private Sub P_prArmarComboZona()
         Dim Dt As New DataTable
-        Dt = L_GetZonasCPZ().Tables(0)
+        Dt = L_GetZonasCPZ(gi_userSuc) '.Tables(0)
 
         With cbZona.DropDownList
             .Columns.Add(Dt.Columns("lanumi").ToString).Width = 50
@@ -145,7 +145,7 @@ Public Class R01_EfectividadCliente
 
         Dim dt As DataTable
 
-        dt = L_prListarPrevendedor()
+        dt = L_prListarPrevendedor(gi_userSuc)
 
 
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 

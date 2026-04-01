@@ -191,7 +191,8 @@ Public Class F0_PedidosAsignacion
                 If UserSpecial Then
                     dtReg = L_PedidoCabecera_General1(-1, " AND (oaest=" + estado + " )   and ccuesp > 0")
                 Else
-                    dtReg = L_PedidoCabecera_General(-1, " AND (oaest=" + estado + " ) and oaap = 1")
+                    dtReg = L_PedidoCabecera_GeneralNuevo(estado, 1, -1, -1, gi_userSuc)
+                    'dtReg = L_PedidoCabecera_General(-1, " AND (oaest=" + estado + " ) and oaap = 1")
                 End If
             Else
                 If estado = "1" Then
@@ -213,13 +214,15 @@ Public Class F0_PedidosAsignacion
                 If UserSpecial Then
                     dtReg = L_PedidoCabecera_General1(-1, " AND (oaest=" + estado + ") AND oazona= " + codZona + " and ccuesp > 0")
                 Else
-                    dtReg = L_PedidoCabecera_General(-1, " AND (oaest=" + estado + ") AND oazona= " + codZona + " ")
+                    dtReg = L_PedidoCabecera_GeneralNuevo(estado, -1, codZona, -1, gi_userSuc)
+                    'dtReg = L_PedidoCabecera_General(-1, " AND (oaest=" + estado + ") AND oazona= " + codZona + " ")
                 End If
             Else
                 If UserSpecial Then
                     dtReg = L_PedidoCabecera_General1(-1, " AND (oaest=" + estado + " ) AND oazona= " + codZona + " AND oarepa=" + codRep + " and ccuesp > 0")
                 Else
-                    dtReg = L_PedidoCabecera_General(-1, " AND (oaest=" + estado + " ) AND oazona= " + codZona + " AND oarepa=" + codRep + " and oaap = 1")
+                    dtReg = L_PedidoCabecera_GeneralNuevo(estado, 1, codZona, codRep, gi_userSuc)
+                    'dtReg = L_PedidoCabecera_General(-1, " AND (oaest=" + estado + " ) AND oazona= " + codZona + " AND oarepa=" + codRep + " and oaap = 1")
                 End If
             End If
 
@@ -858,7 +861,7 @@ Public Class F0_PedidosAsignacion
 
     Private Sub _PCargarGridZonasSoloRepartidores(ByRef objGrid As Janus.Windows.GridEX.GridEX)
         Dim dt As New DataTable
-        dt = L_Empleado_GeneralSimple(-1, "and cbcat in (1,3) and cbest=1 ").Tables(0)
+        dt = L_Empleado_GeneralSimple(-1, "and cbcat in (1,3) and cbest=1 and cbsuc = " + gi_userSuc.ToString).Tables(0)
 
         objGrid.BoundMode = BoundMode.Bound
         objGrid.DataSource = dt
@@ -990,7 +993,8 @@ Public Class F0_PedidosAsignacion
             estado = JGr_Registros2.GetValue("Check")
             If estado = True Then
                 codPedido = JGr_Registros2.GetValue("CodPedido")
-                Dim res As Boolean = evaluarEntrega(codPedido)
+                Dim dtAlm As Integer = L_prTraerUsuarioVentaDirecta(1, gi_userSuc)
+                Dim res As Boolean = evaluarEntrega(codPedido, dtAlm)
                 If res Then
 
                     EntregadePedido(codPedido, "3", Date.Now.Date.ToString("yyyy/MM/dd"), Now.Hour.ToString + ":" + Now.Minute.ToString, gs_user)
@@ -1028,8 +1032,8 @@ Public Class F0_PedidosAsignacion
             If estado = True Then
                 codPedido = JGr_Registros2.GetValue("CodPedido")
                 monto = JGr_Registros2.GetValue("monto")
-
-                Dim res As Boolean = evaluarEntrega(codPedido)
+                Dim dtAlm As Integer = L_prTraerUsuarioVentaDirecta(1, gi_userSuc)
+                Dim res As Boolean = evaluarEntrega(codPedido, dtAlm)
                 If res Then
                     L_PedidoEstados_Grabar(codPedido, "3", Date.Now.Date.ToString("yyyy/MM/dd"), Now.Hour.ToString + ":" + Now.Minute.ToString, gs_user)
                     L_PedidoCabacera_ModificarEstado(codPedido, "3")

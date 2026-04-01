@@ -537,7 +537,7 @@ Public Class F1_IngresosEgresosAlmacen
     Private Sub P_prAyudaChoferNuevo()
         Dim dt As DataTable
 
-        dt = L_prListarChoferesIngresosEgresos()
+        dt = L_prListarChoferesIngresosEgresos(gi_userSuc)
         '   a.cbnumi ,a.cbdesc ,a.cbci ,a.cbfnac
 
         Dim listEstCeldas As New List(Of Modelo.MCelda)

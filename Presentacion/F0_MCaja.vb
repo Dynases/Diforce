@@ -541,7 +541,7 @@ Public Class F0_MCaja
         Try
             Dim dt As DataTable
 
-            dt = L_prListarConciliacion()
+            dt = L_prListarConciliacion(gi_userSuc)
             'a.ibid ,a.ibfdoc ,a.ibconcep ,C.cbnumi as idchofer ,c.cbdesc as chofer
 
             Dim listEstCeldas As New List(Of Modelo.MCelda)
@@ -849,7 +849,8 @@ Public Class F0_MCaja
         Try
             Dim dt As New DataTable
 
-            dt = L_prObtenerDetalleChoferDirecto(4, tbFecha.Value.ToString("yyyy/MM/dd"))  'Mando 4 porque ese sera el repartidor por defecto para venta/cierres directos EMPRESA(NO CAMBIAR)
+            Dim dtAlm As Integer = L_prTraerUsuarioVentaDirecta(1, gi_userSuc)
+            dt = L_prObtenerDetalleChoferDirecto(dtAlm, tbFecha.Value.ToString("yyyy/MM/dd"))  'Mando 4 porque ese sera el repartidor por defecto para venta/cierres directos EMPRESA(NO CAMBIAR)
 
             If dt.Rows.Count > 0 Then
 
@@ -983,7 +984,7 @@ Public Class F0_MCaja
     Private Sub _prCargarVenta()
         Try
             Dim dt As New DataTable
-            dt = L_prCajaGeneral()
+            dt = L_prCajaGeneral(gi_userSuc)
             GridEX1.DataSource = dt
             GridEX1.RetrieveStructure()
             GridEX1.AlternatingColors = True
@@ -1799,7 +1800,8 @@ Public Class F0_MCaja
 
     Private Sub btnCierreDirecto_Click(sender As Object, e As EventArgs) Handles btnCierreDirecto.Click
         Try
-            P_prArmarAyudaConciliacionDirecta(4)  'Mando 4 porque ese sera el repartidor por defecto para venta/cierres directos EMPRESA(NO CAMBIAR)
+            Dim dtAlm As Integer = L_prTraerUsuarioVentaDirecta(1, gi_userSuc)
+            P_prArmarAyudaConciliacionDirecta(dtAlm)  'Mando 4 porque ese sera el repartidor por defecto para venta/cierres directos EMPRESA(NO CAMBIAR)
             cargarDetalleConciliacionDirecta()
             _LimpiarLista()
             'Colocar el total del contado en el tbdRecibido.Text

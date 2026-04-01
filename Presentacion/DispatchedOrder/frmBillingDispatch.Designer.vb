@@ -26,16 +26,17 @@ Partial Class frmBillingDispatch
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmBillingDispatch))
         Dim cbEstados_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbChoferes_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbTIpoPrecio_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.PanelBase = New System.Windows.Forms.Panel()
         Me.PanelPedido = New System.Windows.Forms.Panel()
         Me.panelFondo = New System.Windows.Forms.Panel()
         Me.SuperTabControl1 = New DevComponents.DotNetBar.SuperTabControl()
-        Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
-        Me.grFactura = New Janus.Windows.GridEX.GridEX()
-        Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel3 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.grFacturasAnuladas = New Janus.Windows.GridEX.GridEX()
         Me.SuperTabItem3 = New DevComponents.DotNetBar.SuperTabItem()
+        Me.SuperTabControlPanel2 = New DevComponents.DotNetBar.SuperTabControlPanel()
+        Me.grFactura = New Janus.Windows.GridEX.GridEX()
+        Me.SuperTabItem2 = New DevComponents.DotNetBar.SuperTabItem()
         Me.SuperTabControlPanel1 = New DevComponents.DotNetBar.SuperTabControlPanel()
         Me.dgjPedido = New Janus.Windows.GridEX.GridEX()
         Me.SuperTabItem1 = New DevComponents.DotNetBar.SuperTabItem()
@@ -66,15 +67,17 @@ Partial Class frmBillingDispatch
         Me.cbChoferes = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.btnAnularFactura = New DevComponents.DotNetBar.ButtonX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.cbTIpoPrecio = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.lbPrecioFactura = New DevComponents.DotNetBar.LabelX()
         Me.PanelBase.SuspendLayout()
         Me.PanelPedido.SuspendLayout()
         Me.panelFondo.SuspendLayout()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
-        Me.SuperTabControlPanel2.SuspendLayout()
-        CType(Me.grFactura, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel3.SuspendLayout()
         CType(Me.grFacturasAnuladas, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuperTabControlPanel2.SuspendLayout()
+        CType(Me.grFactura, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControlPanel1.SuspendLayout()
         CType(Me.dgjPedido, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelProducto.SuspendLayout()
@@ -85,6 +88,7 @@ Partial Class frmBillingDispatch
         CType(Me.Tb_FechaHasta, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Tb_Fecha, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbChoferes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbTIpoPrecio, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelBase
@@ -133,9 +137,9 @@ Partial Class frmBillingDispatch
         Me.SuperTabControl1.ControlBox.MenuBox.Name = ""
         Me.SuperTabControl1.ControlBox.Name = ""
         Me.SuperTabControl1.ControlBox.SubItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabControl1.ControlBox.MenuBox, Me.SuperTabControl1.ControlBox.CloseBox})
+        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel3)
         Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel2)
-        Me.SuperTabControl1.Controls.Add(Me.SuperTabControlPanel1)
         Me.SuperTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SuperTabControl1.Location = New System.Drawing.Point(0, 37)
         Me.SuperTabControl1.Name = "SuperTabControl1"
@@ -147,32 +151,6 @@ Partial Class frmBillingDispatch
         Me.SuperTabControl1.TabIndex = 71
         Me.SuperTabControl1.Tabs.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SuperTabItem1, Me.SuperTabItem2, Me.SuperTabItem3})
         Me.SuperTabControl1.Text = "FACTURAS"
-        '
-        'SuperTabControlPanel2
-        '
-        Me.SuperTabControlPanel2.Controls.Add(Me.grFactura)
-        Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 25)
-        Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
-        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1284, 362)
-        Me.SuperTabControlPanel2.TabIndex = 0
-        Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
-        '
-        'grFactura
-        '
-        Me.grFactura.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.grFactura.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grFactura.Location = New System.Drawing.Point(0, 0)
-        Me.grFactura.Name = "grFactura"
-        Me.grFactura.Size = New System.Drawing.Size(1284, 362)
-        Me.grFactura.TabIndex = 3
-        '
-        'SuperTabItem2
-        '
-        Me.SuperTabItem2.AttachedControl = Me.SuperTabControlPanel2
-        Me.SuperTabItem2.GlobalItem = False
-        Me.SuperTabItem2.Name = "SuperTabItem2"
-        Me.SuperTabItem2.Text = "FACTURAS"
         '
         'SuperTabControlPanel3
         '
@@ -199,6 +177,32 @@ Partial Class frmBillingDispatch
         Me.SuperTabItem3.GlobalItem = False
         Me.SuperTabItem3.Name = "SuperTabItem3"
         Me.SuperTabItem3.Text = "FACTURAS ANULADAS"
+        '
+        'SuperTabControlPanel2
+        '
+        Me.SuperTabControlPanel2.Controls.Add(Me.grFactura)
+        Me.SuperTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SuperTabControlPanel2.Location = New System.Drawing.Point(0, 25)
+        Me.SuperTabControlPanel2.Name = "SuperTabControlPanel2"
+        Me.SuperTabControlPanel2.Size = New System.Drawing.Size(1284, 362)
+        Me.SuperTabControlPanel2.TabIndex = 0
+        Me.SuperTabControlPanel2.TabItem = Me.SuperTabItem2
+        '
+        'grFactura
+        '
+        Me.grFactura.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grFactura.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grFactura.Location = New System.Drawing.Point(0, 0)
+        Me.grFactura.Name = "grFactura"
+        Me.grFactura.Size = New System.Drawing.Size(1284, 362)
+        Me.grFactura.TabIndex = 3
+        '
+        'SuperTabItem2
+        '
+        Me.SuperTabItem2.AttachedControl = Me.SuperTabControlPanel2
+        Me.SuperTabItem2.GlobalItem = False
+        Me.SuperTabItem2.Name = "SuperTabItem2"
+        Me.SuperTabItem2.Text = "FACTURAS"
         '
         'SuperTabControlPanel1
         '
@@ -288,6 +292,8 @@ Partial Class frmBillingDispatch
         '
         'PanelSuperior
         '
+        Me.PanelSuperior.Controls.Add(Me.lbPrecioFactura)
+        Me.PanelSuperior.Controls.Add(Me.cbTIpoPrecio)
         Me.PanelSuperior.Controls.Add(Me.cbEstados)
         Me.PanelSuperior.Controls.Add(Me.ButtonX1)
         Me.PanelSuperior.Controls.Add(Me.cbEstado)
@@ -653,6 +659,30 @@ Partial Class frmBillingDispatch
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
         '
+        'cbTIpoPrecio
+        '
+        cbTIpoPrecio_DesignTimeLayout.LayoutString = resources.GetString("cbTIpoPrecio_DesignTimeLayout.LayoutString")
+        Me.cbTIpoPrecio.DesignTimeLayout = cbTIpoPrecio_DesignTimeLayout
+        Me.cbTIpoPrecio.Location = New System.Drawing.Point(553, 37)
+        Me.cbTIpoPrecio.Name = "cbTIpoPrecio"
+        Me.cbTIpoPrecio.SelectedIndex = -1
+        Me.cbTIpoPrecio.SelectedItem = Nothing
+        Me.cbTIpoPrecio.Size = New System.Drawing.Size(120, 20)
+        Me.cbTIpoPrecio.TabIndex = 249
+        Me.cbTIpoPrecio.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
+        '
+        'lbPrecioFactura
+        '
+        '
+        '
+        '
+        Me.lbPrecioFactura.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.lbPrecioFactura.Location = New System.Drawing.Point(473, 35)
+        Me.lbPrecioFactura.Name = "lbPrecioFactura"
+        Me.lbPrecioFactura.Size = New System.Drawing.Size(74, 23)
+        Me.lbPrecioFactura.TabIndex = 250
+        Me.lbPrecioFactura.Text = "Tipo Precio:"
+        '
         'frmBillingDispatch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -669,10 +699,10 @@ Partial Class frmBillingDispatch
         Me.panelFondo.ResumeLayout(False)
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControl1.ResumeLayout(False)
-        Me.SuperTabControlPanel2.ResumeLayout(False)
-        CType(Me.grFactura, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel3.ResumeLayout(False)
         CType(Me.grFacturasAnuladas, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SuperTabControlPanel2.ResumeLayout(False)
+        CType(Me.grFactura, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SuperTabControlPanel1.ResumeLayout(False)
         CType(Me.dgjPedido, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelProducto.ResumeLayout(False)
@@ -684,6 +714,7 @@ Partial Class frmBillingDispatch
         CType(Me.Tb_FechaHasta, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Tb_Fecha, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbChoferes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbTIpoPrecio, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -728,4 +759,6 @@ Partial Class frmBillingDispatch
     Friend WithEvents SuperTabControlPanel3 As DevComponents.DotNetBar.SuperTabControlPanel
     Friend WithEvents grFacturasAnuladas As Janus.Windows.GridEX.GridEX
     Friend WithEvents SuperTabItem3 As DevComponents.DotNetBar.SuperTabItem
+    Friend WithEvents lbPrecioFactura As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbTIpoPrecio As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

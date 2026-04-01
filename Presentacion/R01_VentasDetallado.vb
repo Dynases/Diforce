@@ -46,7 +46,7 @@ Public Class R01_VentasDetallado
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
 
 
-        _dt = L_prReporteVentasDetalladas(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), IIf(tbCodigoVendedor.Text = "", -1, tbCodigoVendedor.Text), IIf(tbCodigoCliente.Text = "", -1, tbCodigoCliente.Text))
+        _dt = L_prReporteVentasDetalladas(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), IIf(tbCodigoVendedor.Text = "", -1, tbCodigoVendedor.Text), IIf(tbCodigoCliente.Text = "", -1, tbCodigoCliente.Text), gi_userSuc)
         Return
 
 
@@ -154,9 +154,9 @@ Public Class R01_VentasDetallado
 
         Dim dt As DataTable
         If swTipo.Value = True Then
-            dt = L_prListarPrevendedor()
+            dt = L_prListarPrevendedor(gi_userSuc)
         Else
-            dt = L_prListarDistribuidor()
+            dt = L_prListarDistribuidor(gi_userSuc)
         End If
 
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 

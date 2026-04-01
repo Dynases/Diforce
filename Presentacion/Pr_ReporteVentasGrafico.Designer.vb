@@ -31,7 +31,6 @@ Partial Class Pr_ReporteVentasGrafico
         Me.MReportViewerAlmacen = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.GroupPanel2 = New DevComponents.DotNetBar.Controls.GroupPanel()
-        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
         Me.FechaFAlmacen = New System.Windows.Forms.MonthCalendar()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.FechaIAlmacen = New System.Windows.Forms.MonthCalendar()
@@ -43,7 +42,6 @@ Partial Class Pr_ReporteVentasGrafico
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.GroupPanel1 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.FechaFVendedor = New System.Windows.Forms.MonthCalendar()
-        Me.btnGenerarVendedor = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
         Me.FechaIVendedor = New System.Windows.Forms.MonthCalendar()
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
@@ -57,7 +55,6 @@ Partial Class Pr_ReporteVentasGrafico
         Me.Panel10 = New System.Windows.Forms.Panel()
         Me.ChechTodos = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.Panel11 = New System.Windows.Forms.Panel()
-        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.GroupPanel3 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.FechaFRendimiento = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.FechaIRendimiento = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
@@ -69,6 +66,9 @@ Partial Class Pr_ReporteVentasGrafico
         Me.almacen = New DevComponents.DotNetBar.Controls.SideNavItem()
         Me.SideNavItem4 = New DevComponents.DotNetBar.Controls.SideNavItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ButtonX1 = New DevComponents.DotNetBar.ButtonX()
+        Me.btnGenerarVendedor = New DevComponents.DotNetBar.ButtonX()
+        Me.ButtonX3 = New DevComponents.DotNetBar.ButtonX()
         Me.PanelData.SuspendLayout()
         Me.SideNav1.SuspendLayout()
         Me.SideNavPanel2.SuspendLayout()
@@ -107,9 +107,9 @@ Partial Class Pr_ReporteVentasGrafico
         '
         'SideNav1
         '
-        Me.SideNav1.Controls.Add(Me.SideNavPanel2)
-        Me.SideNav1.Controls.Add(Me.SideNavPanel1)
         Me.SideNav1.Controls.Add(Me.SideNavPanel3)
+        Me.SideNav1.Controls.Add(Me.SideNavPanel1)
+        Me.SideNav1.Controls.Add(Me.SideNavPanel2)
         Me.SideNav1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SideNav1.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.SideNavItem1, Me.Separator1, Me.SideNavItem2, Me.almacen, Me.SideNavItem4})
         Me.SideNav1.Location = New System.Drawing.Point(0, 0)
@@ -129,6 +129,7 @@ Partial Class Pr_ReporteVentasGrafico
         Me.SideNavPanel2.Name = "SideNavPanel2"
         Me.SideNavPanel2.Size = New System.Drawing.Size(990, 565)
         Me.SideNavPanel2.TabIndex = 6
+        Me.SideNavPanel2.Visible = False
         '
         'Panel4
         '
@@ -221,22 +222,6 @@ Partial Class Pr_ReporteVentasGrafico
         Me.GroupPanel2.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.GroupPanel2.TabIndex = 0
         Me.GroupPanel2.Text = "ELEGIR FECHAS"
-        '
-        'ButtonX1
-        '
-        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.ButtonX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX1.Image = Global.Presentacion.My.Resources.Resources.reload_5
-        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.ButtonX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.ButtonX1.Location = New System.Drawing.Point(49, 431)
-        Me.ButtonX1.Name = "ButtonX1"
-        Me.ButtonX1.Size = New System.Drawing.Size(80, 72)
-        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX1.TabIndex = 238
-        Me.ButtonX1.Text = "GENERAR"
-        Me.ButtonX1.TextColor = System.Drawing.Color.Black
         '
         'FechaFAlmacen
         '
@@ -403,22 +388,6 @@ Partial Class Pr_ReporteVentasGrafico
         Me.FechaFVendedor.TitleForeColor = System.Drawing.Color.Maroon
         Me.FechaFVendedor.TrailingForeColor = System.Drawing.Color.Maroon
         '
-        'btnGenerarVendedor
-        '
-        Me.btnGenerarVendedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnGenerarVendedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.btnGenerarVendedor.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnGenerarVendedor.Image = Global.Presentacion.My.Resources.Resources.reload_5
-        Me.btnGenerarVendedor.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.btnGenerarVendedor.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnGenerarVendedor.Location = New System.Drawing.Point(49, 435)
-        Me.btnGenerarVendedor.Name = "btnGenerarVendedor"
-        Me.btnGenerarVendedor.Size = New System.Drawing.Size(80, 72)
-        Me.btnGenerarVendedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnGenerarVendedor.TabIndex = 239
-        Me.btnGenerarVendedor.Text = "GENERAR"
-        Me.btnGenerarVendedor.TextColor = System.Drawing.Color.Black
-        '
         'LabelX1
         '
         Me.LabelX1.BackColor = System.Drawing.Color.Transparent
@@ -470,7 +439,6 @@ Partial Class Pr_ReporteVentasGrafico
         Me.SideNavPanel3.Name = "SideNavPanel3"
         Me.SideNavPanel3.Size = New System.Drawing.Size(990, 565)
         Me.SideNavPanel3.TabIndex = 10
-        Me.SideNavPanel3.Visible = False
         '
         'Panel7
         '
@@ -567,7 +535,7 @@ Partial Class Pr_ReporteVentasGrafico
         '
         Me.grvendedor.Dock = System.Windows.Forms.DockStyle.Fill
         Me.grvendedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.grvendedor.HeaderFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.80000019!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grvendedor.HeaderFormatStyle.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grvendedor.Location = New System.Drawing.Point(0, 39)
         Me.grvendedor.Margin = New System.Windows.Forms.Padding(2)
         Me.grvendedor.Name = "grvendedor"
@@ -614,22 +582,6 @@ Partial Class Pr_ReporteVentasGrafico
         Me.Panel11.Name = "Panel11"
         Me.Panel11.Size = New System.Drawing.Size(233, 81)
         Me.Panel11.TabIndex = 4
-        '
-        'ButtonX3
-        '
-        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
-        Me.ButtonX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonX3.Image = Global.Presentacion.My.Resources.Resources.reload_5
-        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(48, 48)
-        Me.ButtonX3.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.ButtonX3.Location = New System.Drawing.Point(77, 5)
-        Me.ButtonX3.Name = "ButtonX3"
-        Me.ButtonX3.Size = New System.Drawing.Size(80, 72)
-        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.ButtonX3.TabIndex = 239
-        Me.ButtonX3.Text = "GENERAR"
-        Me.ButtonX3.TextColor = System.Drawing.Color.Black
         '
         'GroupPanel3
         '
@@ -827,7 +779,6 @@ Partial Class Pr_ReporteVentasGrafico
         '
         'almacen
         '
-        Me.almacen.Checked = True
         Me.almacen.Name = "almacen"
         Me.almacen.Panel = Me.SideNavPanel2
         Me.almacen.Symbol = "58723"
@@ -836,6 +787,7 @@ Partial Class Pr_ReporteVentasGrafico
         '
         'SideNavItem4
         '
+        Me.SideNavItem4.Checked = True
         Me.SideNavItem4.Name = "SideNavItem4"
         Me.SideNavItem4.Panel = Me.SideNavPanel3
         Me.SideNavItem4.Symbol = "59621"
@@ -846,6 +798,54 @@ Partial Class Pr_ReporteVentasGrafico
         '
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
+        '
+        'ButtonX1
+        '
+        Me.ButtonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX1.Image = Global.Presentacion.My.Resources.Resources.reload_5
+        Me.ButtonX1.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.ButtonX1.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX1.Location = New System.Drawing.Point(49, 431)
+        Me.ButtonX1.Name = "ButtonX1"
+        Me.ButtonX1.Size = New System.Drawing.Size(80, 72)
+        Me.ButtonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX1.TabIndex = 238
+        Me.ButtonX1.Text = "GENERAR"
+        Me.ButtonX1.TextColor = System.Drawing.Color.Black
+        '
+        'btnGenerarVendedor
+        '
+        Me.btnGenerarVendedor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnGenerarVendedor.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.btnGenerarVendedor.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnGenerarVendedor.Image = Global.Presentacion.My.Resources.Resources.reload_5
+        Me.btnGenerarVendedor.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.btnGenerarVendedor.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnGenerarVendedor.Location = New System.Drawing.Point(49, 435)
+        Me.btnGenerarVendedor.Name = "btnGenerarVendedor"
+        Me.btnGenerarVendedor.Size = New System.Drawing.Size(80, 72)
+        Me.btnGenerarVendedor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnGenerarVendedor.TabIndex = 239
+        Me.btnGenerarVendedor.Text = "GENERAR"
+        Me.btnGenerarVendedor.TextColor = System.Drawing.Color.Black
+        '
+        'ButtonX3
+        '
+        Me.ButtonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.ButtonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Orange
+        Me.ButtonX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonX3.Image = Global.Presentacion.My.Resources.Resources.reload_5
+        Me.ButtonX3.ImageFixedSize = New System.Drawing.Size(48, 48)
+        Me.ButtonX3.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonX3.Location = New System.Drawing.Point(77, 5)
+        Me.ButtonX3.Name = "ButtonX3"
+        Me.ButtonX3.Size = New System.Drawing.Size(80, 72)
+        Me.ButtonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.ButtonX3.TabIndex = 239
+        Me.ButtonX3.Text = "GENERAR"
+        Me.ButtonX3.TextColor = System.Drawing.Color.Black
         '
         'Pr_ReporteVentasGrafico
         '

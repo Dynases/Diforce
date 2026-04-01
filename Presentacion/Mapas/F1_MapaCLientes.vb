@@ -55,7 +55,7 @@ Public Class F1_MapaCLientes
 
     Private Sub _prCargarComboLibreriaZona(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_prListarZona()
+        dt = L_prListarZona(gi_userSuc)
         With mCombo
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("yccod3").Width = 60
@@ -168,7 +168,7 @@ Public Class F1_MapaCLientes
 
     End Sub
     Public Sub _prObtenerDatatableClientes()
-        TableCliente = L_prMapaCLienteGeneral()
+        TableCliente = L_prMapaCLienteGeneral(gi_userSuc)
         _prDibujarMarketCliente(TableCliente.Rows.Count - 1, TableCliente)
     End Sub
 
@@ -507,7 +507,7 @@ Public Class F1_MapaCLientes
                 _PCargarMapa(Gmc_Cliente, _Overlay)
             Next
 
-            Dim dt As DataTable = L_prMapaCLienteGeneral()
+            Dim dt As DataTable = L_prMapaCLienteGeneral(gi_userSuc)
             _prCargarClientesJanus(dt)
             _Overlay.Markers.Clear()
             _prDibujarMarketCliente(dt.Rows.Count - 1, dt)
@@ -759,7 +759,7 @@ Public Class F1_MapaCLientes
             cbZona.Enabled = False
             cbZona.ReadOnly = True
 
-            Dim dt As DataTable = L_prMapaCLienteGeneral()
+            Dim dt As DataTable = L_prMapaCLienteGeneral(gi_userSuc)
             _prCargarClientesJanus(dt)
             _Overlay.Markers.Clear()
             _prDibujarMarketCliente(dt.Rows.Count - 1, dt)

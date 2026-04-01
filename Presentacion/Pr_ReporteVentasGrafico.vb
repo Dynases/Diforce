@@ -27,7 +27,7 @@ Public Class Pr_ReporteVentasGrafico
     Public Sub _prCargarClientes()
         'vendedor .ydnumi ,vendedor .ydcod ,vendedor .yddesc as vendedor,Cast(1 as bit)as estado
         Dim dt As New DataTable
-        dt = L_prVentasGraficaListarVendedores()
+        dt = L_prVentasGraficaListarVendedores(gi_userSuc)
         grvendedor.DataSource = dt
         grvendedor.RetrieveStructure()
         grvendedor.AlternatingColors = True
@@ -89,7 +89,7 @@ Public Class Pr_ReporteVentasGrafico
     Sub _prGenerarReporteVendedoresMeses()
         Dim _dt As New DataTable
         _dt = L_prVentasGraficaVendedorMes(FechaIVendedor.SelectionRange.Start.ToString("yyyy/MM/dd"),
-                                           FechaFVendedor.SelectionRange.Start.ToString("yyyy/MM/dd"))
+                                           FechaFVendedor.SelectionRange.Start.ToString("yyyy/MM/dd"), gi_userSuc)
         If (_dt.Rows.Count > 0) Then
 
             Dim objrep As New R_GraficaVendedorVentas
@@ -115,7 +115,7 @@ Public Class Pr_ReporteVentasGrafico
     Sub _prGenerarReporteVendedoresAlmacen()
         Dim _dt As New DataTable
         _dt = L_prVentasGraficaVendedorAlmacen(FechaIAlmacen.SelectionRange.Start.ToString("yyyy/MM/dd"),
-                                           FechaFAlmacen.SelectionRange.Start.ToString("yyyy/MM/dd"))
+                                           FechaFAlmacen.SelectionRange.Start.ToString("yyyy/MM/dd"), gi_userSuc)
         If (_dt.Rows.Count > 0) Then
 
             Dim objrep As New R_GraficaVendedorVentasAlmacen

@@ -752,6 +752,12 @@
     <Compile Include="P_Principal.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="R01_ReporteFacturas.Designer.vb">
+      <DependentUpon>R01_ReporteFacturas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="R01_ReporteFacturas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="R01_FlujoCaja.Designer.vb">
       <DependentUpon>R01_FlujoCaja.vb</DependentUpon>
     </Compile>
@@ -2344,6 +2350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="P_Principal.resx">
       <DependentUpon>P_Principal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R01_ReporteFacturas.resx">
+      <DependentUpon>R01_ReporteFacturas.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="R01_FlujoCaja.resx">
       <DependentUpon>R01_FlujoCaja.vb</DependentUpon>

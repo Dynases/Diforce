@@ -238,7 +238,7 @@ Public Class F1_IngresosEgresos
 
     End Function
     Public Overrides Function _PMOGetTablaBuscador() As DataTable
-        Dim dtBuscador As DataTable = L_prIngresoEgresoGeneral()
+        Dim dtBuscador As DataTable = L_prIngresoEgresoGeneral(gi_userSuc)
         Return dtBuscador
     End Function
 
@@ -537,7 +537,7 @@ Public Class F1_IngresosEgresos
     Private Sub P_prAyudaChoferNuevo()
         Dim dt As DataTable
 
-        dt = L_prListarChoferesIngresosEgresos()
+        dt = L_prListarChoferesIngresosEgresos(gi_userSuc)
         '   a.cbnumi ,a.cbdesc ,a.cbci ,a.cbfnac
 
         Dim listEstCeldas As New List(Of Modelo.MCelda)

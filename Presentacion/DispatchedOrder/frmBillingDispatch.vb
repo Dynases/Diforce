@@ -369,7 +369,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
 
@@ -584,7 +584,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
         'If (grabarPDF) Then
@@ -788,7 +788,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -840,7 +840,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
 
@@ -882,7 +882,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
 
@@ -1034,7 +1034,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1070,7 +1070,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1111,7 +1111,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1150,7 +1150,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1191,7 +1191,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1233,7 +1233,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1280,7 +1280,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1327,7 +1327,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1374,7 +1374,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1423,7 +1423,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1469,7 +1469,7 @@ Public Class frmBillingDispatch
                                        eToastGlowColor.Blue, eToastPosition.BottomRight)
             Else
                 objrep.PrintOptions.PrinterName = _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
-                objrep.PrintToPrinter(1, False, 1, 1)
+                objrep.PrintToPrinter(1, False, 0, 0)
             End If
         End If
     End Sub
@@ -1672,6 +1672,7 @@ Public Class frmBillingDispatch
             ConfigForm()
             CargarEstados()
             CargarChoferes()
+            CargarTipoPrecio()
             Tb_Fecha.Value = DateTime.Today
             Tb_FechaHasta.Value = DateTime.Today
             _cargaCompleta = True
@@ -1689,6 +1690,13 @@ Public Class frmBillingDispatch
                     SuperTabItem2.Visible = True
                     SuperTabItem3.Visible = False
                 Else
+                    If gs_PrecioFact > 0 Then
+                        lbPrecioFactura.Visible = True
+                        cbTIpoPrecio.Visible = True
+                    Else
+                        lbPrecioFactura.Visible = True
+                        cbTIpoPrecio.Visible = True
+                    End If
 
                     SuperTabItem2.Visible = True
                     SuperTabItem3.Visible = True
@@ -1708,6 +1716,42 @@ Public Class frmBillingDispatch
         End Try
     End Sub
 
+    Private Sub CargarTipoPrecio()
+        Try
+            'Dim listResult As List(Of VCombo) = New LPersonal().ListarRepatidorCombo()
+            Dim listResult As New DataTable
+            listResult.Columns.Add("Id")
+            listResult.Columns.Add("Tipo")
+
+            listResult.Rows.Add(2, "PRECIO VENTA")
+            listResult.Rows.Add(gs_PrecioFact, "PRECIO FACTURA")
+            With cbTIpoPrecio.DropDownList
+                .Columns.Clear()
+
+                .Columns.Add("Id").Width = 30
+                .Columns("Id").Caption = "Id"
+                .Columns("Id").Visible = True
+
+                .Columns.Add("Tipo").Width = 180
+                .Columns("Tipo").Caption = "Tipo"
+                .Columns("Tipo").Visible = True
+
+                .ValueMember = "Id"
+                .DisplayMember = "Tipo"
+                .DataSource = listResult
+
+                .AlternatingColors = True
+                .AllowColumnDrag = False
+                .AutomaticSort = False
+                .Refresh()
+            End With
+            cbTIpoPrecio.VisualStyle = VisualStyle.Office2007
+
+            cbTIpoPrecio.SelectedIndex = 0
+        Catch ex As Exception
+            Throw New Exception(ex.Message)
+        End Try
+    End Sub
     Private Sub CargarEstados()
         Try
             'Dim listResult As List(Of VCombo) = New LPersonal().ListarRepatidorCombo()
@@ -1748,7 +1792,7 @@ Public Class frmBillingDispatch
     Private Sub CargarChoferes()
         Try
             'Dim listResult As List(Of VCombo) = New LPersonal().ListarRepatidorCombo()
-            Dim listResult As DataTable = ListarChoferesDespacho()
+            Dim listResult As DataTable = ListarChoferesDespacho(gi_userSuc)
             With cbChoferes.DropDownList
                 .Columns.Clear()
 
@@ -2400,8 +2444,19 @@ Public Class frmBillingDispatch
     Private Sub CargarProductos(idPedido As Integer)
         Try
             'Dim listResult = New LProducto().ListarProductoXPedido(idPedido)
+            Dim dt As DataTable
 
-            Dim dt As DataTable = ListarProductoxPedido(idPedido)
+            If gs_PrecioFact > 0 And cbTIpoPrecio.Value <> 2 Then
+                If SuperTabControl1.SelectedTab Is SuperTabItem2 Then
+                    dt = ListarProductoxPedidoFactura(idPedido)
+                Else
+                    dt = ListarProductoxPedido(idPedido)
+                End If
+            Else
+                dt = ListarProductoxPedido(idPedido)
+            End If
+
+
 
             dgjProducto.BoundMode = Janus.Data.BoundMode.Bound
             dgjProducto.DataSource = dt
@@ -2776,8 +2831,8 @@ Public Class frmBillingDispatch
                     nit2.Add(IIf(CType(grFactura.DataSource, DataTable).Rows(i).Item("docFact") = "5", CType(grFactura.DataSource, DataTable).Rows(i).Item("ccnit"), CType(grFactura.DataSource, DataTable).Rows(i).Item("ccdctnum")))
                     subtotal.Add(CType(grFactura.DataSource, DataTable).Rows(i).Item("Subtotal").ToString)
                     docFact.Add(CType(grFactura.DataSource, DataTable).Rows(i).Item("docFact"))
-                    totalTax.Add(Convert.ToDecimal(CType(grFactura.DataSource, DataTable).Rows(i).Item("Subtotal") - CType(grFactura.DataSource, DataTable).Rows(i).Item("descuento")) * 0.13)
-                    total1.Add(Convert.ToDecimal(CType(grFactura.DataSource, DataTable).Rows(i).Item("Subtotal") - CType(grFactura.DataSource, DataTable).Rows(i).Item("descuento")))
+                    totalTax.Add(Convert.ToDecimal(CType(grFactura.DataSource, DataTable).Rows(i).Item("SubTotal") * 0.13)) '- CType(grFactura.DataSource, DataTable).Rows(i).Item("descuento"))
+                    total1.Add(Convert.ToDecimal(CType(grFactura.DataSource, DataTable).Rows(i).Item("Subtotal"))) ' - CType(grFactura.DataSource, DataTable).Rows(i).Item("descuento")))
                     descuento.Add(CType(grFactura.DataSource, DataTable).Rows(i).Item("descuento"))
                     codClie.Add(CType(grFactura.DataSource, DataTable).Rows(i).Item("ccnumi"))
                     If CType(grFactura.DataSource, DataTable).Rows(i).Item("docFact") = "5" Then
@@ -3371,14 +3426,14 @@ Public Class frmBillingDispatch
             request.Headers.Add("Authorization", token2)
 
             Using writer As BinaryWriter = New BinaryWriter(request.GetRequestStream())
-
+                '+ descuento1 + "
                 Dim cadena As String = "{
                   ""customer_id"": """ + customerid + """,
                   ""customer"": """ + customer + """,
                   ""nit_ruc_nif"": """ + nit2 + """,
                   ""subtotal"": " + subtotal1 + ",
                   ""total_tax"": " + totalTax + ",
-                  ""discount"": " + descuento1 + ",
+                  ""discount"":  0,
                   ""monto_giftcard"": 0.00,
                   ""total"":" + total1 + ",
                   ""invoice_date_time"": """",
@@ -3446,7 +3501,12 @@ Public Class frmBillingDispatch
                         With result.data
                             Dim fec As String = .invoice_date_time.Substring(0, 10)
                             GrabarTFV001(pedido, fec, .invoice_number, .cuf, .nit_ruc_nif, .customer, .subtotal, .total, .control_code, .cufd, .leyenda, .nit_emisor.ToString, .print_url, .siat_id, .siat_url, .invoice_id)
-                            Dim dtDetalle As DataTable = L_prObtenerDetallePedido(pedido)
+                            Dim dtDetalle As DataTable
+                            If gs_PrecioFact > 0 Then
+                                dtDetalle = L_prObtenerDetallePedido2(pedido)
+                            Else
+                                dtDetalle = L_prObtenerDetallePedido(pedido)
+                            End If
                             For i As Integer = 0 To dtDetalle.Rows.Count - 1 Step 1
 
                                 L_Grabar_Factura_Detalle(pedido.ToString,
@@ -3454,7 +3514,7 @@ Public Class frmBillingDispatch
                                          dtDetalle.Rows(i).Item("producto").ToString,
                                         dtDetalle.Rows(i).Item("obpcant").ToString,
                                         dtDetalle.Rows(i).Item("obpbase").ToString,
-                                        pedido)
+                                         dtDetalle.Rows(i).Item("numi"))
 
                             Next
                             updateTO001C(pedido, Str(.invoice_number))
@@ -3500,7 +3560,7 @@ Public Class frmBillingDispatch
 
         _Ds3 = L_ObtenerRutaImpresora("1") ' Datos de Impresion de Facturación
         Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
-        Dim url As String = link + $"api/invoices/{idFactura}/pdf?tpl=rollo"
+        Dim url As String = link + $"api/invoices/{idFactura}/pdf?"
 
 
         Using client As New HttpClient()

@@ -19,7 +19,7 @@ Public Class F01_Presupuesto
     End Sub
 
     Private Sub CargarVendedores()
-        Dim dt As DataTable = L_prVentasGraficaListarVendedores()
+        Dim dt As DataTable = L_prVentasGraficaListarVendedores(gi_userSuc)
 
         grVendedor.BoundMode = Janus.Data.BoundMode.Bound
         grVendedor.DataSource = dt

@@ -69,7 +69,7 @@ Public Class F0G_MovimientoChoferSalida
 
     Private Sub _prCargarComboLibreriaDeposito(mCombo As Janus.Windows.GridEX.EditControls.MultiColumnCombo)
         Dim dt As New DataTable
-        dt = L_fnMovimientoListarSucursales()
+        dt = L_fnMovimientoListarSucursales(gi_userSuc)
         With mCombo
             .DropDownList.Columns.Clear()
             .DropDownList.Columns.Add("aanumi").Width = 60
@@ -379,9 +379,9 @@ Public Class F0G_MovimientoChoferSalida
     Private Sub _prCargarVenta()
         Dim dt As New DataTable
         If (tbTablet.Value = True) Then
-            dt = L_prMovimientoChoferGeneralSalidaTop20(9)
+            dt = L_prMovimientoChoferGeneralSalidaTop20(9, gi_userSuc)
         Else
-            dt = L_prMovimientoChoferGeneralSalida(9)
+            dt = L_prMovimientoChoferGeneralSalida(9, gi_userSuc)
         End If
 
         grmovimiento.DataSource = dt
@@ -513,7 +513,7 @@ Public Class F0G_MovimientoChoferSalida
         'Aux.Columns.RemoveAt(8)
 
         Dim dt As New DataTable
-        dt = L_prMovimientoChoferListarProductosSalida(Aux)  ''1=Almacen
+        dt = L_prMovimientoChoferListarProductosSalida(Aux, gi_userSuc)  ''1=Almacen
         grproducto.DataSource = dt
         grproducto.RetrieveStructure()
         grproducto.AlternatingColors = True
@@ -692,7 +692,7 @@ Public Class F0G_MovimientoChoferSalida
         End If
 
         For i = 0 To grdetalle.RowCount - 1
-            Dim dtStock = L_prVerificarStock(CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod").ToString)
+            Dim dtStock = L_prVerificarStock(CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod").ToString, gi_userSuc)
             Dim Stock As Decimal = dtStock.Rows(0).Item("iacant")
             Dim Cantidad As Decimal = CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccant")
             Dim IdProd As String = (CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod").ToString)
@@ -712,14 +712,14 @@ Public Class F0G_MovimientoChoferSalida
         Dim numi As String = ""
         Dim numiConciliacion As String = ""
         If (_IdConciliacion = 0) Then
-            Dim resconciliacion As Boolean = L_prMovimientoChoferGrabar(numiConciliacion, tbFecha.Value.ToString("yyyy/MM/dd"), 10, "", _codChofer, 0)
+            Dim resconciliacion As Boolean = L_prMovimientoChoferGrabar(numiConciliacion, tbFecha.Value.ToString("yyyy/MM/dd"), 10, "", _codChofer, 0, gi_userSuc)
             If (resconciliacion = False) Then
                 Dim img As Bitmap = New Bitmap(My.Resources.cancel, 50, 50)
                 ToastNotification.Show(Me, "El Movimiento no pudo ser insertado".ToUpper, img, 2000, eToastGlowColor.Red, eToastPosition.BottomCenter)
                 Return
             Else
                 Dim tabla As DataTable = L_prMovimientoChoferNoExisteConciliacion(_codChofer) ''Aqui obtengo el numi de la TI0022 
-                Dim res As Boolean = L_prMovimientoChoferGrabarSalida(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, _codChofer, tabla.Rows(0).Item("ieid"), CType(grdetalle.DataSource, DataTable), _fechapedido, cbalmacenOrigen.Value, cbalmacenDestino.Value)
+                Dim res As Boolean = L_prMovimientoChoferGrabarSalida(numi, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, _codChofer, tabla.Rows(0).Item("ieid"), CType(grdetalle.DataSource, DataTable), _fechapedido, gi_userSuc, cbalmacenDestino.Value) 'almacen origen  cbalmacenOrigen.Value
                 If res Then
                     Dim dt As DataTable = L_BuscarIdPedido(_codChofer, _fechapedido, tabla.Rows(0).Item("ibid"))
                     If dt.Rows.Count > 0 Then
@@ -770,7 +770,7 @@ Public Class F0G_MovimientoChoferSalida
 
     End Sub
     Private Sub _prGuardarModificado()
-        Dim res As Boolean = L_prMovimientoChoferModificarSalida(tbCodigo.Text.Trim, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, _codChofer, CType(grdetalle.DataSource, DataTable), _icibid)
+        Dim res As Boolean = L_prMovimientoChoferModificarSalida(tbCodigo.Text.Trim, tbFecha.Value.ToString("yyyy/MM/dd"), cbConcepto.Value, tbObservacion.Text, _codChofer, CType(grdetalle.DataSource, DataTable), _icibid, gi_userSuc)
         If res Then
             _prCargarVenta()
             _prSalir()
@@ -1002,7 +1002,7 @@ Public Class F0G_MovimientoChoferSalida
     Private Sub P_prAyudaRutaNuevo()
         Dim dt As DataTable
 
-        dt = L_prListarChoferesRutas()
+        dt = L_prListarChoferesRutas(gi_userSuc)
         '   a.cbnumi ,a.cbdesc ,a.cbci ,a.cbfnac
 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
@@ -1231,7 +1231,7 @@ salirIf:
                     _fnObtenerFilaDetalle(pos, lin)
 
                     'Verificar Stock
-                    Dim dtStock = L_prVerificarStock(CType(grdetalle.DataSource, DataTable).Rows(pos).Item("iccprod").ToString)
+                    Dim dtStock = L_prVerificarStock(CType(grdetalle.DataSource, DataTable).Rows(pos).Item("iccprod").ToString, gi_userSuc)
                     Dim Stock As Decimal = dtStock.Rows(0).Item("iacant")
                     Dim Cantidad As Decimal = CType(grdetalle.DataSource, DataTable).Rows(pos).Item("cantidadPreVenta") + grdetalle.GetValue("cantidadAutoVenta")
                     If Cantidad > Stock Then
@@ -1578,7 +1578,7 @@ salirIf:
     Private Sub P_prAyudaChoferNuevo()
         Dim dt As DataTable
 
-        dt = L_prListarChoferesPedidosPendientes()
+        dt = L_prListarChoferesPedidosPendientes(gi_userSuc)
         '   a.cbnumi ,a.cbdesc ,a.cbci ,a.cbfnac
 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
@@ -1632,6 +1632,9 @@ salirIf:
     Private Sub CargarDespachoDeChofer(codChofer As Integer)
         Try
             Dim listResult = New LPedido().ListarDespachoXProductoDeChoferSalida(codChofer)
+
+            '  Dim listResult As DataTable =  
+
             If (listResult.Count > 0) Then
                 Dim info As New TaskDialogInfo("¿desea carga los producto de despacho del chofer?".ToUpper,
                                        eTaskDialogIcon.Information, "pregunta".ToUpper,

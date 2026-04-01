@@ -430,7 +430,7 @@ Public Class AccesoLogica
 #End Region
 
 #Region "Farmacia Nota Entrega"
-    Public Shared Function L_GetPersonas() As DataSet
+    Public Shared Function L_GetPersonas(sucursal As Integer) As DataSet
         Dim _Tabla As DataTable
         Dim _Ds As New DataSet
         Dim _Where As String = " a.lazona =c.cenum " _
@@ -440,7 +440,7 @@ Public Class AccesoLogica
                                 + " and a.lacity = ccc.cenum " _
                                 + " and ccc.cecon = 4 "
         _Tabla = D_Datos_Tabla("a.*",
-                               "TC002 a", " cbnumi = cbnumi")
+                               "TC002 a", " cbnumi = cbnumi and cbsuc =" + sucursal.ToString)
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
@@ -491,12 +491,13 @@ Public Class AccesoLogica
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
-    Public Shared Function L_prListarChoferesRutas() As DataTable
+    Public Shared Function L_prListarChoferesRutas(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 27))
+        _listParam.Add(New Datos.DParametro("@ibalm", sucursal))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TM001SalidaChofer", _listParam)
@@ -533,14 +534,15 @@ Public Class AccesoLogica
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
-    Public Shared Function L_ZonaCabecera_GeneralCompleto1(_Modo As Integer, Optional _Cadena As String = "") As DataSet
+    Public Shared Function L_ZonaCabecera_GeneralCompleto1(_Modo As Integer, _Cadena As String, sucursal As String) As DataSet
         Dim _Tabla As DataTable
         Dim _Ds As New DataSet
         Dim _Where As String
         If _Modo = 0 Then
             _Where = "lacity = c.cenum  and b.cdcon = c.cecon  and b.cdcon = 4 " _
                     + " and laprovi = cc.cenum  and bb.cdcon = cc.cecon  and bb.cdcon = 3 " _
-                    + " and lazona = ccc.cenum  and bbb.cdcon = ccc.cecon  and bbb.cdcon = 2 "
+                    + " and lazona = ccc.cenum  and bbb.cdcon = ccc.cecon  and bbb.cdcon = 2 " _
+                    + " and lanumi in (select lcnumi from TL0012 b inner join TC002 c on b.lccbnumi = c.cbnumi where cbsuc = " + sucursal + "  group by lcnumi) "
         Else
             _Where = _Cadena
         End If
@@ -1075,18 +1077,18 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_ProductosPedido_GeneralNuevoStock2(_Modo As Integer, Optional _CatClie As String = "", Optional _alm As String = "", Optional Mayor0 As Boolean = True) As DataTable
+    Public Shared Function L_ProductosPedido_GeneralNuevoStock2(_CatClie As String, _alm As String, Mayor0 As Boolean) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
-        _listParam.Add(New Datos.DParametro("@tipo", 81))
-        _listParam.Add(New Datos.DParametro("@concep", _CatClie))
-        _listParam.Add(New Datos.DParametro("@alm", _alm))
+        _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@catCLiente", _CatClie))
+        _listParam.Add(New Datos.DParametro("@sucursal", _alm))
         _listParam.Add(New Datos.DParametro("@cantP", IIf(Mayor0 = True, 1, 0)))
-        _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
 
-        _Tabla = D_ProcedimientoConParam("sp_go_TI005", _listParam)
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
 
         Return _Tabla
     End Function
@@ -1153,6 +1155,23 @@ Public Class AccesoLogica
             _Where = "oanumi=oanumi And ccnumi=oaccli And oazona=lanumi And cecon=2 And lazona=cenum And oaato1numi=oanumi And oaanumiprev=cbnumi" + _Cadena 'and oanumi not in (select ofnumiped from TO0014)
         End If
         _Tabla = D_Datos_Tabla("DISTINCT oanumi,oafdoc,oahora,cccod,ccdesc,ccdirec,cctelf1,cccat,cczona as oazona, cedesc,oaobs,oaobs2,oaest,cclat,cclongi,oaap,IIF((select COUNT(ofnumiped) from TO0014 where ofnumiped=oanumi)>0,1,0 ) as reclamo,oapg,ccultvent,IIF((select COUNT(ofnumiped) from TO0014 where ofnumiped=oanumi And oftip=1)>0,1,0 ) as tipoRecCliente,IIF((select COUNT(ofnumiped) from TO0014 where ofnumiped=oanumi And oftip=2)>0,1,0 ) as tipoRecRepartidor, ccnumi, cceven, oaanumiprev, cbdesc, cast((select sum(obtotal )  from TO0011 where obnumi =oanumi) as decimal(18,2)) as monto ", "TO001,TC004,TC0051,TL001, TO001A, TC002 ", _Where + " order by oanumi")
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_PedidoCabecera_GeneralNuevo(estado As Integer, oaap As Integer, codZona As Integer, codRepa As Integer, sucursal As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@estado", estado))
+        _listParam.Add(New Datos.DParametro("@oaap", oaap))
+        _listParam.Add(New Datos.DParametro("@codzona", codZona))
+        _listParam.Add(New Datos.DParametro("@codRepa", codRepa))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
         Return _Tabla
     End Function
 
@@ -1301,7 +1320,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Sub L_PedidoCabecera_Grabar(ByRef _numi As String, _fecha As String, _hora As String, _idCli As String, _zona As String, distribuidor As String, _obs As String, _estado As String, _activoPasivo As String, _pedGen As String)
+    Public Shared Sub L_PedidoCabecera_Grabar(ByRef _numi As String, _fecha As String, _hora As String, _idCli As String, _zona As String, distribuidor As String, _obs As String, _estado As String, _activoPasivo As String, _pedGen As String, factura As Integer)
         Dim _Actualizacion As String
         Dim _Err As Boolean
         Dim _Tabla As DataTable
@@ -1314,7 +1333,7 @@ Public Class AccesoLogica
 
         _Actualizacion = "'" + Date.Now.Date.ToString("yyyy/MM/dd") + "', '" + Now.Hour.ToString + ":" + Now.Minute.ToString + "' ,'" + L_Usuario + "'"
         Dim Sql As String
-        Sql = _numi + ",'" + Date.Now.Date.ToString("yyyy/MM/dd") + "','" + _hora + "'," + _idCli + "," + _zona + "," + distribuidor + ",'" + _obs + "',''," + _estado + "," + _activoPasivo + "," + _pedGen + ",0," + _Actualizacion + ",0"
+        Sql = _numi + ",'" + Date.Now.Date.ToString("yyyy/MM/dd") + "','" + _hora + "'," + _idCli + "," + _zona + "," + distribuidor + ",'" + _obs + "',''," + _estado + "," + _activoPasivo + "," + _pedGen + ",0," + _Actualizacion + "," + factura.ToString
         _Err = D_Insertar_Datos("TO001", Sql)
     End Sub
 
@@ -1325,7 +1344,7 @@ Public Class AccesoLogica
         _Err = D_Insertar_Datos("TO001A (oaato1numi,oaanumiprev,oaaentrega,oaacaja,oaafvenc)", Sql)
     End Sub
 
-    Public Shared Sub L_PedidoCabacera_Modificar(_numi As String, _fecha As String, _hora As String, _idCli As String, _zona As String, distribuidor As String, _obs As String, _estado As String)
+    Public Shared Sub L_PedidoCabacera_Modificar(_numi As String, _fecha As String, _hora As String, _idCli As String, _zona As String, distribuidor As String, _obs As String, _estado As String, factura As Integer)
         Dim _Err As Boolean
         Dim Sql, _where As String
 
@@ -1336,6 +1355,7 @@ Public Class AccesoLogica
         "oarepa = " + distribuidor + ", " +
         "oaobs = '" + _obs + "', " +
         "oaest =" + _estado + ", " +
+        "oaestfac =" + factura.ToString + ", " +
         "oafact = '" + Date.Now.Date.ToString("yyyy/MM/dd") + "', " +
         "oahact = '" + Now.Hour.ToString + ":" + Now.Minute.ToString + "', " +
         "oauact = '" + "CARLOS" + "'"
@@ -1459,17 +1479,18 @@ Public Class AccesoLogica
     Public Shared Function L_PedidoGenerarCopia(numi As String) As String
         Dim _dtCabOri, _dtDetOri As DataTable
         Dim _Where As String = "oanumi=" + numi
-        _dtCabOri = D_Datos_Tabla("oanumi,oafdoc,oahora,oaccli,oazona,oarepa,oaobs,oaobs2,oaest,oaap,oapg", "TO001", _Where)
+        _dtCabOri = D_Datos_Tabla("oanumi,oafdoc,oahora,oaccli,oazona,oarepa,oaobs,oaobs2,oaest,oaap,oapg,oaestfac", "TO001", _Where)
         _dtDetOri = L_PedidoDetalle_General(-1, numi)
 
         'grabar cabecera
-        Dim numiNew, numiCli, numiZona, distribuidor, obs As String
+        Dim numiNew, numiCli, numiZona, distribuidor, obs, estafact As String
         numiCli = _dtCabOri.Rows(0).Item("oaccli").ToString
         numiZona = _dtCabOri.Rows(0).Item("oazona").ToString
         distribuidor = _dtCabOri.Rows(0).Item("oarepa").ToString
         obs = _dtCabOri.Rows(0).Item("oaobs").ToString
+        estafact = _dtCabOri.Rows(0).Item("oaestfac").ToString
         numiNew = ""
-        L_PedidoCabecera_Grabar(numiNew, Now.Date.ToString("yyyy/MM/dd"), Now.Hour.ToString("00") + ":" + Now.Minute.ToString("00"), numiCli, numiZona, distribuidor, obs, "1", "1", "2")
+        L_PedidoCabecera_Grabar(numiNew, Now.Date.ToString("yyyy/MM/dd"), Now.Hour.ToString("00") + ":" + Now.Minute.ToString("00"), numiCli, numiZona, distribuidor, obs, "1", "1", "2", estafact)
 
         'grabar detalle
         Dim codProd, cant, precio, subTot, desc, total, flia As String
@@ -1648,18 +1669,30 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prListaPedidos() As DataTable
+    Public Shared Function ListarProductoxPedidoFactura(idPedido As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
-        _listParam.Add(New Datos.DParametro("@tipo", 22))
+        _listParam.Add(New Datos.DParametro("@tipo", 361))
+        _listParam.Add(New Datos.DParametro("@pedido", idPedido))
         _listParam.Add(New Datos.DParametro("@oluact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
     End Function
-    Public Shared Function L_prListaPedidosPorFecha(fechaI As String, fechaf As String) As DataTable
+
+    Public Shared Function L_prListaPedidos(sucursal As Integer) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 22))
+        _listParam.Add(New Datos.DParametro("@numi", sucursal))
+        _listParam.Add(New Datos.DParametro("@oluact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
+        Return _Tabla
+    End Function
+    Public Shared Function L_prListaPedidosPorFecha(fechaI As String, fechaf As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 30))
+        _listParam.Add(New Datos.DParametro("@numi", sucursal))
         _listParam.Add(New Datos.DParametro("@fechai", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaf", fechaf))
         _listParam.Add(New Datos.DParametro("@oluact", L_Usuario))
@@ -1850,7 +1883,7 @@ Public Class AccesoLogica
     '    _Tabla = D_ProcedimientoConParam("sp_go_TD001", _listParam)
     '    Return _Tabla
     'End Function
-    Public Shared Function evaluarEntrega(codPedido As Integer) As Boolean
+    Public Shared Function evaluarEntrega(codPedido As Integer, almacen As Integer) As Boolean
         Dim _resultado As Boolean
         '@olnumi,@olnumichof ,@olnumiconci ,@olfecha ,@newFecha ,@newHora ,@oluact
         Dim _Tabla As DataTable
@@ -1867,7 +1900,7 @@ Public Class AccesoLogica
             If _Tabla.Rows(0).Item("oacnconc") > 0 Then
                 _resultado = True
             Else
-                If _Tabla.Rows(0).Item("oaccbnumi") = 4 Then
+                If _Tabla.Rows(0).Item("oaccbnumi") = almacen Then
                     _resultado = True
                 Else
                     _resultado = False
@@ -2976,6 +3009,37 @@ Public Class AccesoLogica
         Return _Ds
     End Function
 
+    Public Shared Function L_prCargarClienteAll(sucursal As Integer) As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prTraerUsuarioVentaDirecta(tipo As Integer, sucursal As Integer) As Integer
+        Dim _Tabla As DataTable
+        Dim usuario As Integer = 4
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _listParam.Add(New Datos.DParametro("@estado", tipo))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
+        If _Tabla.Rows.Count > 0 Then
+            usuario = _Tabla.Rows(0).Item("cbnumi")
+        End If
+        Return usuario
+    End Function
+
     Public Shared Function L_GetClientesSimple(_CodZona As String, _CodRep As String) As DataSet
         Dim _Tabla As DataTable
         Dim _Ds As New DataSet
@@ -3339,12 +3403,14 @@ Public Class AccesoLogica
         Return _Ds
     End Function
 
-    Public Shared Function L_fnClientes() As DataTable
+    Public Shared Function L_fnClientes(sucursal As Integer, estado As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@ccest", estado))
+        _listParam.Add(New Datos.DParametro("@cczona", sucursal))
         _listParam.Add(New Datos.DParametro("@ccuact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_go_TC004", _listParam)
@@ -3352,12 +3418,13 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_fnClientes2() As DataTable
+    Public Shared Function L_fnClientes2(estado As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 31))
+        _listParam.Add(New Datos.DParametro("@ccest", estado))
         _listParam.Add(New Datos.DParametro("@ccuact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_go_TC004", _listParam)
@@ -3449,20 +3516,58 @@ Public Class AccesoLogica
         Return _Ds
     End Function
 
-    Public Shared Function L_GetZonasCPZ() As DataSet
+    Public Shared Function L_GetZonasCPZ(sucursal As Integer) As DataTable
+        'Dim _Tabla As DataTable
+        ''Dim _Ds As New DataSet
+        'Dim _Where As String = " a.lazona =c.cenum " _
+        '                        + " and c.cecon = 2 " _
+        '                        + " and a.laprovi = cc.cenum " _
+        '                        + " and cc.cecon = 3 " _
+        '                        + " and a.lacity = ccc.cenum " _
+        '                        + " and ccc.cecon = 4 "
+        '_Tabla = D_Datos_Tabla("a.lanumi, ccc.cedesc as city, cc.cedesc as prov, c.cedesc as zona ",
+        '                       "TL001 a, TC0051 c, TC0051 cc, TC0051 ccc",
+        '                       _Where)
+        ''_Ds.Tables.Add(_Tabla)
+        'Return _Ds
         Dim _Tabla As DataTable
-        Dim _Ds As New DataSet
-        Dim _Where As String = " a.lazona =c.cenum " _
-                                + " and c.cecon = 2 " _
-                                + " and a.laprovi = cc.cenum " _
-                                + " and cc.cecon = 3 " _
-                                + " and a.lacity = ccc.cenum " _
-                                + " and ccc.cecon = 4 "
-        _Tabla = D_Datos_Tabla("a.lanumi, ccc.cedesc as city, cc.cedesc as prov, c.cedesc as zona ",
-                               "TL001 a, TC0051 c, TC0051 cc, TC0051 ccc",
-                               _Where)
-        _Ds.Tables.Add(_Tabla)
-        Return _Ds
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_GetListarZonasDistribucion(sucursal As Integer) As DataTable
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 7))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_GetListarChoferesDistribucion(sucursal As Integer) As DataTable
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
+        Return _Tabla
     End Function
 
     Public Shared Function L_GetZonasCPZ2(rep As Integer) As DataSet
@@ -4382,6 +4487,8 @@ Public Class AccesoLogica
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
+
+
     Public Shared Function L_RolDetalle_General(_Modo As Integer, Optional _idCabecera As String = "", Optional _idModulo As String = "") As DataTable
         Dim _Tabla As DataTable
         Dim _Where As String
@@ -4494,7 +4601,7 @@ Public Class AccesoLogica
         Else
             _Where = "ZY003.ydnumi=ZY003.ydnumi and ZY002.ybnumi=ZY003.ydrol " + _Cadena
         End If
-        _Tabla = D_Datos_Tabla("ZY003.ydnumi,ZY003.yduser,ZY003.ydpass,ZY003.ydest,ZY003.ydcant,ZY003.ydfontsize,ZY002.ybnumi,ZY002.ybrol", "ZY003,ZY002", _Where + " order by ydnumi")
+        _Tabla = D_Datos_Tabla("ZY003.ydnumi,ZY003.yduser,ZY003.ydpass,ZY003.ydest,ZY003.ydcant,ZY003.ydfontsize,ZY002.ybnumi,ZY002.ybrol,ZY003.ydsuc", "ZY003,ZY002", _Where + " order by ydnumi")
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
@@ -4512,7 +4619,7 @@ Public Class AccesoLogica
         _Ds.Tables.Add(_Tabla)
         Return _Ds
     End Function
-    Public Shared Sub L_Usuario_Grabar(ByRef _numi As String, _user As String, _pass As String, _rol As String, _estado As String, _cantDias As String, _tamFuente As String)
+    Public Shared Sub L_Usuario_Grabar(ByRef _numi As String, _user As String, _pass As String, _rol As String, _estado As String, _cantDias As String, _tamFuente As String, sucursal As Integer)
         Dim _Actualizacion As String
         Dim _Err As Boolean
         Dim _Tabla As DataTable
@@ -4526,10 +4633,10 @@ Public Class AccesoLogica
         _Actualizacion = "'" + Date.Now.Date.ToString("yyyy/MM/dd") + "', '" + Now.Hour.ToString + ":" + Now.Minute.ToString + "' ,'" + L_Usuario + "'"
 
         Dim Sql As String
-        Sql = _numi + ",'" + _user + "'," + _rol + ",'" + _pass + "','" + _estado + "'," + _cantDias + "," + _tamFuente + "," + _Actualizacion
+        Sql = _numi + ",'" + _user + "'," + _rol + ",'" + _pass + "','" + _estado + "'," + _cantDias + "," + _tamFuente + "," + _Actualizacion + "," + sucursal.ToString
         _Err = D_Insertar_Datos("ZY003", Sql)
     End Sub
-    Public Shared Sub L_Usuario_Modificar(_numi As String, _user As String, _pass As String, _rol As String, _estado As String, _cantDias As String, _tamFuente As String)
+    Public Shared Sub L_Usuario_Modificar(_numi As String, _user As String, _pass As String, _rol As String, _estado As String, _cantDias As String, _tamFuente As String, sucursal As Integer)
         Dim _Err As Boolean
         Dim Sql, _where As String
 
@@ -4538,7 +4645,8 @@ Public Class AccesoLogica
         "ydrol = " + _rol + " , " +
         "ydest = '" + _estado + "' , " +
         "ydcant = " + _cantDias + " , " +
-        "ydfontsize = " + _tamFuente + "  "
+        "ydfontsize = " + _tamFuente + " , " +
+        "ydsuc = " + sucursal.ToString + " "
 
         _where = "ydnumi = " + _numi
         _Err = D_Modificar_Datos("ZY003", Sql, _where)
@@ -4583,7 +4691,7 @@ Public Class AccesoLogica
     End Function
     Public Shared Function L_Validar_Usuario(_Nom As String, _Pass As String) As DataTable
         Dim _Tabla As DataTable
-        _Tabla = D_Datos_Tabla("ydnumi, yduser, ydrol, ydpass, ydest, ydcant, ydfontsize", "ZY003", "yduser = '" + _Nom + "' AND ydpass = '" + _Pass + "'")
+        _Tabla = D_Datos_Tabla("ydnumi, yduser, ydrol, ydpass, ydest, ydcant, ydfontsize,ydsuc", "ZY003", "yduser = '" + _Nom + "' AND ydpass = '" + _Pass + "'")
         Return _Tabla
     End Function
 #End Region
@@ -5169,7 +5277,7 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("sp_go_TC0014", _listParam)
         Return _Tabla
     End Function
-    Public Shared Function L_prReporteVentasVendedorTodos(_fechaI As String, _FechaF As String, _Tipo As Integer, Proveedor As Integer) As DataTable
+    Public Shared Function L_prReporteVentasVendedorTodos(_fechaI As String, _FechaF As String, _Tipo As Integer, Proveedor As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 7))
@@ -5177,16 +5285,18 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@fechaF", _FechaF))
         _listParam.Add(New Datos.DParametro("@codpro", _Tipo))
         _listParam.Add(New Datos.DParametro("@id", Proveedor))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _Tabla = D_ProcedimientoConParam("sp_go_TC0014", _listParam)
         Return _Tabla
     End Function
 
-    Public Shared Function L_prReporteVentasDetalladas(_fechaI As String, _FechaF As String, vendedor As Integer, cliente As Integer) As DataTable
+    Public Shared Function L_prReporteVentasDetalladas(_fechaI As String, _FechaF As String, vendedor As Integer, cliente As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 24))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _FechaF))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@distribuidor", vendedor))
         _listParam.Add(New Datos.DParametro("@numi", cliente))
         _Tabla = D_ProcedimientoConParam("sp_mam_ReporteVentas", _listParam)
@@ -5752,12 +5862,13 @@ Public Class AccesoLogica
 
 #Region "TC002 PERSONAL"
 
-    Public Shared Function L_fnPersonal() As DataTable
+    Public Shared Function L_fnPersonal(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_go_TC002", _listParam)
@@ -5797,7 +5908,7 @@ Public Class AccesoLogica
                                               cat As String, sal As String, ci As String, obs As String, fnac As String,
                                               fing As String, fret As String, fot As String, est As String,
                                               eciv As String, plan As String, reloj As String, cbalmacen As Integer,
-                                              precio As Integer, zona As Integer, pedido As Integer, hora As String) As Boolean
+                                              precio As Integer, zona As Integer, pedido As Integer, hora As String, sucursal As Integer) As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -5825,6 +5936,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@zona", zona))
         _listParam.Add(New Datos.DParametro("@pedido", pedido))
         _listParam.Add(New Datos.DParametro("@cbalmacen", cbalmacen))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_go_TC002", _listParam)
@@ -5843,7 +5955,7 @@ Public Class AccesoLogica
                                                   cat As String, sal As String, ci As String, obs As String, fnac As String,
                                                   fing As String, fret As String, fot As String, est As String,
                                                   eciv As String, plan As String, reloj As String, cbalmacen As Integer,
-                                                 precio As Integer, zona As Integer, pedido As Integer, hora As String) As Boolean
+                                                 precio As Integer, zona As Integer, pedido As Integer, hora As String, sucursal As Integer) As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -5871,6 +5983,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@zona", zona))
         _listParam.Add(New Datos.DParametro("@pedido", pedido))
         _listParam.Add(New Datos.DParametro("@cbalmacen", cbalmacen))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_go_TC002", _listParam)
@@ -7118,12 +7231,13 @@ Public Class AccesoLogica
 
 #Region "METODOS MARCO"
 #Region "MApasClientes"
-    Public Shared Function L_prMapaCLienteGeneral() As DataTable
+    Public Shared Function L_prMapaCLienteGeneral(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@cczona", sucursal))
         _listParam.Add(New Datos.DParametro("@ccuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_go_TC004", _listParam)
 
@@ -7462,13 +7576,51 @@ Public Class AccesoLogica
 
 #Region "TL001 Zona"
 
-    Public Shared Function L_fnZonaGeneral() As DataTable
-        Dim Tabla As DataTable
-        Dim Where As String = "1=1"
-        Tabla = D_Datos_Tabla("*",
-                              "VR_GO_ListarZona",
-                              Where)
-        Return Tabla
+    Public Shared Function L_fnZonaGeneral(sucursal As Integer) As DataTable
+        'Dim Tabla As DataTable
+        'Dim Where As String = "1=1"
+        'Tabla = D_Datos_Tabla("*",
+        '                      "VR_GO_ListarZona",
+        '                      Where)
+        'Return Tabla
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnArmarGrillaRepartidor(sucursal As Integer) As DataTable
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 2))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_fnArmarGrillaVendedor(sucursal As Integer) As DataTable
+
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@cnuact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
+        _Tabla = D_ProcedimientoConParam("sp_dg_TL001", _listParam)
+
+        Return _Tabla
     End Function
 
 #End Region
@@ -7709,7 +7861,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prMovimientoChoferGrabar(ByRef _ibid As String, _ibfdoc As String, _ibconcep As Integer, _ibobs As String, _ibidchof As Integer, _idConciliacion As Integer) As Boolean
+    Public Shared Function L_prMovimientoChoferGrabar(ByRef _ibid As String, _ibfdoc As String, _ibconcep As Integer, _ibobs As String, _ibidchof As Integer, _idConciliacion As Integer, ibalm As Integer) As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -7721,7 +7873,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@ibconcep", _ibconcep))
         _listParam.Add(New Datos.DParametro("@ibobs", _ibobs))
         _listParam.Add(New Datos.DParametro("@ibest", 1))
-        _listParam.Add(New Datos.DParametro("@ibalm", 1))
+        _listParam.Add(New Datos.DParametro("@ibalm", ibalm))
         _listParam.Add(New Datos.DParametro("@ibiddc", 0))
         _listParam.Add(New Datos.DParametro("@ibidchof", _ibidchof))
         _listParam.Add(New Datos.DParametro("@ibidvent", 0))
@@ -7794,12 +7946,13 @@ Public Class AccesoLogica
 
 #Region "TI002 MOVIMIENTOS DE SALIDA DE PRODUCTOS PARA EL CHOFER BIOPETROL"
 
-    Public Shared Function L_prMovimientoChoferGeneralSalida(_idconcepto As Integer) As DataTable
+    Public Shared Function L_prMovimientoChoferGeneralSalida(_idconcepto As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@ibalm", sucursal))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@concepto", _idconcepto))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TM001SalidaChofer", _listParam)
@@ -7807,24 +7960,26 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prMovimientoChoferGeneralSalidaTop20(_idconcepto As Integer) As DataTable
+    Public Shared Function L_prMovimientoChoferGeneralSalidaTop20(_idconcepto As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", -3))
+        _listParam.Add(New Datos.DParametro("@ibalm", sucursal))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@concepto", _idconcepto))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TM001SalidaChofer", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_prMovimientoChoferGeneralEntrada(_idconcepto As Integer) As DataTable
+    Public Shared Function L_prMovimientoChoferGeneralEntrada(_idconcepto As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 19))
+        _listParam.Add(New Datos.DParametro("@ibalm", sucursal))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@concepto", _idconcepto))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TM001SalidaChofer", _listParam)
@@ -7832,25 +7987,27 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prMovimientoChoferGeneralEntradaTop20(_idconcepto As Integer) As DataTable
+    Public Shared Function L_prMovimientoChoferGeneralEntradaTop20(_idconcepto As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", -19))
+        _listParam.Add(New Datos.DParametro("@ibalm", sucursal))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@concepto", _idconcepto))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TM001SalidaChofer", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_prMovimientoChoferListarProductosSalida(dt As DataTable) As DataTable
+    Public Shared Function L_prMovimientoChoferListarProductosSalida(dt As DataTable, sucursal As Integer) As DataTable
 
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@ibalm", sucursal))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@TM0011", "", dt))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TM001SalidaChofer", _listParam)
@@ -7950,7 +8107,7 @@ Public Class AccesoLogica
 
 
 
-    Public Shared Function L_prMovimientoChoferModificarSalida(ByRef _ibid As String, _ibfdoc As String, _ibconcep As Integer, _ibobs As String, _ibidchof As Integer, _detalle As DataTable, _icibid As String) As Boolean
+    Public Shared Function L_prMovimientoChoferModificarSalida(ByRef _ibid As String, _ibfdoc As String, _ibconcep As Integer, _ibobs As String, _ibidchof As Integer, _detalle As DataTable, _icibid As String, ibalm As Integer) As Boolean
         Dim _resultado As Boolean
 
         Dim _Tabla As DataTable
@@ -7962,7 +8119,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@ibconcep", _ibconcep))
         _listParam.Add(New Datos.DParametro("@ibobs", _ibobs))
         _listParam.Add(New Datos.DParametro("@ibest", 1))
-        _listParam.Add(New Datos.DParametro("@ibalm", 1))
+        _listParam.Add(New Datos.DParametro("@ibalm", ibalm))
         _listParam.Add(New Datos.DParametro("@ibiddc", _icibid))
         _listParam.Add(New Datos.DParametro("@ibidchof", _ibidchof))
         _listParam.Add(New Datos.DParametro("@ibidvent", 0))
@@ -8054,13 +8211,14 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
-    Public Shared Function L_prVerificarStock(_canumi As String) As DataTable
+    Public Shared Function L_prVerificarStock(_canumi As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 28))
         _listParam.Add(New Datos.DParametro("@canumi", _canumi))
+        _listParam.Add(New Datos.DParametro("@ibalm", sucursal))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TM001SalidaChofer", _listParam)
 
@@ -8335,12 +8493,13 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function L_prListarChoferesPedidosPendientes() As DataTable
+    Public Shared Function L_prListarChoferesPedidosPendientes(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 26))
+        _listParam.Add(New Datos.DParametro("@ibalm", sucursal))
         _listParam.Add(New Datos.DParametro("@ibuact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_TM001SalidaChofer", _listParam)
@@ -8646,12 +8805,13 @@ Public Class AccesoLogica
 
 #Region "TI002 Movimientos"
 
-    Public Shared Function L_fnMovimientoGeneral(est As String) As DataTable
+    Public Shared Function L_fnMovimientoGeneral(est As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@ibidOrigen", sucursal))
         _listParam.Add(New Datos.DParametro("@est", est))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
 
@@ -8703,12 +8863,13 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_fnMovimientoListarSucursales() As DataTable
+    Public Shared Function L_fnMovimientoListarSucursales(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 5))
+        _listParam.Add(New Datos.DParametro("@alm", sucursal))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_go_TI002", _listParam)
@@ -9712,7 +9873,7 @@ Public Class AccesoLogica
 
         Return _resultado
     End Function
-    Public Shared Function L_prReporteCreditoGeneral(fechaI As String, fechaF As String) As DataTable
+    Public Shared Function L_prReporteCreditoGeneral(fechaI As String, fechaF As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -9720,6 +9881,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 1))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasCredito", _listParam)
@@ -9859,13 +10021,14 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prObtenerReporteCierres(fechai As String, fechaf As String, chofer As Integer) As DataTable
+    Public Shared Function L_prObtenerReporteCierres(fechai As String, fechaf As String, chofer As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 61))
         _listParam.Add(New Datos.DParametro("@fechai", fechai))
         _listParam.Add(New Datos.DParametro("@fechaf", fechaf))
         _listParam.Add(New Datos.DParametro("@chofer", chofer))
+        _listParam.Add(New Datos.DParametro("@numi", sucursal))
         _listParam.Add(New Datos.DParametro("@oluact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
@@ -9961,10 +10124,11 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prListarConciliacion() As DataTable
+    Public Shared Function L_prListarConciliacion(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@numi", sucursal))
         _listParam.Add(New Datos.DParametro("@oluact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
@@ -9997,19 +10161,21 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
     End Function
-    Public Shared Function L_prCajaGeneral() As DataTable
+    Public Shared Function L_prCajaGeneral(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@numi", sucursal))
         _listParam.Add(New Datos.DParametro("@oluact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
     End Function
 
-    Public Shared Function L_prListarZona() As DataTable
+    Public Shared Function L_prListarZona(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 10))
+        _listParam.Add(New Datos.DParametro("@numi", sucursal))
         _listParam.Add(New Datos.DParametro("@oluact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
@@ -10026,10 +10192,11 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
     End Function
-    Public Shared Function L_prListarCliente() As DataTable
+    Public Shared Function L_prListarCliente(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@numi", sucursal))
         _listParam.Add(New Datos.DParametro("@oluact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
@@ -10213,11 +10380,12 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function L_fnListarEmpleado() As DataTable
+    Public Shared Function L_fnListarEmpleado(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 13))
+        _listParam.Add(New Datos.DParametro("@tdnumi", sucursal))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV00121Cheque", _listParam)
 
         Return _Tabla
@@ -10338,12 +10506,13 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function L_fnCobranzasObtenerLasVentasACredito() As DataTable
+    Public Shared Function L_fnCobranzasObtenerLasVentasACredito(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@tdnumi", sucursal))
         _listParam.Add(New Datos.DParametro("@teuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TV00121Cheque", _listParam)
 
@@ -10514,10 +10683,11 @@ Public Class AccesoLogica
 #End Region
 
 #Region "REPORTE DE VENTAS"
-    Public Shared Function L_prListarPrevendedor() As DataTable
+    Public Shared Function L_prListarPrevendedor(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
     End Function
@@ -10587,10 +10757,11 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
     End Function
-    Public Shared Function L_prListarDistribuidor() As DataTable
+    Public Shared Function L_prListarDistribuidor(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
     End Function
@@ -10609,6 +10780,15 @@ Public Class AccesoLogica
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 18))
+        _listParam.Add(New Datos.DParametro("@numi", numi))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
+        Return _Tabla
+    End Function
+
+    Public Shared Function L_prObtenerDetallePedido2(numi As String) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+        _listParam.Add(New Datos.DParametro("@tipo", 181))
         _listParam.Add(New Datos.DParametro("@numi", numi))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO005", _listParam)
         Return _Tabla
@@ -10674,55 +10854,60 @@ Public Class AccesoLogica
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
     End Function
-    Public Shared Function L_prReporteVentasTodosPrevendedores(_fechaI As String, _FechaF As String, usuario As Integer) As DataTable
+    Public Shared Function L_prReporteVentasTodosPrevendedores(_fechaI As String, _FechaF As String, usuario As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _FechaF))
         _listParam.Add(New Datos.DParametro("@numi", usuario))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
     End Function
 
-    Public Shared Function L_prReporteVentasProductos(_fechaI As String, _FechaF As String) As DataTable
+    Public Shared Function L_prReporteVentasProductos(_fechaI As String, _FechaF As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 7))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _FechaF))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
     End Function
-    Public Shared Function L_prReporteVentasTodosDistribuidores(_fechaI As String, _FechaF As String, ususario As Integer) As DataTable
+    Public Shared Function L_prReporteVentasTodosDistribuidores(_fechaI As String, _FechaF As String, ususario As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 4))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _FechaF))
         _listParam.Add(New Datos.DParametro("@numi", ususario))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
     End Function
-    Public Shared Function L_prReporteVentasUnoPrevendedores(_fechaI As String, _FechaF As String, _codPrevendedor As String, usuario As Integer) As DataTable
+    Public Shared Function L_prReporteVentasUnoPrevendedores(_fechaI As String, _FechaF As String, _codPrevendedor As String, usuario As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 3))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _FechaF))
         _listParam.Add(New Datos.DParametro("@numi", usuario))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@prevendedor", _codPrevendedor))
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
     End Function
 
-    Public Shared Function L_prReporteVentasUnoDistribuidor(_fechaI As String, _FechaF As String, _codPrevendedor As String, usuario As Integer) As DataTable
+    Public Shared Function L_prReporteVentasUnoDistribuidor(_fechaI As String, _FechaF As String, _codPrevendedor As String, usuario As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 5))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _FechaF))
         _listParam.Add(New Datos.DParametro("@numi", usuario))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@distribuidor", _codPrevendedor))
         _Tabla = D_ProcedimientoConParam("sp_Mam_ReporteVentas", _listParam)
         Return _Tabla
@@ -10748,7 +10933,7 @@ Public Class AccesoLogica
 #End Region
 
 #Region "VENTAS ESTADISTICOS"
-    Public Shared Function L_fnObtenerVendedores(_fechaI As String, _fechaF As String) As DataTable
+    Public Shared Function L_fnObtenerVendedores(_fechaI As String, _fechaF As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10756,13 +10941,13 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 1))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _fechaF))
-
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasEstadisticos", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_fnObtenerVentasVendedores(_fechaI As String, _fechaF As String, _numiVendedor As Integer) As DataTable
+    Public Shared Function L_fnObtenerVentasVendedores(_fechaI As String, _fechaF As String, _numiVendedor As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10770,6 +10955,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _fechaF))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@vendedor", _numiVendedor))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasEstadisticos", _listParam)
@@ -10777,7 +10963,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_fnObtenerCLientes(_fechaI As String, _fechaF As String) As DataTable
+    Public Shared Function L_fnObtenerCLientes(_fechaI As String, _fechaF As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10785,13 +10971,13 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 3))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _fechaF))
-
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasEstadisticos", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_fnObtenerVentasClientes(_fechaI As String, _fechaF As String, _numiCliente As Integer) As DataTable
+    Public Shared Function L_fnObtenerVentasClientes(_fechaI As String, _fechaF As String, _numiCliente As Integer, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10799,6 +10985,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 4))
         _listParam.Add(New Datos.DParametro("@fechaI", _fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", _fechaF))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@cliente", _numiCliente))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasEstadisticos", _listParam)
@@ -10907,7 +11094,7 @@ Public Class AccesoLogica
 #End Region
 
 #Region "VENTAS GRAFICAS"
-    Public Shared Function L_prVentasGraficaVendedorMes(fechaI As String, fechaF As String) As DataTable
+    Public Shared Function L_prVentasGraficaVendedorMes(fechaI As String, fechaF As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10915,13 +11102,14 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 1))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasGraficas", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_prVentasGraficaVendedorAlmacen(fechaI As String, fechaF As String) As DataTable
+    Public Shared Function L_prVentasGraficaVendedorAlmacen(fechaI As String, fechaF As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10929,6 +11117,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 2))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasGraficas", _listParam)
@@ -10949,7 +11138,7 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function L_prReporteCreditoClienteTodosCuentas(fechaI As String, fechaF As String, _numiCliente As String) As DataTable
+    Public Shared Function L_prReporteCreditoClienteTodosCuentas(fechaI As String, fechaF As String, _numiCliente As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10957,6 +11146,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 3))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
         _listParam.Add(New Datos.DParametro("@cliente", _numiCliente))
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasCredito", _listParam)
@@ -10964,7 +11154,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prReporteCreditoGeneralRes(fechaI As String, fechaF As String) As DataTable
+    Public Shared Function L_prReporteCreditoGeneralRes(fechaI As String, fechaF As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10972,13 +11162,14 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 111))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasCredito", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_prReporteCreditoClienteRes(fechaI As String, fechaF As String, codcli As String) As DataTable
+    Public Shared Function L_prReporteCreditoClienteRes(fechaI As String, fechaF As String, codcli As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
@@ -10987,6 +11178,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
         _listParam.Add(New Datos.DParametro("@cliente", codcli))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasCredito", _listParam)
@@ -10994,24 +11186,26 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prReporteCreditoClienteUnaCuentas(_numiCredito As String) As DataTable
+    Public Shared Function L_prReporteCreditoClienteUnaCuentas(_numiCredito As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 5))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@codCredito", _numiCredito))
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasCredito", _listParam)
 
         Return _Tabla
     End Function
-    Public Shared Function L_prVentasGraficaListarVendedores() As DataTable
+    Public Shared Function L_prVentasGraficaListarVendedores(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 4))
+        _listParam.Add(New Datos.DParametro("@almacen", sucursal))
         _listParam.Add(New Datos.DParametro("@yduact", L_Usuario))
 
         _Tabla = D_ProcedimientoConParam("sp_Mam_VentasGraficas", _listParam)
@@ -11170,7 +11364,7 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_fnVentaClientePorMes(bandera As String, anho As String, mes As String, codCliente As String, nomCliente As String) As DataTable
+    Public Shared Function L_fnVentaClientePorMes(bandera As String, anho As String, mes As String, codCliente As String, nomCliente As String, sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
 
@@ -11180,6 +11374,7 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@mes", mes))
         _listParam.Add(New Datos.DParametro("@codigo", codCliente))
         _listParam.Add(New Datos.DParametro("@cliente", nomCliente))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
 
         _Tabla = D_ProcedimientoConParam("sp_go_Reportes", _listParam)
         Return _Tabla
@@ -12991,12 +13186,13 @@ Public Class AccesoLogica
 
         Return _Tabla
     End Function
-    Public Shared Function validarStockProducto(producto As Integer, cant As Double) As Boolean
+    Public Shared Function validarStockProducto(producto As Integer, cant As Double, sucursal As Integer) As Boolean
         Dim _Tabla As DataTable
         Dim res As Boolean
         Dim _listPalam As New List(Of Datos.DParametro)
 
         _listPalam.Add(New Datos.DParametro("@tipo", 8))
+        _listPalam.Add(New Datos.DParametro("@estado", sucursal))
         _listPalam.Add(New Datos.DParametro("@oanumi", producto))
         _listPalam.Add(New Datos.DParametro("@credito", cant))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TO001D", _listPalam)
@@ -13524,11 +13720,12 @@ Public Class AccesoLogica
         Return _Tabla
     End Function
 
-    Public Shared Function L_prIngresoEgresoGeneral() As DataTable
+    Public Shared Function L_prIngresoEgresoGeneral(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 3))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@ieuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
 
@@ -13636,11 +13833,12 @@ Public Class AccesoLogica
         Return _resultado
     End Function
 
-    Public Shared Function L_prListarChoferesIngresosEgresos() As DataTable
+    Public Shared Function L_prListarChoferesIngresosEgresos(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 6))
+        _listParam.Add(New Datos.DParametro("@sucursal", sucursal))
         _listParam.Add(New Datos.DParametro("@ieuact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_Mam_TIE001", _listParam)
 
@@ -13662,22 +13860,24 @@ Public Class AccesoLogica
 #End Region
 
 #Region "Despacho"
-    Public Shared Function ListarChoferesDespacho() As DataTable
+    Public Shared Function ListarChoferesDespacho(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@cemp", sucursal))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_mam_despacho", _listParam)
 
         Return _Tabla
     End Function
 
-    Public Shared Function ListarUsuariosDespacho() As DataTable
+    Public Shared Function ListarUsuariosDespacho(sucursal As Integer) As DataTable
         Dim _Tabla As DataTable
         Dim _listParam As New List(Of Datos.DParametro)
 
         _listParam.Add(New Datos.DParametro("@tipo", 8))
+        _listParam.Add(New Datos.DParametro("@numi", sucursal))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_mam_despacho", _listParam)
 
@@ -13749,6 +13949,20 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@tipo", 3))
         _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
+        _Tabla = D_ProcedimientoConParam("sp_mam_despacho", _listParam)
+
+        Return _Tabla
+    End Function
+
+    Public Shared Function ObtenerFacturas(fechaI As String, fechaF As String, sucursal As Integer) As DataTable
+        Dim _Tabla As DataTable
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 12))
+        _listParam.Add(New Datos.DParametro("@fechaI", fechaI))
+        _listParam.Add(New Datos.DParametro("@fechaF", fechaF))
+        _listParam.Add(New Datos.DParametro("@cemp", sucursal))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_mam_despacho", _listParam)
 
@@ -13902,6 +14116,23 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@cod1", id))
         _listParam.Add(New Datos.DParametro("@uact", L_Usuario))
         _Tabla = D_ProcedimientoConParam("sp_mam_despacho", _listParam)
+
+        Return _Tabla
+    End Function
+
+#End Region
+
+
+#Region "Sucursales"
+    Public Shared Function L_fnTraerSucursales() As DataTable
+        Dim _Tabla As DataTable
+
+        Dim _listParam As New List(Of Datos.DParametro)
+
+        _listParam.Add(New Datos.DParametro("@tipo", 1))
+        _listParam.Add(New Datos.DParametro("@cauact", L_Usuario))
+
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TA001", _listParam)
 
         Return _Tabla
     End Function

@@ -23,8 +23,9 @@ Partial Class F02_PedidoNuevo
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim cbPreVendedor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbFactura_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(F02_PedidoNuevo))
+        Dim cbPreVendedor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim cbDistribuidor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Me.TableLayoutPanelPrincipal = New System.Windows.Forms.TableLayoutPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
@@ -69,6 +70,7 @@ Partial Class F02_PedidoNuevo
         Me.LabelX10 = New DevComponents.DotNetBar.LabelX()
         Me.GroupPanel4 = New DevComponents.DotNetBar.Controls.GroupPanel()
         Me.PanelEx2 = New DevComponents.DotNetBar.PanelEx()
+        Me.cbFactura = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.dtpFechaVenc = New System.Windows.Forms.DateTimePicker()
         Me.lbFVenc = New DevComponents.DotNetBar.LabelX()
         Me.btAplicarDesc = New DevComponents.DotNetBar.ButtonX()
@@ -187,6 +189,7 @@ Partial Class F02_PedidoNuevo
         Me.PanelEx1.SuspendLayout()
         Me.GroupPanel4.SuspendLayout()
         Me.PanelEx2.SuspendLayout()
+        CType(Me.cbFactura, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbPreVendedor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbDistribuidor, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -1106,6 +1109,7 @@ Partial Class F02_PedidoNuevo
         Me.PanelEx2.AutoScroll = True
         Me.PanelEx2.CanvasColor = System.Drawing.SystemColors.Control
         Me.PanelEx2.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.PanelEx2.Controls.Add(Me.cbFactura)
         Me.PanelEx2.Controls.Add(Me.dtpFechaVenc)
         Me.PanelEx2.Controls.Add(Me.lbFVenc)
         Me.PanelEx2.Controls.Add(Me.btAplicarDesc)
@@ -1142,6 +1146,17 @@ Partial Class F02_PedidoNuevo
         Me.PanelEx2.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText
         Me.PanelEx2.Style.GradientAngle = 90
         Me.PanelEx2.TabIndex = 8
+        '
+        'cbFactura
+        '
+        cbFactura_DesignTimeLayout.LayoutString = resources.GetString("cbFactura_DesignTimeLayout.LayoutString")
+        Me.cbFactura.DesignTimeLayout = cbFactura_DesignTimeLayout
+        Me.cbFactura.Location = New System.Drawing.Point(660, 0)
+        Me.cbFactura.Name = "cbFactura"
+        Me.cbFactura.SelectedIndex = -1
+        Me.cbFactura.SelectedItem = Nothing
+        Me.cbFactura.Size = New System.Drawing.Size(180, 23)
+        Me.cbFactura.TabIndex = 48
         '
         'dtpFechaVenc
         '
@@ -1233,8 +1248,7 @@ Partial Class F02_PedidoNuevo
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.Size = New System.Drawing.Size(100, 23)
         Me.LabelX1.TabIndex = 38
-        Me.LabelX1.Text = "DISTRIBUIDOR:"
-        Me.LabelX1.Visible = False
+        Me.LabelX1.Text = "FACTURA:"
         '
         'cbPreVendedor
         '
@@ -2525,6 +2539,7 @@ Partial Class F02_PedidoNuevo
         Me.GroupPanel4.ResumeLayout(False)
         Me.PanelEx2.ResumeLayout(False)
         Me.PanelEx2.PerformLayout()
+        CType(Me.cbFactura, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbPreVendedor, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbDistribuidor, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel2.ResumeLayout(False)
@@ -2691,4 +2706,5 @@ Partial Class F02_PedidoNuevo
     Friend WithEvents dtpFechaVenc As DateTimePicker
     Friend WithEvents lbFVenc As DevComponents.DotNetBar.LabelX
     Friend WithEvents swStock As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents cbFactura As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

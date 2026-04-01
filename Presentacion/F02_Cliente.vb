@@ -170,6 +170,8 @@ Public Class F02_Cliente
         If VerificarUsuario() Then
             UserSpecial = True
         End If
+
+        dtImagenesAll = L_prCargarImagenesClienteAll()
         'Inicializar componentes
         P_prInicializarComponentes()
 
@@ -190,7 +192,7 @@ Public Class F02_Cliente
         End If
 
         P_prActualizarPaginacion(0)
-        dtImagenesAll = L_prCargarImagenesClienteAll()
+
         P_prLlenarDatos(0)
         _Habilitar()
 
@@ -262,6 +264,7 @@ Public Class F02_Cliente
         tbAcuCodCliente.ReadOnly = True
         tbAcuNombre.ReadOnly = True
 
+
         'Grid Busqueda
         DgjBusqueda.AllowEdit = InheritableBoolean.False
         DgjSugerencia.AllowEdit = InheritableBoolean.False
@@ -285,6 +288,8 @@ Public Class F02_Cliente
 
         'Usuario del sistema
         MTbUsuario.Text = gs_user
+
+        SwitchButton1.Value = False
     End Sub
 
     Private Sub P_prCambiarFuenteComponentes()
@@ -501,8 +506,8 @@ Public Class F02_Cliente
     End Sub
 
     Private Sub P_prArmarGrillas()
-        P_prArmarGrillaBusqueda()
-        P_ArmarGrillaSugerencia()
+        P_prArmarGrillaBusqueda(IIf(SwitchButton1.Value, 1, 0))
+        P_ArmarGrillaSugerencia(IIf(SwitchButton1.Value, 1, 0))
         P_prArmarGrillaEquipo("-1")
 
         If (gi_vacu = 1) Then
@@ -592,7 +597,7 @@ Public Class F02_Cliente
                     '--------habilitar para facturacion--------------------------------------------------------------
 
                     If gi_Facturacion = 1 Then
-                        Me.MultiComFact.Value = Convert.ToInt32(.GetValue("docFact"))
+                        MultiComFact.Value = Convert.ToInt32(.GetValue("docFact"))
 
                         Me.TbApellido.Text = .GetValue("ccapellido").ToString
                     End If
@@ -774,8 +779,8 @@ Public Class F02_Cliente
                                            eToastGlowColor.Green,
                                            eToastPosition.TopCenter)
                     BoNavegar = False
-                    P_prArmarGrillaBusqueda()
-                    P_ArmarGrillaSugerencia()
+                    P_prArmarGrillaBusqueda(IIf(SwitchButton1.Value, 1, 0))
+                    P_ArmarGrillaSugerencia(IIf(SwitchButton1.Value, 1, 0))
                     BoNavegar = True
                     P_prMoverIndexActual()
                 Else
@@ -859,6 +864,7 @@ Public Class F02_Cliente
 
         Dim apellido As String
         Dim docFact As String
+        customerId = 4394
         DgjEquipo.Refetch()
         If (BoNuevo) Then
             If (P_fnValidarGrabacion()) Then
@@ -869,14 +875,14 @@ Public Class F02_Cliente
                                 MessageBox.Show($"El número de NIT {TbNit.Text} no es válido")
                                 Exit Sub
                             Else
-                                If CrearClienteHttpClient(tokenSifac) = "200" Then
-                                    GoTo ContinuarProceso
-                                End If
+                                'If CrearClienteHttpClient(tokenSifac) = "200" Then
+                                '    GoTo ContinuarProceso
+                                'End If
                             End If
                         Else
-                            If CrearClienteHttpClient(tokenSifac) = "200" Then
-                                GoTo ContinuarProceso
-                            End If
+                            'If CrearClienteHttpClient(tokenSifac) = "200" Then
+                            '    GoTo ContinuarProceso
+                            'End If
                         End If
 
                     End If
@@ -975,10 +981,10 @@ ContinuarProceso:
                         _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
                         P_prLimpiar()
                         BoNavegar = False
-                        P_prArmarGrillaBusqueda()
-                        P_ArmarGrillaSugerencia()
+                    P_prArmarGrillaBusqueda(IIf(SwitchButton1.Value, 1, 0))
+                    P_ArmarGrillaSugerencia(IIf(SwitchButton1.Value, 1, 0))
 
-                        dtImagenesAll = L_prCargarImagenesClienteAll()
+                    dtImagenesAll = L_prCargarImagenesClienteAll()
                         BoNavegar = True
 
                         TbNombre.Select()
@@ -1005,24 +1011,24 @@ ContinuarProceso:
                                 Exit Sub
                             Else
                                 If DgjBusqueda.GetValue("customerid").ToString <> "0" Then
-                                    If actualizarCliente(tokenSifac, DgjBusqueda.GetValue("customerid").ToString) = "200" Then
-                                        GoTo ContinuarProceso1
-                                    End If
+                                    'If actualizarCliente(tokenSifac, DgjBusqueda.GetValue("customerid").ToString) = "200" Then
+                                    '    GoTo ContinuarProceso1
+                                    'End If
                                 Else
-                                    If CrearClienteHttpClient(tokenSifac) = "200" Then
-                                        GoTo ContinuarProceso1
-                                    End If
+                                    'If CrearClienteHttpClient(tokenSifac) = "200" Then
+                                    '    GoTo ContinuarProceso1
+                                    'End If
                                 End If
                             End If
-                                    Else
+                        Else
                             If DgjBusqueda.GetValue("customerid").ToString <> "0" Then
-                                If actualizarCliente(tokenSifac, DgjBusqueda.GetValue("customerid").ToString) = "200" Then
-                                    GoTo ContinuarProceso1
-                                End If
+                                '    If actualizarCliente(tokenSifac, DgjBusqueda.GetValue("customerid").ToString) = "200" Then
+                                '        GoTo ContinuarProceso1
+                                '    End If
                             Else
-                                If CrearClienteHttpClient(tokenSifac) = "200" Then
-                                    GoTo ContinuarProceso1
-                                End If
+                                'If CrearClienteHttpClient(tokenSifac) = "200" Then
+                                '    GoTo ContinuarProceso1
+                                'End If
                             End If
                         End If
 
@@ -1116,9 +1122,9 @@ ContinuarProceso1:
                         _prGuardarImagenes(RutaGlobal + "\Imagenes\Imagenes Productos\" + "ProductosTodos" + "\")
                         dtImagenesAll = L_prCargarImagenesClienteAll()
                         BoNavegar = False
-                        P_prArmarGrillaBusqueda()
-                        P_ArmarGrillaSugerencia()
-                        BoNavegar = True
+                    P_prArmarGrillaBusqueda(IIf(SwitchButton1.Value, 1, 0))
+                    P_ArmarGrillaSugerencia(IIf(SwitchButton1.Value, 1, 0))
+                    BoNavegar = True
 
                         P_prMoverIndexActual()
 
@@ -1237,7 +1243,9 @@ ContinuarProceso1:
 
     Private Sub P_prArmarComboZona()
         Dim Dt As New DataTable
-        Dt = L_GetZonasCPZ().Tables(0)
+        Dt = L_GetZonasCPZ(gi_userSuc) '.Tables(0)
+
+
 
         With CbZona.DropDownList
             .Columns.Add(Dt.Columns("lanumi").ToString).Width = 50
@@ -1324,12 +1332,12 @@ ContinuarProceso1:
         g_prArmarCombo(cbFrecuencia, Dt, 60, 200, "Código", "Descripción")
     End Sub
 
-    Private Sub P_prArmarGrillaBusqueda()
+    Private Sub P_prArmarGrillaBusqueda(tipo As Integer)
         DtBusqueda = New DataTable
         If UserSpecial Then
-            DtBusqueda = L_fnClientes2()
+            DtBusqueda = L_fnClientes2(tipo)
         Else
-            DtBusqueda = L_fnClientes()
+            DtBusqueda = L_fnClientes(gi_userSuc, tipo)
         End If
 
 
@@ -2527,9 +2535,9 @@ ContinuarProceso1:
         End If
     End Sub
 
-    Private Sub P_ArmarGrillaSugerencia()
+    Private Sub P_ArmarGrillaSugerencia(tipo As Integer)
         DgjSugerencia.BoundMode = Janus.Data.BoundMode.Bound
-        DgjSugerencia.DataSource = L_fnClientes()
+        DgjSugerencia.DataSource = L_fnClientes(gi_userSuc, tipo)
         DgjSugerencia.RetrieveStructure()
 
         'dar formato a las columnas
@@ -3194,7 +3202,7 @@ ContinuarProceso1:
                                 )
             Dim fil As Integer = DgjBusqueda.Row
             BoNavegar = False
-            P_prArmarGrillaBusqueda()
+            P_prArmarGrillaBusqueda(IIf(SwitchButton1.Value, 1, 0))
             BoNavegar = True
             DgjBusqueda.Row = fil
             'TODO lanzar un mensaje
@@ -3923,6 +3931,25 @@ ContinuarProceso1:
             Return code
         End Using
     End Function
+
+    Private Sub SwitchButton1_ValueChanged(sender As Object, e As EventArgs) Handles SwitchButton1.ValueChanged
+        If (MBtGrabar.Enabled = False) Then
+
+            BoNavegar = False
+            P_prArmarGrillas()
+            Dim index As Integer = DgjBusqueda.Row
+            BoNavegar = True
+            P_prActualizarPaginacion(index)
+            P_prLlenarDatos(index)
+        Else
+            ToastNotification.Show(Me,
+                                   "No se puede actualizar los datos cuando se esta haciendo un nuevo registro o modificación de registro.".ToUpper,
+                                   My.Resources.WARNING,
+                                   1000 * InDuracion,
+                                   eToastGlowColor.Red,
+                                   eToastPosition.TopCenter)
+        End If
+    End Sub
 
 #End Region
 End Class

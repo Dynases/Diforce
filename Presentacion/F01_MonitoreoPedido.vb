@@ -67,7 +67,7 @@ Public Class F01_MonitoreoPedido
     End Sub
     Private Sub _PCargarcombopersonas()
         Dim Dt As New DataTable
-        Dt = L_GetPersonas().Tables(0)
+        Dt = L_GetPersonas(gi_userSuc).Tables(0)
 
         With CbPersonal.DropDownList
             .Columns.Add(Dt.Columns("cbnumi").ToString).Width = 50
@@ -102,7 +102,7 @@ Public Class F01_MonitoreoPedido
 
     Private Sub _prCargarGridPersonal()
         Dim dt As New DataTable
-        dt = L_Empleado_GeneralRepartidorSimple(-1, "and cbcat=1 and cbest=1").Tables(0)
+        dt = L_Empleado_GeneralRepartidorSimple(-1, "and cbcat=1 and cbest=1 and cbsuc = " + gi_userSuc.ToString).Tables(0)
 
         dt.Columns.Add("estado", Type.GetType("System.Boolean"))
         dt.Columns.Add("color", Type.GetType("System.Int32"))
@@ -171,7 +171,7 @@ Public Class F01_MonitoreoPedido
     End Sub
     Private Sub _prCargarGridPersonal2()
         Dim dt As New DataTable
-        dt = L_Empleado_GeneralRepartidorSimple(-1, "and cbcat=3 and cbest=1").Tables(0)
+        dt = L_Empleado_GeneralRepartidorSimple(-1, "and cbcat=3 and cbest=1 and cbsuc = " + gi_userSuc.ToString).Tables(0)
 
         dt.Columns.Add("estado", Type.GetType("System.Boolean"))
         dt.Columns.Add("color", Type.GetType("System.Int32"))
@@ -1323,7 +1323,7 @@ Public Class F01_MonitoreoPedido
         Dim dtPedidos, dtZonas As DataTable
         Dim i, j As Integer
         'DIBUJAR ZONAS
-        dtZonas = L_ZonaCabecera_GeneralCompleto1(0).Tables(0)
+        dtZonas = L_ZonaCabecera_GeneralCompleto1(0, "", gi_userSuc).Tables(0)
         Dim colorZona As String
         Dim idRegZona As Integer
         For i = 0 To dtZonas.Rows.Count - 1
@@ -1359,7 +1359,7 @@ Public Class F01_MonitoreoPedido
         Dim dtZonas As DataTable
         Dim i As Integer
         'DIBUJAR ZONAS
-        dtZonas = L_ZonaCabecera_GeneralCompleto1(0).Tables(0)
+        dtZonas = L_ZonaCabecera_GeneralCompleto1(0, "", gi_userSuc).Tables(0)
         Dim colorZona As String
         Dim idRegZona As Integer
         For i = 0 To dtZonas.Rows.Count - 1

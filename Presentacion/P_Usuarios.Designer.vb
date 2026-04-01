@@ -24,6 +24,7 @@ Partial Class P_Usuarios
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim JMC_Categoria_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbSucursal_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(P_Usuarios))
         Me.Tb_Nombre = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
@@ -44,6 +45,8 @@ Partial Class P_Usuarios
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.swClientesEsp = New DevComponents.DotNetBar.Controls.SwitchButton()
+        Me.LabelX6 = New DevComponents.DotNetBar.LabelX()
+        Me.cbSucursal = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         CType(Me.SuperTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuperTabControl1.SuspendLayout()
         Me.SuperTabControlPanel1.SuspendLayout()
@@ -62,6 +65,7 @@ Partial Class P_Usuarios
         CType(Me.EP1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Tb_DiasPedidos, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Tb_fuenteTam, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SuperTabControl1
@@ -197,6 +201,8 @@ Partial Class P_Usuarios
         '
         'PanelEx3
         '
+        Me.PanelEx3.Controls.Add(Me.LabelX6)
+        Me.PanelEx3.Controls.Add(Me.cbSucursal)
         Me.PanelEx3.Controls.Add(Me.swClientesEsp)
         Me.PanelEx3.Controls.Add(Me.Tb_fuenteTam)
         Me.PanelEx3.Controls.Add(Me.LabelX4)
@@ -556,6 +562,29 @@ Partial Class P_Usuarios
         Me.swClientesEsp.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.swClientesEsp.TabIndex = 30
         '
+        'LabelX6
+        '
+        '
+        '
+        '
+        Me.LabelX6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX6.Location = New System.Drawing.Point(380, 107)
+        Me.LabelX6.Name = "LabelX6"
+        Me.LabelX6.Size = New System.Drawing.Size(102, 23)
+        Me.LabelX6.TabIndex = 32
+        Me.LabelX6.Text = "SUCURSAL:"
+        '
+        'cbSucursal
+        '
+        cbSucursal_DesignTimeLayout.LayoutString = resources.GetString("cbSucursal_DesignTimeLayout.LayoutString")
+        Me.cbSucursal.DesignTimeLayout = cbSucursal_DesignTimeLayout
+        Me.cbSucursal.Location = New System.Drawing.Point(518, 106)
+        Me.cbSucursal.Name = "cbSucursal"
+        Me.cbSucursal.SelectedIndex = -1
+        Me.cbSucursal.SelectedItem = Nothing
+        Me.cbSucursal.Size = New System.Drawing.Size(203, 20)
+        Me.cbSucursal.TabIndex = 31
+        '
         'P_Usuarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -587,6 +616,7 @@ Partial Class P_Usuarios
         CType(Me.EP1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Tb_DiasPedidos, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Tb_fuenteTam, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbSucursal, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -609,4 +639,6 @@ Partial Class P_Usuarios
     Friend WithEvents LabelX4 As DevComponents.DotNetBar.LabelX
     Friend WithEvents Timer1 As Timer
     Friend WithEvents swClientesEsp As DevComponents.DotNetBar.Controls.SwitchButton
+    Friend WithEvents LabelX6 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents cbSucursal As Janus.Windows.GridEX.EditControls.MultiColumnCombo
 End Class

@@ -395,7 +395,7 @@ Public Class F0_CreditosPedidos
     Private Sub _prCargarTablaCreditos()
         'a.tcnumi,sucursal,NroDoc,as factura,a.tctv1numi ,a.tcty4clie ,cliente,a.tcty4vend,vendedor,a.tcfdoc ,totalfactura, pendiente, PagoAc, NumeroRecibo
         Dim dt As New DataTable
-        dt = L_fnCobranzasObtenerLasVentasACredito()
+        dt = L_fnCobranzasObtenerLasVentasACredito(gi_userSuc)
         _prEliminarExistente(dt)
 
         grPendiente.DataSource = dt
@@ -818,7 +818,7 @@ Public Class F0_CreditosPedidos
 
                 Dim dt As DataTable
 
-                dt = L_fnListarEmpleado()
+                dt = L_fnListarEmpleado(gi_userSuc)
                 'a.cbnumi  , a.cbdesc, a.cbci, a.cbfnac 
 
                 Dim listEstCeldas As New List(Of Modelo.MCelda)

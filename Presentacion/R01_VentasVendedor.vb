@@ -31,6 +31,7 @@ Public Class R01_VentasVendedor
         P_prArmarComboProveedor()
     End Sub
 
+
     Private Sub P_prArmarComboProveedor()
         Dim DtP As DataTable
         DtP = L_fnObtenerProveedor()
@@ -44,7 +45,7 @@ Public Class R01_VentasVendedor
 
         titulo = "VENDEDOR:"
         If (CheckTodosVendedor.Checked) Then
-            _dt = L_prReporteVentasVendedorTodos(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), IIf(swTipo.Value = True, 3, 1), cbProveedor.Value)
+            _dt = L_prReporteVentasVendedorTodos(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), IIf(swTipo.Value = True, 3, 1), cbProveedor.Value, gi_userSuc)
             Return
         End If
         If (checkUnaVendedor.Checked) Then
@@ -101,9 +102,9 @@ Public Class R01_VentasVendedor
 
         Dim dt As DataTable
         If swTipo.Value = True Then
-            dt = L_prListarPrevendedor()
+            dt = L_prListarPrevendedor(gi_userSuc)
         Else
-            dt = L_prListarDistribuidor()
+            dt = L_prListarDistribuidor(gi_userSuc)
         End If
 
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 

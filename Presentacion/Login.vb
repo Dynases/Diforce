@@ -80,6 +80,8 @@ Public Class Login
             gi_userFuente = dtUsuario.Rows(0).Item("ydfontsize")
             gi_userNumi = dtUsuario.Rows(0).Item("ydnumi")
             gi_userRol = dtUsuario.Rows(0).Item("ydrol")
+            gi_userSuc = dtUsuario.Rows(0).Item("ydsuc")
+
 
             _prDesvenecerPantalla()
             Close()

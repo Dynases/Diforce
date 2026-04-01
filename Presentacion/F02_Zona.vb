@@ -724,7 +724,7 @@ Public Class F02_Zona
 
     Private Sub P_prArmarGrillaBusqueda()
         DtBusqueda = New DataTable
-        DtBusqueda = L_fnZonaGeneral()
+        DtBusqueda = L_fnZonaGeneral(gi_userSuc)
 
         DgjBusqueda.BoundMode = Janus.Data.BoundMode.Bound
         DgjBusqueda.DataSource = DtBusqueda
@@ -859,8 +859,8 @@ Public Class F02_Zona
 
     Private Sub P_prArmarGrillaRepartidor()
         Dim dt As New DataTable
-        dt = L_fnObtenerTabla("cast(0 as bit) as [check], a.cbnumi as numi, a.cbdesc as [desc]", "TC002 a", "a.cbcat=1 and a.cbest=1 and a.cbnumi > 4")
-
+        'dt = L_fnObtenerTabla("cast(0 as bit) as [check], a.cbnumi as numi, a.cbdesc as [desc]", "TC002 a", "a.cbcat=1 and a.cbest=1 and a.cbnumi > 4")
+        dt = L_fnArmarGrillaRepartidor(gi_userSuc)
         dgjRepartidor.BoundMode = Janus.Data.BoundMode.Bound
         dgjRepartidor.DataSource = dt
         dgjRepartidor.RetrieveStructure()
@@ -904,8 +904,8 @@ Public Class F02_Zona
 
     Private Sub P_prArmarGrillaPrevendedor()
         Dim dt As New DataTable
-        dt = L_fnObtenerTabla("cast(0 as bit) as [check], a.cbnumi as numi, a.cbdesc as [desc]", "TC002 a", "a.cbcat=3 and a.cbest=1 and a.cbnumi > 2")
-
+        'dt = L_fnObtenerTabla("cast(0 as bit) as [check], a.cbnumi as numi, a.cbdesc as [desc]", "TC002 a", "a.cbcat=3 and a.cbest=1 and a.cbnumi > 2")
+        dt = L_fnArmarGrillaVendedor(gi_userSuc)
         dgjPrevendedor.BoundMode = Janus.Data.BoundMode.Bound
         dgjPrevendedor.DataSource = dt
         dgjPrevendedor.RetrieveStructure()
@@ -1096,16 +1096,50 @@ Public Class F02_Zona
 #End Region
 
     Private Sub mapa_MouseClick(sender As Object, e As MouseEventArgs) Handles GmMapa.MouseClick
-        If _poligono = 1 Then
-            Dim gm As GMapControl = CType(sender, GMapControl)
-            Dim hj As MouseEventArgs = CType(e, MouseEventArgs)
-            Dim plg As PointLatLng = gm.FromLocalToLatLng(hj.X, hj.Y)
-            _AgregarPunto(plg)
-            _listPuntos.Add(plg)
+        If e.Button = MouseButtons.Left Then
+            If _poligono = 1 Then
+                Dim gm As GMapControl = CType(sender, GMapControl)
+                Dim hj As MouseEventArgs = CType(e, MouseEventArgs)
+                Dim plg As PointLatLng = gm.FromLocalToLatLng(hj.X, hj.Y)
+                _AgregarPunto(plg)
+                _listPuntos.Add(plg)
+            End If
+        ElseIf e.Button = MouseButtons.Right And _poligono = 1 Then
+            QuitarUltimoPunto()
         End If
         '_agregarPunto(plg)
         'Refresh()
         '_agregarPunto(mapa.FromLocalToLatLng(e.X, e.Y))
+    End Sub
+
+    Private Sub QuitarUltimoPunto()
+
+        If _listPuntos.Count > 0 Then
+
+            ' Quitar de la lista
+            _listPuntos.RemoveAt(_listPuntos.Count - 1)
+
+            ' Quitar el último marcador visual
+            If _overlay.Markers.Count > 0 Then
+                _overlay.Markers.RemoveAt(_overlay.Markers.Count - 1)
+            End If
+
+            ' Si tienes polígono, actualizarlo
+            If _overlay.Polygons.Count > 0 Then
+                _overlay.Polygons.Clear()
+
+                If _listPuntos.Count >= 3 Then
+                    Dim poligono As New GMapPolygon(_listPuntos, "zona")
+                    poligono.Fill = New SolidBrush(Color.FromArgb(50, Color.Blue))
+                    poligono.Stroke = New Pen(Color.Blue, 2)
+                    _overlay.Polygons.Add(poligono)
+                End If
+            End If
+
+            GmMapa.Refresh()
+
+        End If
+
     End Sub
 
     Private Sub mapa_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles GmMapa.MouseDoubleClick
@@ -1371,7 +1405,7 @@ Public Class F02_Zona
         Dim dtZonas As DataTable
         Dim i As Integer
         'DIBUJAR ZONAS
-        dtZonas = L_ZonaCabecera_GeneralCompleto1(0).Tables(0)
+        dtZonas = L_ZonaCabecera_GeneralCompleto1(0, "", gi_userSuc).Tables(0)
         Dim colorZona As String
         Dim idRegZona As Integer
         For i = 0 To dtZonas.Rows.Count - 1

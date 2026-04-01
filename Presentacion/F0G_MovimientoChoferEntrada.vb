@@ -201,9 +201,9 @@ Public Class F0G_MovimientoChoferEntrada
         Dim dt As New DataTable
 
         If (tbTablet.Value = True) Then
-            dt = L_prMovimientoChoferGeneralEntradaTop20(10)
+            dt = L_prMovimientoChoferGeneralEntradaTop20(10, gi_userSuc)
         Else
-            dt = L_prMovimientoChoferGeneralEntrada(10)
+            dt = L_prMovimientoChoferGeneralEntrada(10, gi_userSuc)
         End If
 
         grmovimiento.DataSource = dt
@@ -398,7 +398,7 @@ Public Class F0G_MovimientoChoferEntrada
     Private Sub _prGuardarModificado()
         Dim res As Boolean = L_prMovimientoChoferModificarSalida(lbcodigo.Text, tbFecha.Value.ToString("yyyy/MM/dd"),
                                                                  cbConcepto.Value, tbObservacion.Text, _codChofer,
-                                                                 _prGuardarDetalleAbmConciliacion(0), _icibid)
+                                                                 _prGuardarDetalleAbmConciliacion(0), _icibid, gi_userSuc)
         If res Then
             '----------Se lo comento para que no grabe los pedidos moviles en la conciliación
             'Dim dt As DataTable = New DataTable
@@ -648,7 +648,7 @@ Public Class F0G_MovimientoChoferEntrada
         Else
             If (lbcodigo.Text <> String.Empty) Then
                 _prGuardarModificado()
-                verificarCamion(_codChofer)
+                ' verificarCamion(_codChofer)
             End If
         End If
     End Sub

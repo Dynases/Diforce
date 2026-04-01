@@ -94,7 +94,7 @@ Public Class R01_EquipoPrestadoVsUltimaVenta
 
     Private Sub P_prCargarAyudaCliente()
         Dim frmAyuda As Modelo.ModeloAyuda
-        Dim dt As DataTable = L_GetZonasCPZ().Tables(0)
+        Dim dt As DataTable = L_GetZonasCPZ(gi_userSuc) '.Tables(0)
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("lanumi", True, "Codigo", 80))
         listEstCeldas.Add(New Modelo.MCelda("city", True, "Dpto", 150))

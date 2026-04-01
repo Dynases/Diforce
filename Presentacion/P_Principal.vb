@@ -245,7 +245,7 @@ Public Class P_Principal
         gs_LiberarPedido = gs_Parametros(0).Item("syliberarpedido")
         gs_VentanaCompra = gs_Parametros(0).Item("syVentanaCompra")
         gs_MostrarSucursal = gs_Parametros(0).Item("syMostrarSucursal")
-
+        gs_PrecioFact = gs_Parametros(0).Item("syPrecioFac")
     End Sub
 
     Private Sub _prCambiarStyle()
@@ -282,6 +282,7 @@ Public Class P_Principal
         gs_UsuarioSql2 = Archivo(11).Split("=")(1).Trim
         gs_ClaveSql2 = Archivo(12).Split("=")(1).Trim
         Dim sp As String = Archivo(13).Split("=")(1).Trim
+
         gs_supervisor = IIf(sp = "sp", True, False)
         If tipoInicio = 1 Then
             NombreBaseDatos = gs_NombreBD
@@ -599,7 +600,7 @@ Public Class P_Principal
         F01_Producto.AllowTransparency = True
         'FP_Ventana.Select()
         Dim frm As New F01_Producto
-        frm._nameButton = btConfCliente.Name
+        frm._nameButton = btConfProducto.Name
         'Dim tab3 As SuperTabItem = superTabControlVentana.CreateTab(frm.Text)
         'frm._tab = tab3
         frm._modulo = FP_Configuracion
@@ -2237,6 +2238,13 @@ Public Class P_Principal
         Dim frm As New R0_ReportePedidosCostoGastos
         frm._nameButton = btUtilidadesGastos.Name
         frm._modulo = FP_GERENCIA
+        frm.Show()
+    End Sub
+
+    Private Sub btReporteFacturas_Click(sender As Object, e As EventArgs) Handles btReporteFacturas.Click
+        Dim frm As New R01_ReporteFacturas
+        frm._nameButton = btReporteFacturas.Name
+        frm._modulo = FP_Venta
         frm.Show()
     End Sub
 End Class

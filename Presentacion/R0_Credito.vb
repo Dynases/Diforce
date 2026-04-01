@@ -34,23 +34,23 @@ Public Class R0_Credito
     End Sub
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
         If (swCreditoCliente.Value = True) Then
-            _dt = L_prReporteCreditoGeneral(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+            _dt = L_prReporteCreditoGeneral(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userSuc)
         Else
             If (CheckTodosCuenta.Checked And tbCodigoCliente.Text.Length > 0) Then
-                _dt = L_prReporteCreditoClienteTodosCuentas(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbCodigoCliente.Text)
+                _dt = L_prReporteCreditoClienteTodosCuentas(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbCodigoCliente.Text, gi_userSuc)
             End If
             If (CheckUnaCuenta.Checked And tbCodigoCliente.Text.Length > 0 And tbcodCuenta.Text.Length > 0) Then
-                _dt = L_prReporteCreditoClienteUnaCuentas(tbcodCuenta.Text)
+                _dt = L_prReporteCreditoClienteUnaCuentas(tbcodCuenta.Text, gi_userSuc)
             End If
 
         End If
     End Sub
     Public Sub _prInterpretarDatos2(ByRef _dt As DataTable)
         If (swCreditoCliente.Value = True) Then
-            _dt = L_prReporteCreditoGeneralRes(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"))
+            _dt = L_prReporteCreditoGeneralRes(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), gi_userSuc)
         Else
             If (CheckTodosCuenta.Checked And tbCodigoCliente.Text.Length > 0) Then
-                _dt = L_prReporteCreditoClienteRes(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbCodigoCliente.Text)
+                _dt = L_prReporteCreditoClienteRes(tbFechaI.Value.ToString("yyyy/MM/dd"), tbFechaF.Value.ToString("yyyy/MM/dd"), tbCodigoCliente.Text, gi_userSuc)
             End If
             '    If (CheckUnaCuenta.Checked And tbCodigoCliente.Text.Length > 0 And tbcodCuenta.Text.Length > 0) Then
             '        _dt = L_prReporteCreditoClienteUnaCuentas(tbcodCuenta.Text)
@@ -169,7 +169,7 @@ Public Class R0_Credito
         If (swCreditoCliente.Value = False) Then
             If e.KeyData = Keys.Control + Keys.Enter Then
                 Dim dt As DataTable
-                dt = L_prListarCliente()
+                dt = L_prListarCliente(gi_userSuc)
                 '              a.ydnumi, a.ydcod, a.yddesc, a.yddctnum, a.yddirec
                 ',a.ydtelf1 ,a.ydfnac 
                 Dim listEstCeldas As New List(Of Modelo.MCelda)

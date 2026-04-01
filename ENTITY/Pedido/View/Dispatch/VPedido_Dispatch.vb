@@ -9,4 +9,6 @@
             _idZona = value
         End Set
     End Property
+
+    Public Property Zona As String
 End Class

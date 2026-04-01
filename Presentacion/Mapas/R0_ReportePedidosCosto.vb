@@ -122,7 +122,7 @@ Public Class R0_ReportePedidosCosto
     Public Sub _prListarPrevendedores()
 
         Dim dt As DataTable
-        dt = L_prListarPrevendedor()
+        dt = L_prListarPrevendedor(gi_userSuc)
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("cbnumi", True, "ID", 50))
@@ -159,7 +159,7 @@ Public Class R0_ReportePedidosCosto
     Public Sub _prListarClientes()
 
         Dim dt As DataTable
-        dt = L_prListarCliente()
+        dt = L_prListarCliente(gi_userSuc)
         'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("ccnumi", True, "ID", 50))
