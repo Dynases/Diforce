@@ -17,6 +17,10 @@ Imports System.Xml
 
 Imports System.Net
 
+Imports System.Net.Http
+
+
+
 
 Public Class F01_Producto
     Private Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
@@ -631,7 +635,7 @@ Public Class F01_Producto
                 If (res) Then
                     If (IsNothing(vlImagen) = False) Then
                         vlImagen.nombre = img
-                        P_prGuardarImagen()
+                        P_prGuardarImagen2(numi, img)
                     End If
                     P_prLimpiar()
                     BoNavegar = False
@@ -718,9 +722,9 @@ Public Class F01_Producto
 
                     If (res) Then
                         If (IsNothing(vlImagen) = False) Then
-                            vlImagen.nombre = img
-                            P_prGuardarImagen()
-                        End If
+                        'vlImagen.nombre = img
+                        P_prGuardarImagen2(numi, img)
+                    End If
                         BoNavegar = False
                         If (gi_ftp = 1) Then
                             P_prDescargarFotoFTP(img + ".jpg")
@@ -855,6 +859,57 @@ Public Class F01_Producto
         End If
     End Sub
 
+
+    Private Async Sub P_prGuardarImagen2(id As String, img As String)
+
+        Dim rutaOrigen As String = vlImagen.getImagen()
+        Dim rutaDestino As String = StRutaImagenes & img + ".jpg" 'vlImagen.nombre & ".jpg"
+
+        Try
+            If gi_ftp = 1 Then
+
+                Using client As New HttpClient()
+
+                    Dim content As New MultipartFormDataContent()
+
+                    Dim bytes As Byte() = File.ReadAllBytes(rutaOrigen)
+                    Dim fileContent As New ByteArrayContent(bytes)
+
+                    fileContent.Headers.ContentType =
+                    New Net.Http.Headers.MediaTypeHeaderValue("image/jpeg")
+
+                    Dim extension As String = Path.GetExtension(rutaOrigen)
+
+                    ' ✔ IMPORTANTE: debe ser "imagen"
+                    content.Add(fileContent, "imagen", img & extension)
+
+                    Dim url As String =
+                    "http://" & gs_ftpIp & "/api/subirImagen/" &
+                    id
+
+                    Dim response = Await client.PostAsync(url, content)
+
+                    If response.IsSuccessStatusCode Then
+                        MsgBox("Imagen subida correctamente")
+                    Else
+                        MsgBox("Error al subir imagen: " & response.StatusCode.ToString())
+                    End If
+
+                End Using
+
+            Else
+
+                Dim finalImg As New Bitmap(UcImagen.Image, 300, 200)
+                finalImg.Save(rutaDestino)
+
+            End If
+
+        Catch ex As Exception
+            MsgBox("Error al guardar imagen: " & ex.Message)
+        End Try
+
+    End Sub
+
     Private Sub P_prPonerImagenDataSource(ByRef dt As DataTable, colJpg As String, colImg As String, ruta As String, Optional flag As Byte = 1)
         Dim rutaimg As String = ""
         For Each f As DataRow In dt.Rows
@@ -910,56 +965,99 @@ Public Class F01_Producto
         End Try
     End Sub
 
+    'Private Sub P_prDescargarFotosFTP(dt As DataTable, col As String, ruta As String)
+    '    Try
+    '        If (My.Computer.FileSystem.GetFiles(ruta).Count > 0) Then
+    '            For Each fil As DataRow In dt.Rows
+    '                If (Not fil.Item(col).ToString = String.Empty And
+    '                    Not My.Computer.FileSystem.FileExists(ruta + fil.Item(col).ToString)) Then
+    '                    P_prDescargarFotoFTP(fil.Item(col).ToString)
+    '                End If
+    '            Next
+    '        Else
+    '            For Each fil As DataRow In dt.Rows
+    '                If (Not fil.Item(col).ToString = String.Empty) Then
+    '                    P_prDescargarFotoFTP(fil.Item(col).ToString)
+    '                End If
+    '            Next
+    '        End If
+    '    Catch ex As Exception
+
+    '    End Try
+    'End Sub
+
     Private Sub P_prDescargarFotosFTP(dt As DataTable, col As String, ruta As String)
         Try
-            If (My.Computer.FileSystem.GetFiles(ruta).Count > 0) Then
-                For Each fil As DataRow In dt.Rows
-                    If (Not fil.Item(col).ToString = String.Empty And
-                        Not My.Computer.FileSystem.FileExists(ruta + fil.Item(col).ToString)) Then
-                        P_prDescargarFotoFTP(fil.Item(col).ToString)
-                    End If
-                Next
-            Else
-                For Each fil As DataRow In dt.Rows
-                    If (Not fil.Item(col).ToString = String.Empty) Then
-                        P_prDescargarFotoFTP(fil.Item(col).ToString)
-                    End If
-                Next
-            End If
-        Catch ex As Exception
+            For Each fil As DataRow In dt.Rows
 
+                Dim nomImg As String = fil.Item(col).ToString.Trim()
+
+                If Not String.IsNullOrWhiteSpace(nomImg) Then
+
+                    Dim rutaLocal As String = Path.Combine(ruta, nomImg)
+
+                    If Not My.Computer.FileSystem.FileExists(rutaLocal) Then
+                        P_prDescargarFotoFTP(nomImg)
+                    End If
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+            MsgBox("Error al descargar imágenes: " & ex.Message)
         End Try
     End Sub
 
     Private Sub P_prDescargarFotoFTP(nomImg As String)
-        'Descargar el archivo al servido ftp
         Try
-            'Dim wrDownload As FtpWebRequest = WebRequest.Create("ftp://" + gs_ftpIp + "/Disoft_Doc/Imagenes/" + IIf(TipoForm = 1, "Producto/", "Equipo/") + nomImg)
-            'wrDownload.Method = WebRequestMethods.Ftp.DownloadFile
-            'wrDownload.Credentials = New NetworkCredential(gs_ftpUsuario, gs_ftpPass)
-            'Dim rDownloadResponse As FtpWebResponse = wrDownload.GetResponse()
-            'Dim strFileStream As Stream = rDownloadResponse.GetResponseStream()
-            'Dim srFile As StreamReader = New StreamReader(strFileStream)
+            If String.IsNullOrWhiteSpace(nomImg) Then Exit Sub
 
-            'Dim bm As Bitmap = New System.Drawing.Bitmap(strFileStream)
-            'bm.Save(StRutaImagenes + nomImg)
+            Dim rutaDestino As String = Path.Combine(StRutaImagenes, nomImg)
 
-            Dim rutaOrigen As String = StRutaImagenes
-            'Dim rutaOriginal As String = "ftp://" + gs_ftpIp + "/Disoft_Doc/Imagenes/" + IIf(TipoForm = 1, "Producto/", "Equipo/") + nomImg
-            'Dim rutaOriginal As String = "http://190.180.84.22:8000/Disoft_Doc/Imagenes/Imagenes%20Categoria/094403_16112017.jpg"
-            Dim rutaOriginal As String = "http://190.180.84.22:8000/Disoft_Doc/Imagenes/" + IIf(TipoForm = 1, "Producto/", "Equipo/") + nomImg
+            ' URL pública de Node.js
+            Dim rutaOriginal As String =
+            "http://" & gs_ftpIp & "/Clientes/" & nomImg
 
-            Dim bm As Bitmap = New System.Drawing.Bitmap(New IO.MemoryStream(New System.Net.WebClient().DownloadData(rutaOriginal)))
-            bm.Save(StRutaImagenes + nomImg)
+            Using client As New Net.WebClient()
+                Dim bytes As Byte() = client.DownloadData(rutaOriginal)
+                File.WriteAllBytes(rutaDestino, bytes)
+            End Using
 
-            '    My.Computer.Network.DownloadFile("ftp://" + gs_ftpIp + "/Disoft_Doc/Imagenes/" + IIf(TipoForm = 1, "Producto/", "Equipo/") + nomImg,
-            '                                     StRutaImagenes + nomImg,
-            '                                     gs_ftpUsuario,
-            '                                     gs_ftpPass)
         Catch ex As Exception
-            MsgBox("Error al conectarse al servidor FTP, Form Producto: " + ex.Message)
+            MsgBox("Error al descargar imagen: " & ex.Message)
         End Try
     End Sub
+
+    'Private Sub P_prDescargarFotoFTP(nomImg As String)
+    '    'Descargar el archivo al servido ftp
+    '    Try
+    '        'Dim wrDownload As FtpWebRequest = WebRequest.Create("ftp://" + gs_ftpIp + "/Disoft_Doc/Imagenes/" + IIf(TipoForm = 1, "Producto/", "Equipo/") + nomImg)
+    '        'wrDownload.Method = WebRequestMethods.Ftp.DownloadFile
+    '        'wrDownload.Credentials = New NetworkCredential(gs_ftpUsuario, gs_ftpPass)
+    '        'Dim rDownloadResponse As FtpWebResponse = wrDownload.GetResponse()
+    '        'Dim strFileStream As Stream = rDownloadResponse.GetResponseStream()
+    '        'Dim srFile As StreamReader = New StreamReader(strFileStream)
+
+    '        'Dim bm As Bitmap = New System.Drawing.Bitmap(strFileStream)
+    '        'bm.Save(StRutaImagenes + nomImg)
+
+    '        Dim rutaOrigen As String = StRutaImagenes
+    '        'Dim rutaOriginal As String = "ftp://" + gs_ftpIp + "/Disoft_Doc/Imagenes/" + IIf(TipoForm = 1, "Producto/", "Equipo/") + nomImg
+    '        'Dim rutaOriginal As String = "http://190.180.84.22:8000/Disoft_Doc/Imagenes/Imagenes%20Categoria/094403_16112017.jpg"
+    '        Dim rutaOriginal As String = "http://190.180.84.22:8000/Disoft_Doc/Imagenes/" + IIf(TipoForm = 1, "Producto/", "Equipo/") + nomImg
+
+    '        Dim bm As Bitmap = New System.Drawing.Bitmap(New IO.MemoryStream(New System.Net.WebClient().DownloadData(rutaOriginal)))
+    '        bm.Save(StRutaImagenes + nomImg)
+
+    '        '    My.Computer.Network.DownloadFile("ftp://" + gs_ftpIp + "/Disoft_Doc/Imagenes/" + IIf(TipoForm = 1, "Producto/", "Equipo/") + nomImg,
+    '        '                                     StRutaImagenes + nomImg,
+    '        '                                     gs_ftpUsuario,
+    '        '                                     gs_ftpPass)
+    '    Catch ex As Exception
+    '        MsgBox("Error al conectarse al servidor FTP, Form Producto: " + ex.Message)
+    '    End Try
+    'End Sub
 
 #End Region
 
@@ -1010,7 +1108,7 @@ Public Class F01_Producto
         DtBusqueda = New DataTable
         DtBusqueda = L_fnProductoGeneral(InTipoForm.ToString)
 
-        P_prPonerImagenDataSource(DtBusqueda, "nimg", "img", StRutaImagenes)
+        'P_prPonerImagenDataSource(DtBusqueda, "nimg", "img", StRutaImagenes)
 
         'numi, cod, [desc], [desc2], cat, ncat, nimg, img, stc, est, serie, pcom, fing, fact, hact, uact
 

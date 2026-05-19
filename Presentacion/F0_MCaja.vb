@@ -20,7 +20,7 @@ Public Class F0_MCaja
     Private boModif As Boolean = False
     Private boDel As Boolean = False
     Private InDuracion As Byte = 5
-    Private ListaCambio As List(Of VCajaCambio) = New List(Of VCajaCambio)
+    Private ListaCambio As DataTable 'List(Of VCajaCambio) = New List(Of VCajaCambio)
     Private ListaDeposito As List(Of VCajaDeposito) = New List(Of VCajaDeposito)
 
 
@@ -72,104 +72,89 @@ Public Class F0_MCaja
         End Try
 
     End Sub
-    Private Function _prArmarListaCambio2() As List(Of VCajaCambio)
+    Private Function _prArmarListaCambio2() As DataTable
+
         Try
-            ListaCambio = New List(Of VCajaCambio)
-            Dim Lista As VCajaCambio = Nothing
-            _prLlenarListaCambio(Lista, 20000, 50)
-            ListaCambio.Add(Lista)
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 10000, 50)
-            ListaCambio.Add(Lista)
+            Dim dt As New DataTable()
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 2000, 50)
-            ListaCambio.Add(Lista)
+            ' COLUMNAS
+            dt.Columns.Add("Id", GetType(Integer))
+            dt.Columns.Add("IdCaja", GetType(Integer))
+            dt.Columns.Add("Estado", GetType(Integer))
+            dt.Columns.Add("TipoCambio", GetType(Decimal))
+            dt.Columns.Add("CorteDolares", GetType(Decimal))
+            dt.Columns.Add("CantidadDo", GetType(Decimal))
+            dt.Columns.Add("TotalD", GetType(Decimal))
+            dt.Columns.Add("CorteBol", GetType(Decimal))
+            dt.Columns.Add("CantidadBo", GetType(Decimal))
+            dt.Columns.Add("TotalBo", GetType(Decimal))
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 1000, 50)
-            ListaCambio.Add(Lista)
+            ' FILAS
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 20000, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 10000, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 2000, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 1000, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 500, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 200, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 100, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 20, 0, 0, 50, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 10, 0, 0, 20, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 5, 0, 0, 10, 0, 0)
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 500, 50)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 200, 50)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 100, 50)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 50, 20)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 20, 10)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 10, 5)
-            ListaCambio.Add(Lista)
-
+            ListaCambio = dt
 
         Catch ex As Exception
+
             MostrarMensajeError(ex.Message)
+
+            Return Nothing
+
         End Try
+
     End Function
 
-    Private Function _prArmarListaCambio() As List(Of VCajaCambio)
+    Private Function _prArmarListaCambio() As DataTable
+
         Try
-            ListaCambio = New List(Of VCajaCambio)
-            Dim Lista As VCajaCambio = Nothing
-            _prLlenarListaCambio(Lista, 200, 100)
-            ListaCambio.Add(Lista)
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 100, 50)
-            ListaCambio.Add(Lista)
+            Dim dt As New DataTable()
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 50, 20)
-            ListaCambio.Add(Lista)
+            ' COLUMNAS
+            dt.Columns.Add("Id", GetType(Integer))
+            dt.Columns.Add("IdCaja", GetType(Integer))
+            dt.Columns.Add("Estado", GetType(Integer))
+            dt.Columns.Add("TipoCambio", GetType(Decimal))
+            dt.Columns.Add("CorteDolares", GetType(Decimal))
+            dt.Columns.Add("CantidadDo", GetType(Decimal))
+            dt.Columns.Add("TotalD", GetType(Decimal))
+            dt.Columns.Add("CorteBol", GetType(Decimal))
+            dt.Columns.Add("CantidadBo", GetType(Decimal))
+            dt.Columns.Add("TotalBo", GetType(Decimal))
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 20, 10)
-            ListaCambio.Add(Lista)
+            ' FILAS
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 200, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 100, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 50, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 20, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 10, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 5, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 50, 0, 0, 2, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 20, 0, 0, 1, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 10, 0, 0, 0.5, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 5, 0, 0, 0.2, 0, 0)
+            dt.Rows.Add(0, 0, 0, Tb_TipoCambio.Value, 5, 0, 0, 0.1, 0, 0)
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 10, 5)
-            ListaCambio.Add(Lista)
+            ListaCambio = dt
 
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 5, 1)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 2, 0)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 1, 0)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 0.5, 0)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 0.2, 0)
-            ListaCambio.Add(Lista)
-
-            Lista = Nothing
-            _prLlenarListaCambio(Lista, 0.1, 0)
-            ListaCambio.Add(Lista)
         Catch ex As Exception
+
             MostrarMensajeError(ex.Message)
+
+            Return Nothing
+
         End Try
+
     End Function
 
     Private Sub _prLlenarListaCambio(ByRef Lista As VCajaCambio, CorteBolivianos As Decimal, CordeDolares As Decimal)
@@ -181,7 +166,7 @@ Public Class F0_MCaja
     Public Sub _prCrearListaCambio(tipo As Integer, IdCaja As Integer)
         Try
             If tipo = 1 Then
-                ListaCambio = New LCajaCambio().Listar(IdCaja)
+                ListaCambio = L_prCortesCierreCaja(IdCaja) ' New LCajaCambio().Listar(IdCaja)
             End If
             Dgv_Cortes.BoundMode = Janus.Data.BoundMode.Bound
             Dgv_Cortes.DataSource = ListaCambio
@@ -716,6 +701,12 @@ Public Class F0_MCaja
                 fc.FormatStyle.BackColor = Color.LightSalmon
 
                 .RootTable.FormatConditions.Add(fc)
+
+                Dim fc2 As GridEXFormatCondition = New GridEXFormatCondition(.RootTable.Columns("concepto"), ConditionOperator.Equal, "RECHAZADO")
+                fc2.FormatStyle.BackColor = Color.Blue
+                fc2.FormatStyle.ForeColor = Color.White
+
+                .RootTable.FormatConditions.Add(fc2)
             End With
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -839,6 +830,12 @@ Public Class F0_MCaja
                 fc.FormatStyle.BackColor = Color.LightSalmon
 
                 .RootTable.FormatConditions.Add(fc)
+
+                Dim fc2 As GridEXFormatCondition = New GridEXFormatCondition(.RootTable.Columns("concepto"), ConditionOperator.Equal, "RECHAZADO")
+                fc2.FormatStyle.BackColor = Color.Blue
+                fc2.FormatStyle.ForeColor = Color.White
+
+                .RootTable.FormatConditions.Add(fc2)
             End With
         Catch ex As Exception
             MostrarMensajeError(ex.Message)
@@ -1155,7 +1152,7 @@ Public Class F0_MCaja
         End Try
     End Sub
     Private Sub _LimpiarLista()
-        ListaCambio = New List(Of VCajaCambio)
+        ' ListaCambio = New List(Of VCajaCambio)
         ListaDeposito = New List(Of VCajaDeposito)
         If gs_Mon = "Bs" Then
             _prArmarListaCambio()
@@ -1204,11 +1201,15 @@ Public Class F0_MCaja
                 dt1.Rows.Add(newRow)
             Next
             dt1.Columns.RemoveAt(11)
+
+            Dim dtCortes As DataTable = CType(Dgv_Cortes.DataSource, DataTable)
+            'Dim dtDepositos As DataTable = CType(Dgv_Depositos.DataSource, DataTable)
             Dim numi As String = ""
-            Dim res As Boolean = L_prCajaGrabar(numi, Numi_Chofer, Numi_Conciliacion, tbFecha.Value.ToString("yyyy/MM/dd"), Tb_TConciliacion.Value.ToString, dt1, Tb_TCredito.Value, Tb_TipoCambio.Value, tb_Gastos.Value)
+            Dim res As Boolean = L_prCajaGrabar(numi, Numi_Chofer, Numi_Conciliacion, tbFecha.Value.ToString("yyyy/MM/dd"), Tb_TConciliacion.Value.ToString,
+                                                dt1, Tb_TCredito.Value, Tb_TipoCambio.Value, tb_Gastos.Value, dtCortes) ', dtDepositos)
             If res Then
-                Dim ListaCambios = New LCajaCambio().GuardarCajaCambio(ListaCambio, Convert.ToInt32(numi))
-                Dim ListaDepositos = New LCajaDeposito().GuardarDepositoCambio(ListaDeposito, Convert.ToInt32(numi))
+                'Dim ListaCambios = New LCajaCambio().GuardarCajaCambio(ListaCambio, Convert.ToInt32(numi))
+                'Dim ListaDepositos = New LCajaDeposito().GuardarDepositoCambio(ListaDeposito, Convert.ToInt32(numi))
 
                 Dim dt As DataTable = CType(Dgv_PedidoTotal.DataSource, DataTable)
                 If dt.Rows.Count > 0 Then

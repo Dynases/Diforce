@@ -33,8 +33,19 @@ Public Class R01_CoberturaVendedor2
         tbVendedor.Enabled = False
         checkUnaVendedor.CheckValue = True
         P_prArmarComboZona()
+        P_prArmarComboProveedor()
+    End Sub
+
+    Private Sub P_prArmarComboProveedor()
+        Dim DtP As DataTable
+        DtP = L_fnObtenerProveedor()
+        DtP.Rows.Add(0, "TODOS")
+
+        g_prArmarCombo(cbProveedor, DtP, 60, 200, "COD", "PROVEEDOR")
+        cbProveedor.SelectedIndex = Convert.ToInt32(DtP.Rows.Count - 1)
 
     End Sub
+
 
     Private Sub P_prArmarComboZona()
         Dim Dt As New DataTable
@@ -58,11 +69,11 @@ Public Class R01_CoberturaVendedor2
 
         titulo = "VENDEDOR:"
         If (CheckTodosVendedor.Checked) Then
-            _dt = L_prListarCoberturaVentas2(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbZona.Value, CInt(tbCodigoVendedor.Text))
+            _dt = L_prListarCoberturaVentas2(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbZona.Value, CInt(tbCodigoVendedor.Text), cbProveedor.Value)
             Return
         End If
         If (checkUnaVendedor.Checked) Then
-            _dt = L_prListarCoberturaVentas2(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbZona.Value, CInt(tbCodigoVendedor.Text))
+            _dt = L_prListarCoberturaVentas2(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), cbZona.Value, CInt(tbCodigoVendedor.Text), cbProveedor.Value)
             Return
         End If
 

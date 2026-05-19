@@ -25,16 +25,26 @@ Partial Class R01_VentaEfectivaProducto
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
-        Me.tbFechaF = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
-        Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
+        Me.tbProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.checkTodosProducto = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.checkUnoProducto = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.tbCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.checkTododCliente = New DevComponents.DotNetBar.Controls.CheckBoxX()
+        Me.checkUnoCliente = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.tbCodigoVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.CheckTodosVendedor = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.checkUnaVendedor = New DevComponents.DotNetBar.Controls.CheckBoxX()
         Me.lbvendedor = New DevComponents.DotNetBar.LabelX()
+        Me.LabelX1 = New DevComponents.DotNetBar.LabelX()
+        Me.tbFechaF = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
+        Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.tbCodigoCliente = New DevComponents.DotNetBar.Controls.TextBoxX()
+        Me.tbCodigoProducto = New DevComponents.DotNetBar.Controls.TextBoxX()
         Me.MPnSuperior.SuspendLayout()
         Me.MPnInferior.SuspendLayout()
         Me.MPanelToolBarUsuario.SuspendLayout()
@@ -60,7 +70,7 @@ Partial Class R01_VentaEfectivaProducto
         '
         'MPnInferior
         '
-        Me.MPnInferior.Location = New System.Drawing.Point(300, 626)
+        Me.MPnInferior.Location = New System.Drawing.Point(300, 625)
         Me.MPnInferior.Margin = New System.Windows.Forms.Padding(2)
         Me.MPnInferior.Style.Alignment = System.Drawing.StringAlignment.Center
         Me.MPnInferior.Style.BackColor1.Color = System.Drawing.Color.Gray
@@ -72,7 +82,6 @@ Partial Class R01_VentaEfectivaProducto
         '
         'MPanelToolBarUsuario
         '
-        Me.MPanelToolBarUsuario.Location = New System.Drawing.Point(784, 0)
         Me.MPanelToolBarUsuario.Margin = New System.Windows.Forms.Padding(2)
         '
         'MTbUsuario
@@ -115,7 +124,7 @@ Partial Class R01_VentaEfectivaProducto
         '
         Me.MGpFiltro.Controls.Add(Me.GroupBox2)
         Me.MGpFiltro.Margin = New System.Windows.Forms.Padding(2)
-        Me.MGpFiltro.Size = New System.Drawing.Size(300, 592)
+        Me.MGpFiltro.Size = New System.Drawing.Size(300, 591)
         '
         '
         '
@@ -154,6 +163,16 @@ Partial Class R01_VentaEfectivaProducto
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.tbCodigoProducto)
+        Me.GroupBox2.Controls.Add(Me.tbCodigoCliente)
+        Me.GroupBox2.Controls.Add(Me.LabelX3)
+        Me.GroupBox2.Controls.Add(Me.LabelX2)
+        Me.GroupBox2.Controls.Add(Me.tbProducto)
+        Me.GroupBox2.Controls.Add(Me.checkTodosProducto)
+        Me.GroupBox2.Controls.Add(Me.checkUnoProducto)
+        Me.GroupBox2.Controls.Add(Me.tbCliente)
+        Me.GroupBox2.Controls.Add(Me.checkTododCliente)
+        Me.GroupBox2.Controls.Add(Me.checkUnoCliente)
         Me.GroupBox2.Controls.Add(Me.tbCodigoVendedor)
         Me.GroupBox2.Controls.Add(Me.tbVendedor)
         Me.GroupBox2.Controls.Add(Me.CheckTodosVendedor)
@@ -167,139 +186,128 @@ Partial Class R01_VentaEfectivaProducto
         Me.GroupBox2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox2.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(294, 501)
+        Me.GroupBox2.Size = New System.Drawing.Size(294, 499)
         Me.GroupBox2.TabIndex = 13
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos"
         '
-        'LabelX1
+        'LabelX3
         '
-        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(50, 139)
-        Me.LabelX1.Name = "LabelX1"
-        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX1.Size = New System.Drawing.Size(52, 23)
-        Me.LabelX1.TabIndex = 235
-        Me.LabelX1.Text = "Al:"
-        '
-        'tbFechaF
+        Me.LabelX3.AutoSize = True
+        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX3.Location = New System.Drawing.Point(9, 175)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(64, 16)
+        Me.LabelX3.TabIndex = 263
+        Me.LabelX3.Text = "Producto:"
         '
-        Me.tbFechaF.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbFechaF.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaF.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
-        Me.tbFechaF.ButtonDropDown.Visible = True
-        Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaF.IsPopupCalendarOpen = False
-        Me.tbFechaF.Location = New System.Drawing.Point(126, 139)
+        'LabelX2
         '
-        '
-        '
-        '
-        '
-        '
-        Me.tbFechaF.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaF.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
-        Me.tbFechaF.MonthCalendar.ClearButtonVisible = True
+        Me.LabelX2.AutoSize = True
+        Me.LabelX2.BackColor = System.Drawing.Color.Transparent
         '
         '
         '
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
-        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaF.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
-        Me.tbFechaF.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        Me.LabelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX2.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX2.Location = New System.Drawing.Point(9, 103)
+        Me.LabelX2.Name = "LabelX2"
+        Me.LabelX2.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX2.Size = New System.Drawing.Size(51, 16)
+        Me.LabelX2.TabIndex = 262
+        Me.LabelX2.Text = "Cliente:"
+        '
+        'tbProducto
+        '
+        Me.tbProducto.BackColor = System.Drawing.Color.Gainsboro
         '
         '
         '
-        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
-        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
-        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaF.MonthCalendar.TodayButtonVisible = True
-        Me.tbFechaF.Name = "tbFechaF"
-        Me.tbFechaF.Size = New System.Drawing.Size(120, 22)
-        Me.tbFechaF.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.tbFechaF.TabIndex = 234
+        Me.tbProducto.Border.Class = "TextBoxBorder"
+        Me.tbProducto.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbProducto.Location = New System.Drawing.Point(9, 197)
+        Me.tbProducto.Name = "tbProducto"
+        Me.tbProducto.PreventEnterBeep = True
+        Me.tbProducto.Size = New System.Drawing.Size(167, 22)
+        Me.tbProducto.TabIndex = 261
         '
-        'LabelX4
-        '
-        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
-        '
-        '
-        '
-        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(47, 107)
-        Me.LabelX4.Name = "LabelX4"
-        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
-        Me.LabelX4.Size = New System.Drawing.Size(74, 23)
-        Me.LabelX4.TabIndex = 233
-        Me.LabelX4.Text = "Fecha Del:"
-        '
-        'tbFechaI
+        'checkTodosProducto
         '
         '
         '
         '
-        Me.tbFechaI.BackgroundStyle.Class = "DateTimeInputBackground"
-        Me.tbFechaI.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaI.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
-        Me.tbFechaI.ButtonDropDown.Visible = True
-        Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tbFechaI.IsPopupCalendarOpen = False
-        Me.tbFechaI.Location = New System.Drawing.Point(126, 108)
+        Me.checkTodosProducto.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.checkTodosProducto.Location = New System.Drawing.Point(231, 195)
+        Me.checkTodosProducto.Name = "checkTodosProducto"
+        Me.checkTodosProducto.Size = New System.Drawing.Size(57, 22)
+        Me.checkTodosProducto.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.checkTodosProducto.TabIndex = 260
+        Me.checkTodosProducto.Text = "Todos"
+        '
+        'checkUnoProducto
         '
         '
         '
         '
+        Me.checkUnoProducto.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.checkUnoProducto.Location = New System.Drawing.Point(185, 195)
+        Me.checkUnoProducto.Name = "checkUnoProducto"
+        Me.checkUnoProducto.Size = New System.Drawing.Size(44, 22)
+        Me.checkUnoProducto.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.checkUnoProducto.TabIndex = 259
+        Me.checkUnoProducto.Text = "Una"
         '
+        'tbCliente
         '
-        Me.tbFechaI.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaI.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
-        Me.tbFechaI.MonthCalendar.ClearButtonVisible = True
-        '
-        '
-        '
-        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
-        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
-        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
-        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
-        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
-        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaI.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
-        Me.tbFechaI.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        Me.tbCliente.BackColor = System.Drawing.Color.Gainsboro
         '
         '
         '
-        Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
-        Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
-        Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
-        Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
-        Me.tbFechaI.MonthCalendar.TodayButtonVisible = True
-        Me.tbFechaI.Name = "tbFechaI"
-        Me.tbFechaI.Size = New System.Drawing.Size(120, 22)
-        Me.tbFechaI.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.tbFechaI.TabIndex = 232
+        Me.tbCliente.Border.Class = "TextBoxBorder"
+        Me.tbCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCliente.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCliente.Location = New System.Drawing.Point(9, 125)
+        Me.tbCliente.Name = "tbCliente"
+        Me.tbCliente.PreventEnterBeep = True
+        Me.tbCliente.Size = New System.Drawing.Size(167, 22)
+        Me.tbCliente.TabIndex = 258
         '
-        'Timer1
+        'checkTododCliente
         '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 1000
+        '
+        '
+        '
+        Me.checkTododCliente.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.checkTododCliente.Location = New System.Drawing.Point(231, 123)
+        Me.checkTododCliente.Name = "checkTododCliente"
+        Me.checkTododCliente.Size = New System.Drawing.Size(57, 22)
+        Me.checkTododCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.checkTododCliente.TabIndex = 257
+        Me.checkTododCliente.Text = "Todos"
+        '
+        'checkUnoCliente
+        '
+        '
+        '
+        '
+        Me.checkUnoCliente.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.checkUnoCliente.Location = New System.Drawing.Point(185, 123)
+        Me.checkUnoCliente.Name = "checkUnoCliente"
+        Me.checkUnoCliente.Size = New System.Drawing.Size(44, 22)
+        Me.checkUnoCliente.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.checkUnoCliente.TabIndex = 256
+        Me.checkUnoCliente.Text = "Una"
         '
         'tbCodigoVendedor
         '
@@ -310,7 +318,7 @@ Partial Class R01_VentaEfectivaProducto
         Me.tbCodigoVendedor.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.tbCodigoVendedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbCodigoVendedor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.tbCodigoVendedor.Location = New System.Drawing.Point(12, 86)
+        Me.tbCodigoVendedor.Location = New System.Drawing.Point(9, 243)
         Me.tbCodigoVendedor.Name = "tbCodigoVendedor"
         Me.tbCodigoVendedor.PreventEnterBeep = True
         Me.tbCodigoVendedor.Size = New System.Drawing.Size(21, 22)
@@ -377,6 +385,169 @@ Partial Class R01_VentaEfectivaProducto
         Me.lbvendedor.TabIndex = 252
         Me.lbvendedor.Text = "Vendedor:"
         '
+        'LabelX1
+        '
+        Me.LabelX1.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX1.Location = New System.Drawing.Point(47, 322)
+        Me.LabelX1.Name = "LabelX1"
+        Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX1.Size = New System.Drawing.Size(52, 23)
+        Me.LabelX1.TabIndex = 235
+        Me.LabelX1.Text = "Al:"
+        '
+        'tbFechaF
+        '
+        '
+        '
+        '
+        Me.tbFechaF.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbFechaF.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbFechaF.ButtonDropDown.Visible = True
+        Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaF.IsPopupCalendarOpen = False
+        Me.tbFechaF.Location = New System.Drawing.Point(123, 322)
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbFechaF.MonthCalendar.ClearButtonVisible = True
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbFechaF.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbFechaF.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        '
+        '
+        '
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbFechaF.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaF.MonthCalendar.TodayButtonVisible = True
+        Me.tbFechaF.Name = "tbFechaF"
+        Me.tbFechaF.Size = New System.Drawing.Size(120, 22)
+        Me.tbFechaF.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbFechaF.TabIndex = 234
+        '
+        'LabelX4
+        '
+        Me.LabelX4.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX4.Location = New System.Drawing.Point(44, 290)
+        Me.LabelX4.Name = "LabelX4"
+        Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX4.Size = New System.Drawing.Size(74, 23)
+        Me.LabelX4.TabIndex = 233
+        Me.LabelX4.Text = "Fecha Del:"
+        '
+        'tbFechaI
+        '
+        '
+        '
+        '
+        Me.tbFechaI.BackgroundStyle.Class = "DateTimeInputBackground"
+        Me.tbFechaI.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaI.ButtonDropDown.Shortcut = DevComponents.DotNetBar.eShortcut.AltDown
+        Me.tbFechaI.ButtonDropDown.Visible = True
+        Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbFechaI.IsPopupCalendarOpen = False
+        Me.tbFechaI.Location = New System.Drawing.Point(123, 291)
+        '
+        '
+        '
+        '
+        '
+        '
+        Me.tbFechaI.MonthCalendar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaI.MonthCalendar.CalendarDimensions = New System.Drawing.Size(1, 1)
+        Me.tbFechaI.MonthCalendar.ClearButtonVisible = True
+        '
+        '
+        '
+        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2
+        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground
+        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid
+        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BorderTopColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder
+        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.BorderTopWidth = 1
+        Me.tbFechaI.MonthCalendar.CommandsBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaI.MonthCalendar.DisplayMonth = New Date(2017, 2, 1, 0, 0, 0, 0)
+        Me.tbFechaI.MonthCalendar.FirstDayOfWeek = System.DayOfWeek.Monday
+        '
+        '
+        '
+        Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground2
+        Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.BackColorGradientAngle = 90
+        Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground
+        Me.tbFechaI.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbFechaI.MonthCalendar.TodayButtonVisible = True
+        Me.tbFechaI.Name = "tbFechaI"
+        Me.tbFechaI.Size = New System.Drawing.Size(120, 22)
+        Me.tbFechaI.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.tbFechaI.TabIndex = 232
+        '
+        'Timer1
+        '
+        Me.Timer1.Enabled = True
+        Me.Timer1.Interval = 1000
+        '
+        'tbCodigoCliente
+        '
+        '
+        '
+        '
+        Me.tbCodigoCliente.Border.Class = "TextBoxBorder"
+        Me.tbCodigoCliente.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodigoCliente.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodigoCliente.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodigoCliente.Location = New System.Drawing.Point(36, 243)
+        Me.tbCodigoCliente.Name = "tbCodigoCliente"
+        Me.tbCodigoCliente.PreventEnterBeep = True
+        Me.tbCodigoCliente.Size = New System.Drawing.Size(21, 22)
+        Me.tbCodigoCliente.TabIndex = 264
+        Me.tbCodigoCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.tbCodigoCliente.Visible = False
+        '
+        'tbCodigoProducto
+        '
+        '
+        '
+        '
+        Me.tbCodigoProducto.Border.Class = "TextBoxBorder"
+        Me.tbCodigoProducto.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.tbCodigoProducto.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbCodigoProducto.ForeColor = System.Drawing.Color.FromArgb(CType(CType(45, Byte), Integer), CType(CType(59, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.tbCodigoProducto.Location = New System.Drawing.Point(66, 243)
+        Me.tbCodigoProducto.Name = "tbCodigoProducto"
+        Me.tbCodigoProducto.PreventEnterBeep = True
+        Me.tbCodigoProducto.Size = New System.Drawing.Size(21, 22)
+        Me.tbCodigoProducto.TabIndex = 265
+        Me.tbCodigoProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.tbCodigoProducto.Visible = False
+        '
         'R01_VentaEfectivaProducto
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -417,4 +588,14 @@ Partial Class R01_VentaEfectivaProducto
     Friend WithEvents CheckTodosVendedor As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents checkUnaVendedor As DevComponents.DotNetBar.Controls.CheckBoxX
     Friend WithEvents lbvendedor As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents LabelX2 As DevComponents.DotNetBar.LabelX
+    Friend WithEvents tbProducto As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents checkTodosProducto As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents checkUnoProducto As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents tbCliente As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents checkTododCliente As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents checkUnoCliente As DevComponents.DotNetBar.Controls.CheckBoxX
+    Friend WithEvents tbCodigoProducto As DevComponents.DotNetBar.Controls.TextBoxX
+    Friend WithEvents tbCodigoCliente As DevComponents.DotNetBar.Controls.TextBoxX
 End Class

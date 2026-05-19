@@ -56,7 +56,7 @@ Module P_Global
     Public gs_PrecioFact As Integer = 0   '1= indica si se usara un`precio distinto al de la venta al momento de facturar
 
     'Datos para conexion FTP
-    Public gs_ftpIp As String = "localhost"
+    Public gs_ftpIp As String = "192.168.0.18:3035"
     Public gs_ftpUsuario As String = "usuarioftp"
     Public gs_ftpPass As String = "123"
 

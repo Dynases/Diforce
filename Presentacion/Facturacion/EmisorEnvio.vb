@@ -23,7 +23,7 @@
 
     Public Class producto
         Public Property descripcion As String
-        Public Property codigo As Integer
+        Public Property codigo As String
         Public Property lista_precios As String
         Public Property leyenda As String
         Public Property documento_nro As Integer

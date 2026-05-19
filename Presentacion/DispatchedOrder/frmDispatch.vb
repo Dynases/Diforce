@@ -448,7 +448,7 @@ Public Class frmDispatch
                 Throw New Exception("Debe seleccionar un chofer.")
             End If
 
-            Dim result = New LPedido().GuardarPedidoDeChofer(listIdPedido, idChofer, gs_user)
+            Dim result = L_prGuardarAsignacion(ConvertirListaADataTable(listIdPedido), idChofer) 'New LPedido().GuardarPedidoDeChofer(listIdPedido, idChofer, gs_user)
             If (result) Then
                 btActualizar.PerformClick()
                 MostrarMensajeOk("Pedidos asignados correctamente")
@@ -457,6 +457,24 @@ Public Class frmDispatch
             Throw New Exception(ex.Message)
         End Try
     End Sub
+
+    Private Function ConvertirListaADataTable(
+    lista As List(Of Integer)
+) As DataTable
+
+        Dim dt As New DataTable()
+
+        dt.Columns.Add("Id", GetType(Integer))
+
+        For Each item As Integer In lista
+
+            dt.Rows.Add(item)
+
+        Next
+
+        Return dt
+
+    End Function
 
     Private Sub MostrarMensajeError(mensaje As String)
         ToastNotification.Show(Me,

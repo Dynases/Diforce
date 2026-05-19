@@ -26,6 +26,8 @@ Public Class R01_VentaEfectivaProducto
 
     Public Sub _IniciarComponentes()
         CheckTodosVendedor.Checked = True
+        checkTododCliente.Checked = True
+        checkTodosProducto.Checked = True
 
     End Sub
 
@@ -33,7 +35,7 @@ Public Class R01_VentaEfectivaProducto
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
 
 
-        _dt = L_prReporteVentasEfectividadProducto(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), IIf(CheckTodosVendedor.Checked, -1, tbCodigoVendedor.Text))
+        _dt = L_prReporteVentasEfectividadProducto(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), IIf(CheckTodosVendedor.Checked, -1, tbCodigoVendedor.Text), IIf(checkTododCliente.Checked, -1, tbCodigoCliente.Text), IIf(checkTodosProducto.Checked, -1, tbCodigoProducto.Text))
         Return
 
 
@@ -51,6 +53,7 @@ Public Class R01_VentaEfectivaProducto
             objrep.SetParameterValue("fechaI", fechaI)
             objrep.SetParameterValue("fechaF", fechaF)
             objrep.SetParameterValue("vendedor", IIf(CheckTodosVendedor.Checked, "TODOS", tbVendedor.Text))
+            objrep.SetParameterValue("cliente", IIf(checkTododCliente.Checked, "TODOS", tbCliente.Text))
             MCrReporte.ReportSource = objrep
             MCrReporte.Show()
             MCrReporte.BringToFront()
@@ -160,5 +163,134 @@ Public Class R01_VentaEfectivaProducto
         End If
 
 
+    End Sub
+
+    Public Sub _prListarClientes()
+
+        Dim dt As DataTable
+        dt = L_prListarClientes()
+        'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
+        Dim listEstCeldas As New List(Of Modelo.MCelda)
+        listEstCeldas.Add(New Modelo.MCelda("ccnumi", True, "ID", 50))
+        listEstCeldas.Add(New Modelo.MCelda("nombre", True, "NOMBRE", 280))
+        listEstCeldas.Add(New Modelo.MCelda("ccdirec", True, "DIRECCION", 220))
+        listEstCeldas.Add(New Modelo.MCelda("cctelf1", True, "Telefono".ToUpper, 200))
+        Dim ef = New Efecto
+        ef.tipo = 3
+        ef.dt = dt
+        ef.SeleclCol = 1
+        ef.listEstCeldas = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Cliente".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            If (IsNothing(Row)) Then
+                tbCliente.Focus()
+                Return
+            End If
+            tbCodigoCliente.Text = Row.Cells("ccnumi").Value
+            tbCliente.Text = Row.Cells("nombre").Value
+            MBtGenerar.Select()
+
+        End If
+
+
+    End Sub
+
+
+    Public Sub _prListarProductos()
+
+        Dim dt As DataTable
+        dt = L_prListarProductos()
+        'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
+        Dim listEstCeldas As New List(Of Modelo.MCelda)
+        listEstCeldas.Add(New Modelo.MCelda("canumi", True, "COD.", 50))
+        listEstCeldas.Add(New Modelo.MCelda("cacod", True, "COD. PRODUCTO", 220))
+        listEstCeldas.Add(New Modelo.MCelda("cadesc", True, "NOMBRE", 280))
+        Dim ef = New Efecto
+        ef.tipo = 3
+        ef.dt = dt
+        ef.SeleclCol = 1
+        ef.listEstCeldas = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Cliente".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            If (IsNothing(Row)) Then
+                tbProducto.Focus()
+                Return
+            End If
+            tbCodigoProducto.Text = Row.Cells("canumi").Value
+            tbProducto.Text = Row.Cells("cadesc").Value
+            MBtGenerar.Select()
+
+        End If
+
+
+    End Sub
+    Private Sub checkUnoCliente_CheckValueChanged(sender As Object, e As EventArgs) Handles checkUnoCliente.CheckValueChanged
+        If (checkUnoCliente.Checked) Then
+            checkTododCliente.CheckValue = False
+            tbCliente.Enabled = True
+            tbCliente.BackColor = Color.White
+            tbCliente.Focus()
+
+        End If
+    End Sub
+
+    Private Sub checkUnoProducto_CheckValueChanged(sender As Object, e As EventArgs) Handles checkUnoProducto.CheckValueChanged
+        If (checkUnoProducto.Checked) Then
+            checkTodosProducto.CheckValue = False
+            tbProducto.Enabled = True
+            tbProducto.BackColor = Color.White
+            tbProducto.Focus()
+
+        End If
+    End Sub
+
+    Private Sub checkTododCliente_CheckedChanged(sender As Object, e As EventArgs) Handles checkTododCliente.CheckedChanged
+
+    End Sub
+
+    Private Sub checkTododCliente_CheckValueChanged(sender As Object, e As EventArgs) Handles checkTododCliente.CheckValueChanged
+        If (checkTododCliente.Checked) Then
+            checkUnoCliente.CheckValue = False
+            tbCliente.Enabled = True
+            tbCliente.BackColor = Color.Gainsboro
+            tbCliente.Clear()
+            tbCodigoCliente.Clear()
+
+        End If
+    End Sub
+
+    Private Sub checkTodosProducto_CheckValueChanged(sender As Object, e As EventArgs) Handles checkTodosProducto.CheckValueChanged
+        If (checkTodosProducto.Checked) Then
+            checkUnoProducto.CheckValue = False
+            tbProducto.Enabled = True
+            tbProducto.BackColor = Color.Gainsboro
+            tbProducto.Clear()
+            tbCodigoProducto.Clear()
+
+        End If
+    End Sub
+
+    Private Sub tbCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles tbCliente.KeyDown
+        If e.KeyData = Keys.Control + Keys.Enter Then
+            _prListarClientes()
+        End If
+    End Sub
+
+    Private Sub tbProducto_KeyDown(sender As Object, e As KeyEventArgs) Handles tbProducto.KeyDown
+        If e.KeyData = Keys.Control + Keys.Enter Then
+            _prListarProductos()
+        End If
     End Sub
 End Class

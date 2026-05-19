@@ -25,8 +25,11 @@ Partial Class R01_CoberturaVendedor2
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim cbZona_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
+        Dim cbProveedor_DesignTimeLayout As Janus.Windows.GridEX.GridEXLayout = New Janus.Windows.GridEX.GridEXLayout()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(R01_CoberturaVendedor2))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
+        Me.btnExportar = New DevComponents.DotNetBar.ButtonX()
         Me.LabelX2 = New DevComponents.DotNetBar.LabelX()
         Me.cbZona = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
         Me.tbVendedor = New DevComponents.DotNetBar.Controls.TextBoxX()
@@ -40,8 +43,8 @@ Partial Class R01_CoberturaVendedor2
         Me.LabelX4 = New DevComponents.DotNetBar.LabelX()
         Me.tbFechaI = New DevComponents.Editors.DateTimeAdv.DateTimeInput()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.btnExportar = New DevComponents.DotNetBar.ButtonX()
-        Me.JGrM_Buscador = New Janus.Windows.GridEX.GridEX()
+        Me.cbProveedor = New Janus.Windows.GridEX.EditControls.MultiColumnCombo()
+        Me.LabelX3 = New DevComponents.DotNetBar.LabelX()
         Me.MPnSuperior.SuspendLayout()
         Me.MPnInferior.SuspendLayout()
         Me.MPanelToolBarUsuario.SuspendLayout()
@@ -51,10 +54,11 @@ Partial Class R01_CoberturaVendedor2
         CType(Me.MEP, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MGpFiltro.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cbZona, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cbProveedor, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MPnSuperior
@@ -162,6 +166,8 @@ Partial Class R01_CoberturaVendedor2
         'GroupBox2
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.cbProveedor)
+        Me.GroupBox2.Controls.Add(Me.LabelX3)
         Me.GroupBox2.Controls.Add(Me.JGrM_Buscador)
         Me.GroupBox2.Controls.Add(Me.btnExportar)
         Me.GroupBox2.Controls.Add(Me.LabelX2)
@@ -184,6 +190,28 @@ Partial Class R01_CoberturaVendedor2
         Me.GroupBox2.TabIndex = 13
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos"
+        '
+        'JGrM_Buscador
+        '
+        Me.JGrM_Buscador.Location = New System.Drawing.Point(24, 423)
+        Me.JGrM_Buscador.Name = "JGrM_Buscador"
+        Me.JGrM_Buscador.Size = New System.Drawing.Size(29, 33)
+        Me.JGrM_Buscador.TabIndex = 399
+        Me.JGrM_Buscador.Visible = False
+        '
+        'btnExportar
+        '
+        Me.btnExportar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
+        Me.btnExportar.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
+        Me.btnExportar.Image = Global.Presentacion.My.Resources.Resources.EXCEL
+        Me.btnExportar.ImageFixedSize = New System.Drawing.Size(50, 55)
+        Me.btnExportar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.btnExportar.Location = New System.Drawing.Point(101, 357)
+        Me.btnExportar.Name = "btnExportar"
+        Me.btnExportar.Size = New System.Drawing.Size(65, 72)
+        Me.btnExportar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
+        Me.btnExportar.TabIndex = 398
+        Me.btnExportar.Text = "Exportar"
         '
         'LabelX2
         '
@@ -318,7 +346,7 @@ Partial Class R01_CoberturaVendedor2
         Me.LabelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX1.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX1.Location = New System.Drawing.Point(12, 237)
+        Me.LabelX1.Location = New System.Drawing.Point(15, 287)
         Me.LabelX1.Name = "LabelX1"
         Me.LabelX1.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX1.Size = New System.Drawing.Size(52, 23)
@@ -336,7 +364,7 @@ Partial Class R01_CoberturaVendedor2
         Me.tbFechaF.ButtonDropDown.Visible = True
         Me.tbFechaF.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaF.IsPopupCalendarOpen = False
-        Me.tbFechaF.Location = New System.Drawing.Point(109, 237)
+        Me.tbFechaF.Location = New System.Drawing.Point(112, 287)
         '
         '
         '
@@ -380,7 +408,7 @@ Partial Class R01_CoberturaVendedor2
         Me.LabelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.LabelX4.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelX4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
-        Me.LabelX4.Location = New System.Drawing.Point(9, 205)
+        Me.LabelX4.Location = New System.Drawing.Point(12, 255)
         Me.LabelX4.Name = "LabelX4"
         Me.LabelX4.SingleLineColor = System.Drawing.SystemColors.Control
         Me.LabelX4.Size = New System.Drawing.Size(74, 23)
@@ -398,7 +426,7 @@ Partial Class R01_CoberturaVendedor2
         Me.tbFechaI.ButtonDropDown.Visible = True
         Me.tbFechaI.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbFechaI.IsPopupCalendarOpen = False
-        Me.tbFechaI.Location = New System.Drawing.Point(109, 206)
+        Me.tbFechaI.Location = New System.Drawing.Point(112, 256)
         '
         '
         '
@@ -438,27 +466,38 @@ Partial Class R01_CoberturaVendedor2
         Me.Timer1.Enabled = True
         Me.Timer1.Interval = 1000
         '
-        'btnExportar
+        'cbProveedor
         '
-        Me.btnExportar.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton
-        Me.btnExportar.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat
-        Me.btnExportar.Image = Global.Presentacion.My.Resources.Resources.EXCEL
-        Me.btnExportar.ImageFixedSize = New System.Drawing.Size(50, 55)
-        Me.btnExportar.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
-        Me.btnExportar.Location = New System.Drawing.Point(98, 307)
-        Me.btnExportar.Name = "btnExportar"
-        Me.btnExportar.Size = New System.Drawing.Size(65, 72)
-        Me.btnExportar.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
-        Me.btnExportar.TabIndex = 398
-        Me.btnExportar.Text = "Exportar"
+        Me.cbProveedor.ComboStyle = Janus.Windows.GridEX.ComboStyle.DropDownList
+        cbProveedor_DesignTimeLayout.LayoutString = resources.GetString("cbProveedor_DesignTimeLayout.LayoutString")
+        Me.cbProveedor.DesignTimeLayout = cbProveedor_DesignTimeLayout
+        Me.cbProveedor.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbProveedor.Location = New System.Drawing.Point(6, 204)
+        Me.cbProveedor.Name = "cbProveedor"
+        Me.cbProveedor.Office2007ColorScheme = Janus.Windows.GridEX.Office2007ColorScheme.Custom
+        Me.cbProveedor.Office2007CustomColor = System.Drawing.Color.DodgerBlue
+        Me.cbProveedor.SelectedIndex = -1
+        Me.cbProveedor.SelectedItem = Nothing
+        Me.cbProveedor.Size = New System.Drawing.Size(268, 22)
+        Me.cbProveedor.TabIndex = 401
+        Me.cbProveedor.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2007
         '
-        'JGrM_Buscador
+        'LabelX3
         '
-        Me.JGrM_Buscador.Location = New System.Drawing.Point(21, 373)
-        Me.JGrM_Buscador.Name = "JGrM_Buscador"
-        Me.JGrM_Buscador.Size = New System.Drawing.Size(29, 33)
-        Me.JGrM_Buscador.TabIndex = 399
-        Me.JGrM_Buscador.Visible = False
+        Me.LabelX3.AutoSize = True
+        Me.LabelX3.BackColor = System.Drawing.Color.Transparent
+        '
+        '
+        '
+        Me.LabelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square
+        Me.LabelX3.Font = New System.Drawing.Font("Georgia", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelX3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(139, Byte), Integer))
+        Me.LabelX3.Location = New System.Drawing.Point(9, 173)
+        Me.LabelX3.Name = "LabelX3"
+        Me.LabelX3.SingleLineColor = System.Drawing.SystemColors.Control
+        Me.LabelX3.Size = New System.Drawing.Size(72, 16)
+        Me.LabelX3.TabIndex = 400
+        Me.LabelX3.Text = "Proveedor:"
         '
         'R01_CoberturaVendedor2
         '
@@ -484,10 +523,11 @@ Partial Class R01_CoberturaVendedor2
         Me.MGpFiltro.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cbZona, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaF, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tbFechaI, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.JGrM_Buscador, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cbProveedor, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -507,4 +547,6 @@ Partial Class R01_CoberturaVendedor2
     Friend WithEvents cbZona As Janus.Windows.GridEX.EditControls.MultiColumnCombo
     Friend WithEvents btnExportar As DevComponents.DotNetBar.ButtonX
     Friend WithEvents JGrM_Buscador As Janus.Windows.GridEX.GridEX
+    Friend WithEvents cbProveedor As Janus.Windows.GridEX.EditControls.MultiColumnCombo
+    Friend WithEvents LabelX3 As DevComponents.DotNetBar.LabelX
 End Class

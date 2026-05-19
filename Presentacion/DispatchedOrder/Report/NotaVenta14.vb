@@ -118,7 +118,7 @@ Public Class NotaVenta14
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_SubNotaVentarpt_nroDespacho() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_Telefono() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(3)
         End Get
@@ -126,7 +126,7 @@ Public Class NotaVenta14
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_SubNotaVentarpt_nombreDistribuidor() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_Logo() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(4)
         End Get
@@ -134,7 +134,7 @@ Public Class NotaVenta14
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_SubNotaVentarpt_nombreUsuario() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_SubNotaVentarpt_nroDespacho() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(5)
         End Get
@@ -142,7 +142,7 @@ Public Class NotaVenta14
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_SubNotaVentarpt_FechaDocumento() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_SubNotaVentarpt_nombreDistribuidor() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(6)
         End Get
@@ -150,7 +150,7 @@ Public Class NotaVenta14
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_SubNotaVentarpt___01_nroDespacho() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_SubNotaVentarpt_nombreUsuario() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(7)
         End Get
@@ -158,25 +158,9 @@ Public Class NotaVenta14
     
     <Browsable(false),  _
      DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_SubNotaVentarpt___01_nombreDistribuidor() As CrystalDecisions.[Shared].IParameterField
+    Public ReadOnly Property Parameter_SubNotaVentarpt_FechaDocumento() As CrystalDecisions.[Shared].IParameterField
         Get
             Return Me.DataDefinition.ParameterFields(8)
-        End Get
-    End Property
-    
-    <Browsable(false),  _
-     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_SubNotaVentarpt___01_nombreUsuario() As CrystalDecisions.[Shared].IParameterField
-        Get
-            Return Me.DataDefinition.ParameterFields(9)
-        End Get
-    End Property
-    
-    <Browsable(false),  _
-     DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
-    Public ReadOnly Property Parameter_SubNotaVentarpt___01_FechaDocumento() As CrystalDecisions.[Shared].IParameterField
-        Get
-            Return Me.DataDefinition.ParameterFields(10)
         End Get
     End Property
 End Class

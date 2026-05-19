@@ -90,7 +90,7 @@ Public Class P_Principal
             gs_Ip = "HP" '"173.212.217.186" 'dt.Rows(0).Item("serv")
             gs_UsuarioSql = "sa" 'dt.Rows(0).Item("usuario")
             gs_ClaveSql = "123" '"Dynasys22*" 'dt.Rows(0).Item("pass") 
-            gs_NombreBD = "BDDistBHF_Seberino" '"BDDistBHF_Cristian" 'dt.Rows(0).Item("bd")
+            gs_NombreBD = "BDDistBHF_seberino" '"BDDistBHF_Cristian" 'dt.Rows(0).Item("bd")
             gs_CarpetaRaiz = "C:/BD/" 'dt.Rows(0).Item("froot")
             gs_NombreBD2 = "" ''dt.Rows(0).Item("bd2")
             gs_NombreBD3 = "" ''dt.Rows(0).Item("bd3")
@@ -2245,6 +2245,21 @@ Public Class P_Principal
         Dim frm As New R01_ReporteFacturas
         frm._nameButton = btReporteFacturas.Name
         frm._modulo = FP_Venta
+        frm.Show()
+    End Sub
+
+    Private Sub btCatalogo_Click(sender As Object, e As EventArgs) Handles btCatalogo.Click
+        Dim frm As New R01_CatalogoProductos
+        frm._nameButton = btCatalogo.Name
+        frm._modulo = FP_Inventario
+        frm.Show()
+    End Sub
+
+    Private Sub btComisionesCategoria_Click(sender As Object, e As EventArgs) Handles btComisionesCategoria.Click
+        F02_ComisionesCategoria.AllowTransparency = True
+        Dim frm As New F02_ComisionesCategoria
+        frm._nameButton = btComisionesCategoria.Name
+        frm._modulo = FP_CRM
         frm.Show()
     End Sub
 End Class

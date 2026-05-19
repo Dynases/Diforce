@@ -391,6 +391,12 @@
       <DesignTime>True</DesignTime>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DispatchedOrder\Report\NotaVenta19.vb">
+      <DependentUpon>NotaVenta19.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DispatchedOrder\Report\NotaVenta18.vb">
       <DependentUpon>NotaVenta18.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1095,6 +1101,12 @@
     <Compile Include="R01_SaldoProducto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="R01_CatalogoProductos.Designer.vb">
+      <DependentUpon>R01_CatalogoProductos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="R01_CatalogoProductos.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="R01_StockDisponible.Designer.vb">
       <DependentUpon>R01_StockDisponible.vb</DependentUpon>
     </Compile>
@@ -1361,6 +1373,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>R_StockActualProveedor.rpt</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\R_CatalogoProductos.vb">
+      <DependentUpon>R_CatalogoProductos.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Reportes\R_VendedorUtilidad.vb">
       <DependentUpon>R_VendedorUtilidad.rpt</DependentUpon>
@@ -2165,6 +2183,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta13.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta19.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>NotaVenta19.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="DispatchedOrder\Report\NotaVenta18.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NotaVenta18.vb</LastGenOutput>
@@ -2647,6 +2669,9 @@
     <EmbeddedResource Include="R01_SaldoProducto.resx">
       <DependentUpon>R01_SaldoProducto.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="R01_CatalogoProductos.resx">
+      <DependentUpon>R01_CatalogoProductos.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="R01_StockDisponible.resx">
       <DependentUpon>R01_StockDisponible.vb</DependentUpon>
     </EmbeddedResource>
@@ -2804,6 +2829,10 @@
     <EmbeddedResource Include="Reportes\R_StockActualProveedor.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>R_StockActualProveedor.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\R_CatalogoProductos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>R_CatalogoProductos.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\R_VendedorUtilidad.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

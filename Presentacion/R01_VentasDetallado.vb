@@ -46,7 +46,7 @@ Public Class R01_VentasDetallado
     Public Sub _prInterpretarDatos(ByRef _dt As DataTable)
 
 
-        _dt = L_prReporteVentasDetalladas(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), IIf(tbCodigoVendedor.Text = "", -1, tbCodigoVendedor.Text), IIf(tbCodigoCliente.Text = "", -1, tbCodigoCliente.Text), gi_userSuc)
+        _dt = L_prReporteVentasDetalladas(tbFechaI.Value.ToString("dd/MM/yyyy"), tbFechaF.Value.ToString("dd/MM/yyyy"), IIf(tbCodigoVendedor.Text = "", -1, tbCodigoVendedor.Text), IIf(tbCodigoCliente.Text = "", -1, tbCodigoCliente.Text), IIf(tbCodigoProducto.Text = "", -1, tbCodigoProducto.Text), gi_userSuc)
         Return
 
 
@@ -128,6 +128,16 @@ Public Class R01_VentasDetallado
             .Width = 90
             .Visible = True
             .Caption = "TOTAL"
+        End With
+        With JGrM_Buscador.RootTable.Columns("credito")
+            .Width = 90
+            .Visible = True
+            .Caption = "CREDITO"
+        End With
+        With JGrM_Buscador.RootTable.Columns("saldo")
+            .Width = 90
+            .Visible = True
+            .Caption = "SALDO"
         End With
 
 
@@ -226,6 +236,41 @@ Public Class R01_VentasDetallado
             tbCliente.Text = Row.Cells("nombre").Value
             MBtGenerar.Select()
         End If
+
+    End Sub
+
+    Public Sub _prListarProductos()
+
+        Dim dt As DataTable
+        dt = L_prListarProductos()
+        'a.cbnumi , a.cbdesc As nombre, a.cbdirec, a.cbtelef, a.cbfnac 
+        Dim listEstCeldas As New List(Of Modelo.MCelda)
+        listEstCeldas.Add(New Modelo.MCelda("canumi", True, "COD.", 50))
+        listEstCeldas.Add(New Modelo.MCelda("cacod", True, "COD. PRODUCTO", 220))
+        listEstCeldas.Add(New Modelo.MCelda("cadesc", True, "NOMBRE", 280))
+        Dim ef = New Efecto
+        ef.tipo = 3
+        ef.dt = dt
+        ef.SeleclCol = 1
+        ef.listEstCeldas = listEstCeldas
+        ef.alto = 50
+        ef.ancho = 350
+        ef.Context = "Seleccione Cliente".ToUpper
+        ef.ShowDialog()
+        Dim bandera As Boolean = False
+        bandera = ef.band
+        If (bandera = True) Then
+            Dim Row As Janus.Windows.GridEX.GridEXRow = ef.Row
+            If (IsNothing(Row)) Then
+                tbProducto.Focus()
+                Return
+            End If
+            tbCodigoProducto.Text = Row.Cells("canumi").Value
+            tbProducto.Text = Row.Cells("cadesc").Value
+            MBtGenerar.Select()
+
+        End If
+
 
     End Sub
 
@@ -424,5 +469,34 @@ Public Class R01_VentasDetallado
 
     Private Sub tbCliente_TextChanged(sender As Object, e As EventArgs) Handles tbCliente.TextChanged
 
+    End Sub
+
+    Private Sub checkTodosProducto_CheckValueChanged(sender As Object, e As EventArgs) Handles checkTodosProducto.CheckValueChanged
+        If (checkTodosProducto.Checked) Then
+            checkUnoProducto.CheckValue = False
+            tbProducto.Enabled = True
+            tbProducto.BackColor = Color.Gainsboro
+            tbProducto.Clear()
+            tbCodigoProducto.Clear()
+
+        End If
+    End Sub
+
+    Private Sub checkUnoProducto_CheckValueChanged(sender As Object, e As EventArgs) Handles checkUnoProducto.CheckValueChanged
+        If (checkUnoProducto.Checked) Then
+            checkTodosProducto.CheckValue = False
+            tbProducto.Enabled = True
+            tbProducto.BackColor = Color.White
+            tbProducto.Focus()
+        End If
+    End Sub
+
+    Private Sub tbProducto_KeyDown(sender As Object, e As KeyEventArgs) Handles tbProducto.KeyDown
+        If (checkUnoProducto.Checked) Then
+            If e.KeyData = Keys.Control + Keys.Enter Then
+
+                _prListarProductos()
+            End If
+        End If
     End Sub
 End Class

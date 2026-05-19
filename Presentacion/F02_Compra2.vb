@@ -1565,7 +1565,7 @@ Public Class F02_Compra2
 
     Private Sub P_prArmarAyudaProveedor()
         Dim frmAyuda As Modelo.ModeloAyuda
-        Dim dt As DataTable = L_fnObtenerTabla("cmnumi, cmrsocial, cmnit", "TC010", "cmest=1")
+        Dim dt As DataTable = L_fnObtenerTabla("cmnumi, cmdesc, cmnit", "TC010", "cmest=1")
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("cmnumi", True, "Código", 70))
         listEstCeldas.Add(New Modelo.MCelda("cmrsocial", True, "Proveedor", 280))
@@ -1577,7 +1577,7 @@ Public Class F02_Compra2
 
         If frmAyuda.seleccionado = True Then
             Dim id As String = frmAyuda.filaSelect.Cells("cmnumi").Value
-            Dim desc As String = frmAyuda.filaSelect.Cells("cmrsocial").Value
+            Dim desc As String = frmAyuda.filaSelect.Cells("cmdesc").Value
             Dim nit As String = frmAyuda.filaSelect.Cells("cmnit").Value
             tbCodProveedor.Text = id
             tbProveedor.Text = desc
@@ -1596,7 +1596,7 @@ Public Class F02_Compra2
         Dim frmAyuda As Modelo.ModeloAyuda
 
         'Dim dt As DataTable = L_ProductosGeneral(1, "caest=1 and caserie=0").Tables(0)
-        Dim dt As DataTable = L_ProductosGeneralPrecioCosto(1, "caest=1 and caserie=0 and chcprod=canumi and chcatcl=1 and cagr1= " + tbCodProveedor.Text).Tables(0) 'cagr1= " + tbCodProveedor.Text + "
+        Dim dt As DataTable = L_fnCProductosCompra(tbCodProveedor.Text) ' L_ProductosGeneralPrecioCosto(1, "caest=1 and caserie=0 and chcprod=canumi and chcatcl=1 and cagr1= " + tbCodProveedor.Text).Tables(0) 'cagr1= " + tbCodProveedor.Text + "
 
         Dim listEstCeldas As New List(Of Modelo.MCelda)
         listEstCeldas.Add(New Modelo.MCelda("canumi", True, "Código", 80))

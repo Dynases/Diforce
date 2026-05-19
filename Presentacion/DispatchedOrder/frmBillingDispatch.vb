@@ -669,6 +669,8 @@ Public Class frmBillingDispatch
                 ReporteNotaVenta17(idPedido, _Ds2, _Ds3, _Literal, listaResultado, nomVendedor)
             Case "18"
                 ReporteNotaVenta18(idPedido, _Ds2, _Ds3, _Literal, listaResultado, nomVendedor)
+            Case "19"
+                ReporteNotaVenta19(idPedido, _Ds2, _Ds3, _Literal, listaResultado, nomVendedor)
         End Select
     End Sub
 
@@ -1379,6 +1381,181 @@ Public Class frmBillingDispatch
         End If
     End Sub
 
+    Private Sub ReporteNotaVenta19(idPedido As String, _Ds2 As DataSet, _Ds3 As DataSet, _Literal As String, listResult As DataTable, nomVendedor As String)
+        P_Global.Visualizador = New Visualizador
+
+        Dim objrep As New NotaVenta19
+        Dim dia, mes, ano As Integer
+        Dim Fecliteral, mesl As String
+
+        Dim dt As DataTable = L_prPedidoTipoVenta(CInt(idPedido))
+
+        Fecliteral = Date.Now.ToString("dd/MM/yyyy")
+
+        dia = Microsoft.VisualBasic.Left(Fecliteral, 2)
+        mes = Microsoft.VisualBasic.Mid(Fecliteral, 4, 2)
+        ano = Microsoft.VisualBasic.Mid(Fecliteral, 7, 4)
+
+        mesl = ObtenerMesLiberal(mes)
+
+        Fecliteral =
+    _Ds2.Tables(0).Rows(0).Item("scciu").ToString +
+    " " +
+    dia.ToString +
+    " de " +
+    mesl +
+    " del " +
+    ano.ToString
+
+        '========================
+        ' DATOS DEL REPORTE
+        '========================
+
+        objrep.SetDataSource(listResult)
+
+        objrep.SetParameterValue(
+    "Telefono",
+    _Ds2.Tables(0).Rows(0).Item("sctelf").ToString
+)
+
+        objrep.SetParameterValue(
+    "Direccion",
+    _Ds2.Tables(0).Rows(0).Item("scdir").ToString
+)
+
+        objrep.SetParameterValue(
+    "Ciudad",
+    _Ds2.Tables(0).Rows(0).Item("scciu").ToString
+)
+
+        objrep.SetParameterValue(
+    "Empresa",
+    gs_empresaDescSistema
+)
+
+        objrep.SetParameterValue(
+    "idPedido",
+    idPedido
+)
+
+        objrep.SetParameterValue(
+    "Logo",
+    gb_ubilogo
+)
+
+        objrep.SetParameterValue(
+    "vendedor",
+    nomVendedor
+)
+
+        objrep.SetParameterValue(
+    "Distribuidor",
+    cbChoferes.Text
+)
+
+        objrep.SetParameterValue(
+    "fechaL",
+    Fecliteral
+)
+
+        objrep.SetParameterValue(
+    "tipoventa",
+    IIf(dt.Rows.Count > 0,
+        dt.Rows(0).Item("oaobs"),
+        "")
+)
+
+        '========================
+        ' VISTA PREVIA
+        '========================
+
+        If (_Ds3.Tables(0).Rows(0).Item("cbvp")) Then
+
+            ' Mostrar reporte
+            P_Global.Visualizador.CRV1.ReportSource = objrep
+            P_Global.Visualizador.CRV1.Refresh()
+
+            '========================
+            ' EXPORTAR PDF AUTOMÁTICO
+            '========================
+
+            Dim rutaPDF As String =
+        System.IO.Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "PDF"
+        )
+
+            ' Crear carpeta si no existe
+            If Not System.IO.Directory.Exists(rutaPDF) Then
+                System.IO.Directory.CreateDirectory(rutaPDF)
+            End If
+
+            ' Nombre automático
+            Dim nombrePDF As String =
+        "Pedido_" &
+        idPedido &
+        "_" &
+        Format(Now, "yyyyMMdd_HHmmss") &
+        ".pdf"
+
+            ' Ruta completa
+            Dim rutaCompleta As String =
+        System.IO.Path.Combine(
+            rutaPDF,
+            nombrePDF
+        )
+
+            ' Exportar PDF automáticamente
+            objrep.ExportToDisk(
+        CrystalDecisions.Shared.ExportFormatType.PortableDocFormat,
+        rutaCompleta
+    )
+
+            ' Abrir visor
+            P_Global.Visualizador.ShowDialog()
+
+        Else
+
+            '========================
+            ' IMPRESIÓN DIRECTA
+            '========================
+
+            Dim pd As New PrintDocument()
+
+            pd.PrinterSettings.PrinterName =
+        _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+
+            If (Not pd.PrinterSettings.IsValid) Then
+
+                ToastNotification.Show(
+            Me,
+            "La Impresora ".ToUpper +
+            _Ds3.Tables(0).Rows(0).Item("cbrut").ToString +
+            Chr(13) +
+            "No Existe".ToUpper,
+            My.Resources.WARNING,
+            5 * 1000,
+            eToastGlowColor.Blue,
+            eToastPosition.BottomRight
+        )
+
+            Else
+
+                objrep.PrintOptions.PrinterName =
+            _Ds3.Tables(0).Rows(0).Item("cbrut").ToString
+
+                objrep.PrintToPrinter(
+            1,
+            False,
+            0,
+            0
+        )
+
+            End If
+
+        End If
+    End Sub
+
     Private Sub ReporteNotaVenta18(idPedido As String, _Ds2 As DataSet, _Ds3 As DataSet, _Literal As String, listResult As DataTable, nomVendedor As String)
         P_Global.Visualizador = New Visualizador
         Dim objrep As New NotaVenta18
@@ -1443,12 +1620,12 @@ Public Class frmBillingDispatch
 
         Fecliteral = _Ds2.Tables(0).Rows(0).Item("scciu").ToString + " " + dia.ToString + " de " + mesl + " del " + ano.ToString
         objrep.SetDataSource(listResult)
-        'objrep.SetParameterValue("Telefono", _Ds2.Tables(0).Rows(0).Item("sctelf").ToString)
+        objrep.SetParameterValue("Telefono", _Ds2.Tables(0).Rows(0).Item("sctelf").ToString)
         'objrep.SetParameterValue("Direccion", _Ds2.Tables(0).Rows(0).Item("scdir").ToString)
         'objrep.SetParameterValue("Ciudad", _Ds2.Tables(0).Rows(0).Item("scciu").ToString)
         'objrep.SetParameterValue("Empresa", gs_empresaDescSistema)
         'objrep.SetParameterValue("idPedido", idPedido)
-        'objrep.SetParameterValue("Logo", gb_ubilogo)
+        objrep.SetParameterValue("Logo", gb_ubilogo)
         'objrep.SetParameterValue("vendedor", nomVendedor)
         'objrep.SetParameterValue("Distribuidor", cbChoferes.Text)
         'objrep.SetParameterValue("fechaL", Fecliteral)
@@ -1835,7 +2012,7 @@ Public Class frmBillingDispatch
     Private Sub CargarFacturas()
         Try
             'Dim lista2 As List(Of VPedido_BillingDispatch) = ObtenerListaPedido()
-            Dim lista As DataTable = ListaPedidosDespachoF(cbEstados.Value, cbChoferes.Value, Tb_Fecha.Value.ToString("dd/MM/yyyy"), Tb_FechaHasta.Value.ToString("dd/MM/yyyy"))
+            Dim lista As DataTable = ListaPedidosDespachoF(cbEstados.Value, cbChoferes.Value, Tb_Fecha.Value.ToString("dd/MM/yyyy"), Tb_FechaHasta.Value.ToString("dd/MM/yyyy")) ' cbChoferes.Value
             ArmarListaPedido2(lista)
             '_prCargarIconPagar(lista)
         Catch ex As Exception
@@ -3133,119 +3310,222 @@ Public Class frmBillingDispatch
             Dim tipo, doc1, cv As String
 
             If cod = 1 Then
+
                 tipo = "FACTURA A"
                 doc1 = "CUIT"
                 cv = "RI"
+
             ElseIf cod = 2 Then
+
                 tipo = "FACTURA B"
                 doc1 = "DNI"
+
                 If cod = 1 Then
                     cv = "E"
                 Else
                     cv = "CF"
                 End If
+
             ElseIf cod = 3 Then
+
                 tipo = "FACTURA M"
                 doc1 = "CUIT"
                 cv = "RI"
+
             ElseIf cod = 4 Then
+
                 tipo = "FACTURA B"
                 doc1 = "OTRO"
                 cv = "CF"
+
             End If
+
             Dim numi As Integer = ProximaNumeracion(cod)
-
-            Dim res As Boolean = False
-            ' L_BuscarCodCanero(_CodCliente)
-            'Randomize()
-
-
 
             Dim api = New DBApi()
             Dim Emenvio = New EmisorEnvio.Emisor()
 
-            'Dim TDoc = tipoDocumento 'obtiene el 'Codigo Tipo de documento' 
-
             CargarProductos(pedido)
+
             Dim array(CType(dgjProducto.DataSource, DataTable).Rows.Count - 1) As EmisorEnvio.Detalle
-            Dim val = 0
-            Dim PrecioTot = 0.00000
+
+            Dim val As Integer = 0
+
+            '========================================
+            ' TOTALES
+            '========================================
+            Dim PrecioTot As Decimal = 0D
+            Dim subtotalGeneralSinIva As Decimal = 0D
+            Dim totalIva As Decimal = 0D
+
             For Each row In CType(dgjProducto.DataSource, DataTable).Rows
 
+                '========================================
+                ' PRODUCTO
+                '========================================
                 Dim EmenvioProducto = New EmisorEnvio.producto
-                EmenvioProducto.descripcion = row(1).ToString
 
-                If row(0) = "" Then
-                    ToastNotification.Show(Me, "El producto " + row(1) + " no contiene un codigo valido. no se pudo generar la factura".ToUpper,
-                                      My.Resources.WARNING, 5 * 1000,
-                                      eToastGlowColor.Blue, eToastPosition.TopCenter)
-                    Exit Sub
-                End If
-                If Not IsNumeric(row(0)) Then
-                    ToastNotification.Show(Me, "El producto " + row(1) + " no contiene un codigo valido. no se pudo generar la factura".ToUpper,
-                                      My.Resources.WARNING, 5 * 1000,
-                                      eToastGlowColor.Blue, eToastPosition.TopCenter)
-                    Exit Sub
-                End If
-                EmenvioProducto.codigo = row(0)
+                EmenvioProducto.descripcion = row(1).ToString()
+                EmenvioProducto.codigo = row(0).ToString()
                 EmenvioProducto.lista_precios = "standard"
                 EmenvioProducto.leyenda = ""
                 EmenvioProducto.unidad_bulto = 1
                 EmenvioProducto.alicuota = 21
                 EmenvioProducto.actualiza_precio = "S"
                 EmenvioProducto.rg5329 = "N"
-                EmenvioProducto.precio_unitario_sin_iva = (Math.Round(row(3), 1) / 1.21)
 
+                '========================================
+                ' DATOS
+                '========================================
+                Dim cantidad As Decimal =
+        Convert.ToDecimal(row(2))
+
+                'PRECIO UNITARIO CON IVA
+                Dim precioConIva As Decimal =
+        Convert.ToDecimal(row(3))
+
+                'DESCUENTO %
+                Dim bonificacionPorcentaje As Decimal =
+    Decimal.Round(
+        Convert.ToDecimal(row(10)),
+        0,
+        MidpointRounding.AwayFromZero
+    )
+
+                '========================================
+                ' PRECIO UNITARIO SIN IVA
+                '========================================
+                Dim precioSinIva As Decimal =
+        precioConIva / 1.21D
+
+                precioSinIva =
+        Decimal.Round(precioSinIva, 10, MidpointRounding.AwayFromZero)
+
+                EmenvioProducto.precio_unitario_sin_iva =
+        precioSinIva
+
+                '========================================
+                ' DETALLE
+                '========================================
                 Dim EmenvioDetalle = New EmisorEnvio.Detalle()
-                EmenvioDetalle.cantidad = row(2)
+
+                EmenvioDetalle.cantidad = cantidad
                 EmenvioDetalle.afecta_stock = "S"
                 EmenvioDetalle.actualiza_precio = "S"
-                EmenvioDetalle.bonificacion_porcentaje = row(10)
+
+                EmenvioDetalle.bonificacion_porcentaje =
+        bonificacionPorcentaje
+
                 EmenvioDetalle.producto = EmenvioProducto
 
-                PrecioTot = PrecioTot + (EmenvioDetalle.cantidad * Math.Round(row(3), 1)) - row(5) 'Format(PrecioTot + Format((Convert.ToDecimal(row("tbpbas")) * 6.96), "0.00000") * (row("tbcmin")), "0.00") 'total
+                '========================================
+                ' CALCULOS
+                '========================================
 
+                'SUBTOTAL SIN IVA
+                Dim subtotalSinIva As Decimal =
+        precioSinIva * cantidad
 
+                'DESCUENTO
+                Dim descuento As Decimal =
+        subtotalSinIva * (bonificacionPorcentaje / 100D)
+
+                'NETO SIN IVA
+                Dim netoSinIva As Decimal =
+        subtotalSinIva - descuento
+
+                'IVA
+                Dim ivaItem As Decimal =
+        netoSinIva * 0.21D
+
+                'ACUMULAR
+                subtotalGeneralSinIva += netoSinIva
+                totalIva += ivaItem
+
+                '========================================
+                ' ARRAY
+                '========================================
                 array(val) = EmenvioDetalle
-                'vector = array
-                val = val + 1
+
+                val += 1
 
             Next
 
-            Dim doc As Long = 0
+            '========================================
+            ' REDONDEOS
+            '========================================
+            subtotalGeneralSinIva =
+    Decimal.Round(subtotalGeneralSinIva, 2, MidpointRounding.AwayFromZero)
 
+            totalIva =
+    Decimal.Round(totalIva, 2, MidpointRounding.AwayFromZero)
+
+            PrecioTot =
+    Decimal.Round(subtotalGeneralSinIva + totalIva, 2, MidpointRounding.AwayFromZero)
+
+            '========================================
+            ' DEBUG
+            '========================================
+            MessageBox.Show(
+    "Subtotal SIN IVA: " & subtotalGeneralSinIva &
+    vbCrLf &
+    "IVA: " & totalIva &
+    vbCrLf &
+    "TOTAL: " & PrecioTot
+)
+
+            '========================================
+            ' CLIENTE
+            '========================================
+            Dim doc As Long = 0
 
             Dim dt As DataTable = L_fnTraerClientes(pedido)
 
             If cod <> 3 And cod <> 1 Then
+
                 If cod = 4 Then
+
                     doc = 0
+
                 Else
-                    If dt.Rows(0).Item("ccdctnum") = "" Or dt.Rows(0).Item("ccdctnum") = "0" Then
+
+                    If dt.Rows(0).Item("ccdctnum") = "" Or
+           dt.Rows(0).Item("ccdctnum") = "0" Then
+
                         doc = 123
+
                     Else
+
                         doc = CLng(dt.Rows(0).Item("ccdctnum"))
+
                     End If
+
                 End If
 
             Else
 
-                doc = dt.Rows(0).Item("ccnit")
+                doc = CLng(dt.Rows(0).Item("ccnit"))
+
             End If
+
             Dim EnvioCliente = New EmisorEnvio.cliente
+
             EnvioCliente.documento_tipo = doc1
             EnvioCliente.condicion_iva = cv
-
             EnvioCliente.condicion_pago = "201"
 
             If cod = 4 Then
+
                 EnvioCliente.domicilio = "No especifica"
                 EnvioCliente.razon_social = "Consumidor Final"
                 EnvioCliente.documento_nro = 0
+
             Else
-                EnvioCliente.razon_social = dt.Rows(0).Item("ccdesc")
-                EnvioCliente.domicilio = dt.Rows(0).Item("ccdirec")
+
+                EnvioCliente.razon_social = dt.Rows(0).Item("ccdesc").ToString()
+                EnvioCliente.domicilio = dt.Rows(0).Item("ccdirec").ToString()
                 EnvioCliente.documento_nro = doc
+
             End If
 
             EnvioCliente.provincia = 17
@@ -3253,7 +3533,11 @@ Public Class frmBillingDispatch
             EnvioCliente.envia_por_mail = "N"
             EnvioCliente.rg5329 = "N"
 
+            '========================================
+            ' COMPROBANTE
+            '========================================
             Dim EnvioComprobante = New EmisorEnvio.comprobante
+
             EnvioComprobante.rubro = "Distribución de Alimentos"
             EnvioComprobante.percepciones_iva = 0
             EnvioComprobante.tipo = tipo
@@ -3261,13 +3545,28 @@ Public Class frmBillingDispatch
             EnvioComprobante.bonificacion = 0
             EnvioComprobante.operacion = "V"
             EnvioComprobante.detalle = array
-            EnvioComprobante.fecha = Date.Now.ToString("dd/MM/yyyy") 'fecha.ToString("dd/MM/yyyy") 'tbFechaVenta.Value.ToString("dd/MM/yyyy")
-            EnvioComprobante.vencimiento = "31/12/2026" 'tbFechaVenc.Value.ToString("dd/MM/yyyy")
+            EnvioComprobante.fecha = Date.Now.ToString("dd/MM/yyyy")
+            EnvioComprobante.vencimiento = "31/12/2026"
             EnvioComprobante.rubro_grupo_contable = "Productos"
+
+            '========================================
+            ' TOTAL FINAL
+            '========================================
             EnvioComprobante.total = PrecioTot
+
             EnvioComprobante.cotizacion = 1
             EnvioComprobante.moneda = "PES"
             EnvioComprobante.punto_venta = 6
+
+            '========================================
+            ' DATOS GENERALES
+            '========================================
+            Emenvio.apikey = 64207
+            Emenvio.apitoken = "TU_API_TOKEN"
+            Emenvio.usertoken = "TU_USER_TOKEN"
+
+            Emenvio.cliente = EnvioCliente
+            Emenvio.comprobante = EnvioComprobante
 
 
 
@@ -3415,6 +3714,14 @@ Public Class frmBillingDispatch
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
 
             Dim link As String = TraerLinkFacturacion(3).Rows(0).Item("descr")
+             Dim documentoSector As String = ""
+            Dim codSec As DataTable = TraerLinkFacturacion(17)
+            If codSec.Rows.Count = 0 Then
+               documentoSector = "1"
+            Else
+                 documentoSector = codSec.Rows(0).Item("descr")
+            End If
+
             Dim request = TryCast(System.Net.WebRequest.Create(link + "api/invoices"), System.Net.HttpWebRequest)
             Dim token2 As String = "Bearer " + F01_Producto.ObtToken()
             If TokenExpirado(token2) Then
@@ -3440,7 +3747,7 @@ Public Class frmBillingDispatch
                   ""currency_code"": """",
                   ""codigo_sucursal"": 0,
                   ""punto_venta"": 0,
-                  ""codigo_documento_sector"": 1,
+                  ""codigo_documento_sector"": " + documentoSector + ",
                   ""tipo_documento_identidad"": " + docfact + ",
                   ""codigo_metodo_pago"": 1,
                   ""codigo_moneda"": 1,
@@ -3855,7 +4162,7 @@ Public Class frmBillingDispatch
     End Sub
 
     Private Sub ButtonX2_Click(sender As Object, e As EventArgs) Handles ButtonX2.Click
-        Dim estado As Boolean = CType(dgjPedido.DataSource, DataTable).Rows(0).Item("Checks")
+        Dim estado As Boolean ' = CType(dgjPedido.DataSource, DataTable).Rows(0).Item("Checks")
         If SuperTabControl1.SelectedTab Is SuperTabItem1 Then
             estado = CType(dgjPedido.DataSource, DataTable).Rows(0).Item("Checks")
             For i = 0 To CType(dgjPedido.DataSource, DataTable).Rows.Count - 1 Step 1
@@ -3885,15 +4192,13 @@ Public Class frmBillingDispatch
             lblCantidadPedido.Text = dgjPedido.RowCount.ToString
             btnAnularFactura.Visible = False
 
-
-
         ElseIf SuperTabControl1.SelectedTab Is SuperTabItem2 Then
             btnFactura.Visible = True
             ButtonX1.Visible = True
             btnNotaVenta.Visible = True
-            btReporteDespachoCliente.Visible = False
-            btReporteDespachoLinea.Visible = False
-            btReporteDespachoPedido.Visible = False
+            btReporteDespachoCliente.Visible = True
+            btReporteDespachoLinea.Visible = True
+            btReporteDespachoPedido.Visible = True
             btVentasDirectas.Visible = False
             'btVolverDist.Visible = False
             btVolverDist.Text = "Volver a Nota de Venta"

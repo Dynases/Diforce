@@ -113,37 +113,57 @@ Public Class RPedido
         End Try
     End Function
 
+    Private Function ConvertirListaADataTable(lista As List(Of Integer)) As DataTable
+
+        Dim dt As New DataTable()
+
+        dt.Columns.Add("Id", GetType(Integer))
+
+        For Each item As Integer In lista
+
+            dt.Rows.Add(item)
+
+        Next
+
+        Return dt
+
+    End Function
+
     Public Function GuardarPedidoDeChofer(listIdPedido As List(Of Integer), idChofer As Integer, usuario As String) As Boolean Implements IPedido.GuardarPedidoDeChofer
         Try
-            Using db = GetSchema()
-                For Each id As String In listIdPedido
-                    Dim data = New TO001C With
-                    {
-                        .oacoanumi = id,
-                        .oaccbnumi = idChofer,
-                        .oacnconc = 0,
-                        .oacfdoc = DateTime.Now
-                    }
-                    db.TO001C.Add(data)
+            Dim dt As DataTable = ConvertirListaADataTable(listIdPedido)
 
-                    Dim data2 = New TO001D With
-                    {
-                        .oadoanumi = id,
-                        .oadestado = 4,
-                        .oaddescrip = "Distribución",
-                        .oadcampo1 = 0,
-                        .oadcampo2 = 0,
-                        .oadcampo3 = " ",
-                        .oadfecha = Date.Now,
-                        .oadhora = DateTime.Now.ToString("hh:mm"),
-                        .oadusuario = usuario
-                    }
-                    db.TO001D.Add(data2)
-                Next
 
-                db.SaveChanges()
-                Return True
-            End Using
+
+            'Using db = GetSchema()
+            '    For Each id As String In listIdPedido
+            '        Dim data = New TO001C With
+            '        {
+            '            .oacoanumi = id,
+            '            .oaccbnumi = idChofer,
+            '            .oacnconc = 0,
+            '            .oacfdoc = DateTime.Now
+            '        }
+            '        db.TO001C.Add(data)
+
+            '        Dim data2 = New TO001D With
+            '        {
+            '            .oadoanumi = id,
+            '            .oadestado = 4,
+            '            .oaddescrip = "Distribución",
+            '            .oadcampo1 = 0,
+            '            .oadcampo2 = 0,
+            '            .oadcampo3 = " ",
+            '            .oadfecha = Date.Now,
+            '            .oadhora = DateTime.Now.ToString("hh:mm"),
+            '            .oadusuario = usuario
+            '        }
+            '        db.TO001D.Add(data2)
+            '    Next
+
+            '    db.SaveChanges()
+            '    Return True
+            'End Using
         Catch ex As Exception
             Throw New Exception(ex.Message)
         End Try
